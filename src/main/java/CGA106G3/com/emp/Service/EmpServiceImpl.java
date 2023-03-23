@@ -1,5 +1,6 @@
 package CGA106G3.com.emp.Service;
 
+import CGA106G3.com.emp.DTO.EmpRegisterDTO;
 import org.modelmapper.ModelMapper;
 
 import CGA106G3.com.emp.DTO.EmpDTO;
@@ -23,9 +24,12 @@ public class EmpServiceImpl implements EmpService {
 
     @Transactional
     @Override
-    public Emp register(Emp emp) {
-        return null;
+    public Boolean register(EmpRegisterDTO empRegisterDTO) {
+       empRepository.save(modelMapper.map(empRegisterDTO, Emp.class));
+       return true;
     }
+
+
 
     @Override
     public Emp login(Emp emp) {
