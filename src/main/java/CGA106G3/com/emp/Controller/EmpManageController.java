@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/empManage")
 public class EmpManageController {
     @Autowired
     private EmpServiceImpl service;
 
-    @PostMapping("/getAll")
+    @GetMapping("/getAll")
     public List<EmpDTO> getAllEmp(){
       return service.getAllEmp();
     }

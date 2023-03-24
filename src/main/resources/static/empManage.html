@@ -220,56 +220,7 @@
                         <th scope="col"></th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">9001</th>
-                        <td>徐淞熙</td>
-                        <td>2023-02-07</td>
-                        <td></td>
-                        <td>在職</td>
-                        <td>123456</td>
-                        <td>
-                          <button
-                            type="button"
-                            class="btn btn-link rounded-pill m-2"
-                          >
-                            修改
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">9002</th>
-                        <td>蔡元將</td>
-                        <td>2023-03-01</td>
-                        <td></td>
-                        <td>在職</td>
-                        <td>123456</td>
-                        <td>
-                          <button
-                            type="button"
-                            class="btn btn-link rounded-pill m-2"
-                          >
-                            修改
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">9003</th>
-                        <td>廖顯晉</td>
-                        <td>2023-02-28</td>
-                        <td>2023-03-16</td>
-                        <td>停職</td>
-                        <td>654321</td>
-                        <td>
-                          <button
-                            type="button"
-                            class="btn btn-link rounded-pill m-2"
-                          >
-                            修改
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
+                    <tbody id="tbody"></tbody>
                   </table>
                 </div>
               </div>
@@ -310,5 +261,34 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script>
+      const tbody = document.getElementById("tbody");
+      fetch("http://localhost:8080/empManage/getAll", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          let str = "";
+          for (let i of data) {
+            str += `
+            <tr><th scope="row"> ${i.empno}</th>
+       <td>${i.ename}</td>
+       <td>${i.hiredate}</td>
+       <td>${i.empsta}</td>
+       <td>${i.emppw}</td>
+        <td>
+             <button type="button" class="btn btn-link rounded-pill m-2">
+                修改
+             </button>
+        </td>
+        </tr>`;
+          }
+          tbody.innerHTML = str;
+        });
+    </script>
   </body>
 </html>
