@@ -1,6 +1,9 @@
 package CGA106G3.com.emp.Service;
 
-import CGA106G3.com.emp.DTO.EmpRegisterDTO;
+import CGA106G3.com.emp.DTO.PerDTO;
+import CGA106G3.com.emp.DTO.PersistEmpDTO;
+import CGA106G3.com.emp.Entity.Per;
+import CGA106G3.com.emp.repository.PerRepository;
 import org.modelmapper.ModelMapper;
 
 import CGA106G3.com.emp.DTO.EmpDTO;
@@ -13,6 +16,7 @@ import CGA106G3.com.emp.repository.EmpRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional
 @Service
 public class EmpServiceImpl implements EmpService {
     @Autowired
@@ -21,39 +25,69 @@ public class EmpServiceImpl implements EmpService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private PerRepository perRepository;
 
-    @Transactional
+
     @Override
-    public Boolean register(EmpRegisterDTO empRegisterDTO) {
-       empRepository.save(modelMapper.map(empRegisterDTO, Emp.class));
-       return true;
+    public EmpDTO getOne(Integer empno) {
+
+       return EntityToDTO(empRepository.getReferenceById(empno));
+
+
+
     }
 
+    @Override
+    public Boolean persistEmp(PersistEmpDTO persistEmpDTO) {
+        Emp emp = modelMapper.map(persistEmpDTO.getEmpDTO(), Emp.class);
+        perRepository.removePerByEmpno(emp.getEmpno());
+        empRepository.save(emp);
+        for(PerDTO perDTO :persistEmpDTO.getPerDTOS()){
+            perRepository.save(modelMapper.map(perDTO, Per.class));
+
+        }
+        return true;
+    }
 
 
     @Override
     public Emp login(Emp emp) {
-//        final Integer empno = emp.getEmpno();
-//        final String emppw = emp.getEmppw();
-//
-//        emp = empRepository.selectForLogin(empno, emppw);
-//
-//        emp.setMessage("登入成功");
-//        emp.setLoginOrNot(true);
+
 
         return emp;
 
     }
 
-    @Override
-    public Emp edit(Emp emp) {
-        return null;
-    }
 
     @Override
     public List<EmpDTO> getAllEmp() {
 
         return empRepository.findAll()
+                .stream()
+                .map(this::EntityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer addEmp(EmpDTO empDTO) {
+        Emp emp = modelMapper.map(empDTO,Emp.class);
+
+        empRepository.save(emp);
+        return emp.getEmpno();
+    }
+
+    @Override
+    public List<EmpDTO> getEmpByEname(String ename) {
+        return empRepository.findEmpByEname(ename)
+                .stream()
+                .map(this::EntityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EmpDTO> getEmpBySta(Integer empsta) {
+        return empRepository.findEmpByEmpsta(empsta)
                 .stream()
                 .map(this::EntityToDTO)
                 .collect(Collectors.toList());
@@ -66,8 +100,5 @@ public class EmpServiceImpl implements EmpService {
         return empDTO;
     }
 
-    @Override
-    public boolean update(Emp emp) {
-        return false;
-    }
+
 }

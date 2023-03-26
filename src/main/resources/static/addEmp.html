@@ -40,6 +40,28 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet" />
+
+    <style>
+      .relative {
+        position: relative;
+        z-index: 2;
+      }
+
+      .relative i {
+        position: absolute;
+        right: 18px;
+        top: 20%;
+        z-index: 1;
+      }
+      input::-webkit-calendar-picker-indicator {
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: transparent;
+        position: absolute;
+        z-index: 2;
+      }
+    </style>
   </head>
 
   <body>
@@ -278,7 +300,7 @@
             <div class="col-sm-12 col-xl-6">
               <div class="bg-secondary rounded h-100 p-4">
                 <h6 class="mb-4">新增員工</h6>
-                <form>
+
                   <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label"
                       >員工姓名</label
@@ -288,6 +310,7 @@
                       class="form-control"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
+                      name="ename"
                     />
                   </div>
                   <div class="mb-3">
@@ -298,54 +321,46 @@
                       type="password"
                       class="form-control"
                       id="exampleInputPassword1"
+                      name="emppw"
                     />
                   </div>
+
                   <div class="mb-3">
-                    <label for="formFileMultiple" class="form-label"
-                      >上傳照片</label
-                    >
-                    <input
-                      class="form-control bg-dark"
-                      type="file"
-                      id="formFileMultiple"
-                      multiple
-                    />
-                  </div>
-                  <div class="col-sm-12 col-md-6 col-xl-4">
-                    <div class="h-100 bg-secondary rounded p-4">
-                      <div
-                        class="d-flex align-items-center justify-content-between mb-4"
-                      >
-                        <h6 class="mb-0">雇用日期</h6>
-                      </div>
-                      <div id="calender"></div>
+                    <label for="Date" class="form-label">雇用日期</label>
+                    <div class="relative">
+                      <input class="form-control" type="date" />
+                      <i class="bi bi-calendar"></i>
                     </div>
                   </div>
+
                   <h6 class="mb-4">員工在職狀態</h6>
                   <select
                     class="form-select mb-3"
                     aria-label="Default select example"
+                    name="empsta"
                   >
                     <option selected value="0">在職</option>
                     <option value="1">停職</option>
                     <option value="2">離職</option>
                   </select>
 
-                  <button type="submit" class="btn btn-primary">
+                  <button type="submit" class="btn btn-primary" id="addEmp">
                     新增員工
                   </button>
-                </form>
+
               </div>
             </div>
             <div class="col-sm-12 col-xl-6">
               <div class="bg-secondary rounded h-100 p-4">
                 <h6 class="mb-4">員工權限</h6>
+
                 <div class="form-check">
                   <input
                     class="form-check-input"
                     type="checkbox"
-                    value=""
+                    value="2"
                     id="flexCheckDefault"
+                    name="fctno"
                   />
                   <label class="form-check-label" for="flexCheckDefault">
                     建立禮儀服務訂單
@@ -355,8 +370,9 @@
                   <input
                     class="form-check-input"
                     type="checkbox"
-                    value=""
+                    value="1"
                     id="flexCheckDefault"
+                    name="fctno"
                   />
                   <label class="form-check-label" for="flexCheckDefault">
                     服務項目管理
@@ -366,8 +382,9 @@
                   <input
                     class="form-check-input"
                     type="checkbox"
-                    value=""
+                    value="6"
                     id="flexCheckDefault"
+                    name="fctno"
                   />
                   <label class="form-check-label" for="flexCheckDefault">
                     網站資訊管理
@@ -377,8 +394,9 @@
                   <input
                     class="form-check-input"
                     type="checkbox"
-                    value=""
+                    value="7"
                     id="flexCheckDefault"
+                    name="fctno"
                   />
                   <label class="form-check-label" for="flexCheckDefault">
                     員工及權限管理
@@ -388,8 +406,9 @@
                   <input
                     class="form-check-input"
                     type="checkbox"
-                    value=""
+                    value="5"
                     id="flexCheckDefault"
+                    name="fctno"
                   />
                   <label class="form-check-label" for="flexCheckDefault">
                     會員資料管理
@@ -399,8 +418,9 @@
                   <input
                     class="form-check-input"
                     type="checkbox"
-                    value=""
+                    value="4"
                     id="flexCheckDefault"
+                    name="fctno"
                   />
                   <label class="form-check-label" for="flexCheckDefault">
                     訂單管理
@@ -410,8 +430,9 @@
                   <input
                     class="form-check-input"
                     type="checkbox"
-                    value=""
+                    value="3"
                     id="flexCheckDefault"
+                    name="fctno"
                   />
                   <label class="form-check-label" for="flexCheckDefault">
                     排程瀏覽
@@ -455,5 +476,19 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script>
+      fetch("http://localhost:8080/empManage/persistEmp",{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: {
+          
+        }
+      })
+        .then()
+      ;
+    </script>
   </body>
 </html>
