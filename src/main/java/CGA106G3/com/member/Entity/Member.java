@@ -12,19 +12,22 @@ import lombok.NoArgsConstructor;
 @Table
 @Data
 public class Member extends EntityCore {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer membno;
-    @Column(nullable = false,length = 20)
+
+    @Column(nullable = false, length = 20)
+    private String mname;
+    @Column(nullable = false, length = 20)
     private String mpw;
     private byte[] mpic;
-    @Column(nullable = false,length = 1)
+    @Column(nullable = false, length = 1)
     private Integer sex;
-    @Column(nullable = false,length = 10)
+    @Column(nullable = false, length = 10)
     private Integer mobile;
-    @Column(nullable = false,length = 30)
+    @Column(nullable = false, length = 30)
     private String email;
-    @Column(name = "ver_sta",length = 1,nullable = false)
+    @Column(name = "ver_sta", length = 1, nullable = false)
     private Integer versta;
 
 
