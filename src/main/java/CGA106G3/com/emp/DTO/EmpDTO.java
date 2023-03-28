@@ -11,4 +11,6 @@ public class EmpDTO {
     private Date hiredate;
     private Integer empsta;
     private String emppw;
+
+
 }
