@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -23,21 +24,20 @@ public class LocServiceImpl implements LocService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public LocServiceImpl(LocRepository locRepository, ModelMapper modelMapper) {
-        this.locRepository = locRepository;
-        this.modelMapper = modelMapper;
-    }
-
     @Transactional
     @Override
-    public Loc add(Loc loc){
-        if(locname)
-        return
+    public Loc addLoc(Loc loc){
+        return locRepository.save(loc);
     }
 
     @Override
-    public Loc edit(Loc loc){
+    public Loc editLoc(Loc loc){
+        return locRepository.save(loc);
+    }
 
+    @Override
+    public Optional<Loc> getOneLoc(Integer locno){
+        return locRepository.findById(locno);
     }
 
     @Override
@@ -49,14 +49,9 @@ public class LocServiceImpl implements LocService {
                 .collect(Collectors.toList());
     }
     private LocDTO EntityToDTO(Loc loc){
-        LocDTO locDTO = new LocDTO();
+        LocDTO locDTO;
         locDTO = modelMapper.map(loc, LocDTO.class);
         return locDTO;
-    }
-
-    @Override
-    public LocDTO getOneLoc(){
-        return locRepository.findById(Loc loc);
     }
 
     @Override
