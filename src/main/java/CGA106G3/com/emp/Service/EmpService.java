@@ -14,7 +14,7 @@ public interface EmpService extends ServiceCore {
 
     Boolean persistEmp(PersistEmpDTO persistEmpDTO);
 
-    Emp login(Emp emp);
+
 
 
 

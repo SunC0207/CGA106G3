@@ -2,7 +2,7 @@ package CGA106G3.com.emp.Service;
 
 import CGA106G3.com.emp.DTO.FctDTO;
 import CGA106G3.com.emp.Entity.Fct;
-import CGA106G3.com.emp.repository.FctRepository;
+import CGA106G3.com.emp.Repository.FctRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

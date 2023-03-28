@@ -1,4 +1,4 @@
-package CGA106G3.com.emp.repository;
+package CGA106G3.com.emp.Repository;
 
 import CGA106G3.com.emp.Entity.Per;
 import CGA106G3.com.emp.Id.PerId;

@@ -1,9 +1,8 @@
 package CGA106G3.com.emp.Service;
 
-import CGA106G3.com.emp.DTO.EmpDTO;
 import CGA106G3.com.emp.DTO.PerDTO;
 import CGA106G3.com.emp.Entity.Per;
-import CGA106G3.com.emp.repository.PerRepository;
+import CGA106G3.com.emp.Repository.PerRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

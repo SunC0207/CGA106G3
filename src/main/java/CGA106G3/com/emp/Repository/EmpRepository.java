@@ -1,6 +1,5 @@
-package CGA106G3.com.emp.repository;
+package CGA106G3.com.emp.Repository;
 
-import CGA106G3.com.emp.DTO.EmpDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import CGA106G3.com.emp.Entity.Emp;
 

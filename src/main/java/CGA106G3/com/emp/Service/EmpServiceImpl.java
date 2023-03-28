@@ -3,7 +3,7 @@ package CGA106G3.com.emp.Service;
 import CGA106G3.com.emp.DTO.PerDTO;
 import CGA106G3.com.emp.DTO.PersistEmpDTO;
 import CGA106G3.com.emp.Entity.Per;
-import CGA106G3.com.emp.repository.PerRepository;
+import CGA106G3.com.emp.Repository.PerRepository;
 import org.modelmapper.ModelMapper;
 
 import CGA106G3.com.emp.DTO.EmpDTO;
@@ -11,7 +11,7 @@ import CGA106G3.com.emp.Entity.Emp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import CGA106G3.com.emp.repository.EmpRepository;
+import CGA106G3.com.emp.Repository.EmpRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,17 +51,12 @@ public class EmpServiceImpl implements EmpService {
     }
 
 
-    @Override
-    public Emp login(Emp emp) {
 
-
-        return emp;
-
-    }
 
 
     @Override
     public List<EmpDTO> getAllEmp() {
+
 
         return empRepository.findAll()
                 .stream()
