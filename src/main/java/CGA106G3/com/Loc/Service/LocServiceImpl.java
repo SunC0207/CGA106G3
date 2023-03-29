@@ -31,12 +31,13 @@ public class LocServiceImpl implements LocService {
     @Transactional
     @Override
     public Loc add(Loc loc){
-        if(locname)
-        return
+
+        return null;
     }
 
     @Override
     public Loc edit(Loc loc){
+        return null;
 
     }
 
@@ -56,7 +57,7 @@ public class LocServiceImpl implements LocService {
 
     @Override
     public LocDTO getOneLoc(){
-        return locRepository.findById(Loc loc);
+        return null;
     }
 
     @Override
