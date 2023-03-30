@@ -22,32 +22,70 @@ $(document).ready(() => {
             updateButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const cell = button.parentElement.previousElementSibling;
+                    const oldValue = cell.innerText;
                     const input = document.createElement('input');
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        customClass: {
+                            cancelButton: 'btn btn-danger',
+                            confirmButton: 'btn btn-success'
+                        },
+                        buttonsStyling: false
+                    });
                     input.setAttribute('type', 'text');
-                    input.setAttribute('value', cell.innerText);
+                    input.setAttribute('value', oldValue);
                     input.addEventListener('blur', () => {
                         const newValue = input.value;
-                        const oldValue = cell.innerText;
                         if (newValue !== oldValue) {
-                            // Update the data
-                            const religionName = cell.getAttribute('id');
-                            const row = cell.parentElement.querySelector('td:first-child').getAttribute('id');
-                            // Send a PUT request to update the data on the server
-                            fetch(`/rel/update/${row}`, {
-                                method: 'PUT',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    relname: newValue
+                            if (
+                                swalWithBootstrapButtons.fire({
+                                    title: '確定修改?',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonText: '確認修改',
+                                    cancelButtonText: '取消',
+                                    reverseButtons: true
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        swalWithBootstrapButtons.fire(
+                                            '成功!',
+                                            '',
+                                            'success'
+                                        )
+                                    } else if (
+                                        result.dismiss === Swal.DismissReason.cancel
+                                    ) {
+                                        swalWithBootstrapButtons.fire(
+                                            '取消',
+                                            '',
+                                            'error'
+                                        )
+                                        revertCell(cell, oldValue, input);
+                                    }
                                 })
-                            }).then(() => {
-                                // Update the cell in the table
-                                cell.innerText = newValue;
-                                cell.setAttribute('id', newValue);
-                            }).catch(error => console.log(error));
+                            ) {
+                                // Update the data
+                                const religionName = cell.getAttribute('id');
+                                const row = cell.parentElement.querySelector('td:first-child').getAttribute('id');
+                                // Send a PUT request to update the data on the server
+                                fetch(`/rel/update/${row}`, {
+                                    method: 'PUT',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({
+                                        relname: newValue
+                                    })
+                                }).then(() => {
+                                    // Update the cell in the table
+                                    cell.innerText = newValue;
+                                    cell.setAttribute('id', newValue);
+                                }).catch(error => console.log(error));
+                            } else {
+                                revertCell(cell, oldValue, input);
+                            }
+                        } else {
+                            revertCell(cell, oldValue, input);
                         }
-                        cell.removeChild(input);
                     });
                     cell.innerHTML = '';
                     cell.appendChild(input);
@@ -57,29 +95,54 @@ $(document).ready(() => {
         })
     });
 });
+function revertCell(cell, oldValue, input) {
+    cell.innerText = oldValue;
+    cell.removeChild(input);
+}
+
+
 
 const addButton = document.querySelector('#add');
 addButton.addEventListener('click', () => {
-    const newReligionName = prompt('請輸入欲新增的宗教名稱');
-    if (newReligionName !== null) {
-        fetch('/rel/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                relname: newReligionName
-            })
-        }).then(response => {
-            if (response.ok) {
-                // Reload the page to show the new data
-                location.reload();
+    Swal.fire({
+        title: '請輸入欲新增的宗教名稱',
+        input: 'text',
+        inputAttributes: {
+            autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: '提交',
+        showLoaderOnConfirm: true,
+        preConfirm: (newReligionName) => {
+            if (!newReligionName) {
+                Swal.showValidationMessage('請輸入宗教名稱');
             } else {
-                throw new Error('添加宗教失败');
+                return fetch('/rel/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        relname: newReligionName
+                    })
+                }).then(response => {
+                    if (!response.ok) {
+                        throw new Error('添加失敗');
+                    }
+                }).catch(error => {
+                    Swal.showValidationMessage(`添加失敗: ${error}`);
+                })
             }
-        }).catch(error => console.log(error));
-    }
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Reload the page to show the new data
+            location.reload();
+        }
+    });
 });
+
 
 
 
