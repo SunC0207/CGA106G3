@@ -5,5 +5,5 @@ import CGA106G3.com.emp.DTO.PersistEmpDTO;
 
 public interface EmpLoginService {
 
-    Boolean login(EmpLoginDTO empLoginDTO);
+    PersistEmpDTO login(EmpLoginDTO empLoginDTO);
 }

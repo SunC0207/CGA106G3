@@ -27,19 +27,19 @@ public class EmpLoginServiceImpl implements EmpLoginService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    private EntityManager entityManager;
+
 
 
 
     @Override
-    public Boolean login(EmpLoginDTO empLoginDTO) {
+    public PersistEmpDTO login(EmpLoginDTO empLoginDTO) {
 
         Emp emp = empRepository.getReferenceById(empLoginDTO.getEmpno());
 
+
         if (empLoginDTO.getEmppw().equals(emp.getEmppw())) {
 
-            Session session = entityManager.unwrap(Session.class);
+
 
             PersistEmpDTO persistEmpDTO = new PersistEmpDTO();
 
@@ -51,11 +51,11 @@ public class EmpLoginServiceImpl implements EmpLoginService {
             persistEmpDTO.setEmpDTO(modelMapper.map(emp, EmpDTO.class));
             persistEmpDTO.setPerDTOS(perDTOList);
 
-            session.persist("EmpInfo", persistEmpDTO);
 
-            return true;
+
+            return persistEmpDTO;
         } else {
-            return false;
+            return null;
         }
 
 

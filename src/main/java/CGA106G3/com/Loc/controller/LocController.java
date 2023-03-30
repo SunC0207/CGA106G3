@@ -25,8 +25,8 @@ public class LocController {
     public LocDTO getOneLoc() { return service.getOneLoc();}
 
     @PostMapping(value = "/add")
-    public LocDTO add() { return service.add();}
+    public LocDTO add() { return null;}
 
     @PostMapping(value = "/update")
-    public LocDTO update(){ return service.update();}
+    public LocDTO update(){ return null;}
 }
