@@ -1,4 +1,4 @@
-package CGA106G3.com.Loc.DTO;
+package CGA106G3.com.Location.DTO;
 
 import lombok.Data;
 

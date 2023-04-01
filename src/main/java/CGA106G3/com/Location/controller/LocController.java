@@ -1,12 +1,11 @@
-package CGA106G3.com.Loc.controller;
+package CGA106G3.com.Location.controller;
 
-import CGA106G3.com.Loc.DTO.LocDTO;
-import CGA106G3.com.Loc.Entity.Loc;
-import CGA106G3.com.Loc.Service.LocService;
+import CGA106G3.com.Location.DTO.LocDTO;
+import CGA106G3.com.Location.Entity.Loc;
+import CGA106G3.com.Location.Service.LocService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

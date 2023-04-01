@@ -1,4 +1,4 @@
-package CGA106G3.com.Loc.Entity;
+package CGA106G3.com.Location.Entity;
 
 
 import jakarta.persistence.*;

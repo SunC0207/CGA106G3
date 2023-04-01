@@ -1,8 +1,8 @@
-package CGA106G3.com.Loc.Service;
+package CGA106G3.com.Location.Service;
 
-import CGA106G3.com.Loc.DTO.LocDTO;
-import CGA106G3.com.Loc.Entity.Loc;
-import CGA106G3.com.Loc.Repository.LocRepository;
+import CGA106G3.com.Location.DTO.LocDTO;
+import CGA106G3.com.Location.Entity.Loc;
+import CGA106G3.com.Location.Repository.LocRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
