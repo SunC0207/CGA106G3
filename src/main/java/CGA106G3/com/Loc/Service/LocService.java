@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface LocService {
     Loc addLoc(Loc loc);
 
-    Loc editLoc(Loc loc);
+    Loc updateLoc(Loc loc);
 
     Optional<Loc> getOneLoc(Integer locno);
 

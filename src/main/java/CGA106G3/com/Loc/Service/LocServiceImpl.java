@@ -31,7 +31,7 @@ public class LocServiceImpl implements LocService {
     }
 
     @Override
-    public Loc editLoc(Loc loc){
+    public Loc updateLoc(Loc loc){
         return locRepository.save(loc);
     }
 

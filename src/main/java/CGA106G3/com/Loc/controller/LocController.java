@@ -17,35 +17,24 @@ import java.util.Optional;
 @RequestMapping("/Loc")
 public class LocController {
     @Autowired
-    private final LocService service;
+    private LocService service;
 
     @Autowired
     private ModelMapper modelMapper;
 
-    public LocController(LocService service) {
-        this.service = service;
-    }
 
-    @PostMapping(value = "/addLoc")
-    public LocDTO addLoc(@RequestBody Loc loc) {
-        Loc addedLoc = service.addLoc(loc);
-        return modelMapper.map(addedLoc,LocDTO.class);
-    }
+    @PostMapping(value = "/add")
+    public Loc addLoc(Loc loc) {return service.addLoc(loc);}
 
-    @PostMapping(value = "/editLoc")
-    public LocDTO editLoc(@RequestBody Loc loc) {
-        Loc editedLoc = service.editLoc(loc);
-        return modelMapper.map(editedLoc, LocDTO.class);
-    }
+
+    @RequestMapping(value = "/update")
+    public Loc updateLoc(Loc loc){ return service.updateLoc(loc);}
 
     @RequestMapping(value = "/getOneLoc")
-    public Optional<Loc> getOneLoc() {
-        return service.getOneLoc(null);
-    }
-    @PostMapping(value= "/getAllLoc")
-    public List<LocDTO> getAllLoc(){
-
-        return service.getAllLoc();
+    public Optional<Loc> getOneLoc(Integer locno) {
+        return service.getOneLoc(locno);
     }
 
+    @RequestMapping(value= "/getAllLoc")
+    public List<LocDTO> getAllLoc(){return service.getAllLoc();}
 }
