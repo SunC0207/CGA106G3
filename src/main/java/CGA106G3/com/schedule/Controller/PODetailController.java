@@ -6,7 +6,6 @@ import CGA106G3.com.schedule.Service.PODetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -32,6 +31,9 @@ public class PODetailController {
         return poDetailService.getByDateRange(poDetailRangeDTO);
     }
 
-    ;
+    @PostMapping("/findByRangeAndEmpno")
+    public List<PODetailDTO> findByDateRangeAndEmpno(@RequestBody PODetailRangeDTO poDetailRangeDTO) {
+        return poDetailService.getByDateRangeAndPono(poDetailRangeDTO);
+    }
 
 }

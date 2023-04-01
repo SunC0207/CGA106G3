@@ -38,7 +38,5 @@ public class POrdServiceImpl implements POrdService {
         return modelMapper.map(pOrd, POrdDTO.class);
     }
 
-    ;
-
 
 }

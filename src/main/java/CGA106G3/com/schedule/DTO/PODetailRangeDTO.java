@@ -10,4 +10,6 @@ public class PODetailRangeDTO {
     private Date startDate;
 
     private Date EndDate;
+
+    private Integer empno;
 }
