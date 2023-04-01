@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface PODetailRepository extends JpaRepository<PODetail,Integer> {
 
-    @Query(value = "SELECT * FROM plan_ord_detail WHERE date BETWEEN (:startDate) AND ADDDATE(:endDate, 1)", nativeQuery = true)
+    @Query(value = "SELECT * FROM plan_ord_detail WHERE date BETWEEN (:startDate) AND ADDDATE(:endDate, 1) ", nativeQuery = true)
     List<PODetail> findByDateRange(Date startDate, Date endDate);
+    @Query(value = "SELECT * FROM plan_ord_detail WHERE date BETWEEN ADDDATE(:startDate,-1) AND ADDDATE(:endDate, 1) AND pono = (:pono)", nativeQuery = true)
+    List<PODetail> findByDateRangeAndPono(Date startDate, Date endDate,Integer pono);
 }
