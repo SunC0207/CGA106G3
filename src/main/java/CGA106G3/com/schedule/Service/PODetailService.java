@@ -2,6 +2,7 @@ package CGA106G3.com.schedule.Service;
 
 import CGA106G3.com.schedule.DTO.PODetailDTO;
 import CGA106G3.com.schedule.DTO.PODetailRangeDTO;
+import CGA106G3.com.schedule.DTO.ScheduleDTO;
 
 import java.util.List;
 
@@ -14,5 +15,5 @@ public interface PODetailService {
 
     List<PODetailDTO> getByDateRange(PODetailRangeDTO poDetailRangeDTO);
 
-    List<PODetailDTO> getByDateRangeAndPono(PODetailRangeDTO poDetailRangeDTO);
+    List<ScheduleDTO> getByDateRangeAndPono(PODetailRangeDTO poDetailRangeDTO);
 }

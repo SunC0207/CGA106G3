@@ -1,8 +1,11 @@
 package CGA106G3.com.schedule.Service;
 
+import CGA106G3.com.Location.Entity.Loc;
+import CGA106G3.com.Location.Repository.LocRepository;
 import CGA106G3.com.schedule.DTO.PODetailDTO;
 import CGA106G3.com.schedule.DTO.PODetailRangeDTO;
 import CGA106G3.com.schedule.DTO.POrdDTO;
+import CGA106G3.com.schedule.DTO.ScheduleDTO;
 import CGA106G3.com.schedule.Entity.PODetail;
 import CGA106G3.com.schedule.Entity.POrd;
 import CGA106G3.com.schedule.Repository.PODetailRepository;
@@ -26,6 +29,8 @@ public class PODetailServiceImpl implements PODetailService {
     private ModelMapper modelMapper;
     @Autowired
     private POrdRepository pOrdRepository;
+    @Autowired
+    private LocRepository locRepository;
 
 
     @Override
@@ -55,13 +60,13 @@ public class PODetailServiceImpl implements PODetailService {
     }
 
     @Override
-    public List<PODetailDTO> getByDateRangeAndPono(PODetailRangeDTO poDetailRangeDTO) {
+    public List<ScheduleDTO> getByDateRangeAndPono(PODetailRangeDTO poDetailRangeDTO) {
         //先拿員工編號 取得方案訂單列表 再用方案訂單列表 來取得明細
         List<POrdDTO> pOrdDTOList = pOrdRepository.findByEmpno(poDetailRangeDTO.getEmpno())
                 .stream()
                 .map(this::EntityToDTO)
                 .collect(Collectors.toList());
-        List<PODetailDTO> list = new ArrayList<>();
+        List<ScheduleDTO> list = new ArrayList<>();
         for (POrdDTO pOrdDTO : pOrdDTOList) {
 
             List<PODetailDTO> PODetailDTOList = poDetailRepository.findByDateRangeAndPono(poDetailRangeDTO.getStartDate(), poDetailRangeDTO.getEndDate(), pOrdDTO.getPono())
@@ -70,8 +75,12 @@ public class PODetailServiceImpl implements PODetailService {
                     .collect(Collectors.toList());
 
 
-            for (PODetailDTO PODetailDTO : PODetailDTOList) {
-                list.add(PODetailDTO);
+            for (PODetailDTO poDetailDTO : PODetailDTOList) {
+                ScheduleDTO scheduleDTO = new ScheduleDTO();
+                scheduleDTO.setDate(poDetailDTO.getDate());
+                Loc loc = locRepository.getReferenceById(poDetailDTO.getLocno());
+                scheduleDTO.setLocation(loc.getLocname());
+                list.add(scheduleDTO);
             }
 
 

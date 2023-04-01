@@ -7,8 +7,8 @@ import java.sql.Date;
 
 @Data
 public class ScheduleDTO {
-    private String title;
+    private String location;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'kk:mm:ss", timezone = "GMT+8")
-    private Date start;
+    private Date date;
 }

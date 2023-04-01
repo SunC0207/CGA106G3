@@ -2,6 +2,7 @@ package CGA106G3.com.schedule.Controller;
 
 import CGA106G3.com.schedule.DTO.PODetailDTO;
 import CGA106G3.com.schedule.DTO.PODetailRangeDTO;
+import CGA106G3.com.schedule.DTO.ScheduleDTO;
 import CGA106G3.com.schedule.Service.PODetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class PODetailController {
     }
 
     @PostMapping("/findByRangeAndEmpno")
-    public List<PODetailDTO> findByDateRangeAndEmpno(@RequestBody PODetailRangeDTO poDetailRangeDTO) {
+    public List<ScheduleDTO> findByDateRangeAndEmpno(@RequestBody PODetailRangeDTO poDetailRangeDTO) {
         return poDetailService.getByDateRangeAndPono(poDetailRangeDTO);
     }
 
