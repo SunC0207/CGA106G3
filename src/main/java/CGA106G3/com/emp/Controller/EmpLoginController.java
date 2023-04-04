@@ -23,8 +23,8 @@ public class EmpLoginController {
             if (request.getSession(false) != null) {
                 request.changeSessionId();
             }
-            final HttpSession session = request.getSession();
-            session.setAttribute("loginInfo",persistEmpDTO );
+            HttpSession session = request.getSession();
+            session.setAttribute("loginOrNot",true);
 
         } ;
 
