@@ -16,29 +16,29 @@ $(document).ready(() => {
     // 顯示表格
     function showTable(pageNum) {
         currentPage = pageNum;
-        fetch(`/pro/findAll?page=${pageNum}&size=${pageSize}`, {
+        fetch(`/item/findAll?page=${pageNum}&size=${pageSize}`, {
             method: 'GET',
         }).then((response) => {
             response.json().then(data => {
                 const table = document.querySelector('#table');
                 const bodyCells = data.content.map(obj => {
-                    const proseq = obj['proseq'];
-                    const proseqCell = `<td id="${proseq}" class="${proseq <= 199 ? 'proseq-chinese' : proseq <= 299 && proseq >= 200 ? 'proseq-western' : 'proseq-buddhist'}">${proseq}</td>`;
+                    const itemno = obj['itemno'];
+                    const itemnoCell = `<td id="${itemno}" class="cerno">${itemno}</td>`;
+                    const iname = obj['iname'];
+                    const inameCell = `<td id="${iname}">${iname}</td>`;
+                    const iprice = obj['iprice'];
+                    const ipriceCell = `<td id="${iprice}">$${iprice}</td>`;
                     const prono = obj['prono'];
-                    const pronoCell = `<td id="${prono}" class="prono">${prono}</td>`;
-                    const proname = obj['proname'];
-                    const pronameCell = `<td id="${proname}">${proname}</td>`;
-                    const cerno = obj['cerno'];
-                    const cernoCell = `<td id="${cerno}">${cerno}</td>`;
-                    const prosta = obj['prosta'];
-                    const prostaOptions = `
-                        <select id="prosta-${prono}" class="form-select">
-                            <option value="1" ${prosta === 1 && 'selected'}>上架</option>
-                            <option value="2" ${prosta === 2 && 'selected'}>下架</option>
+                    const pronoCell = `<td id="${prono}">${prono}</td>`;
+                    const ista = obj['ista'];
+                    const istaOptions = `
+                        <select id="ista-${itemno}" class="form-select">
+                            <option value="1" ${ista === 1 && 'selected'}>上架</option>
+                            <option value="2" ${ista === 2 && 'selected'}>下架</option>
                         </select>`;
-                    const prostaCell = `<td>${prostaOptions}</td>`;
+                    const istaCell = `<td>${istaOptions}</td>`;
                     const editButtonCell = `<td><button type="button" class="btn btn-primary ms-2 update-btn">編輯</button></td>`;
-                    return `<tr>${proseqCell}${pronoCell}${pronameCell}${cernoCell}${editButtonCell}${prostaCell}</tr>`;
+                    return `<tr>${itemnoCell}${inameCell}${ipriceCell}${pronoCell}${editButtonCell}${istaCell}</tr>`;
                 }).join('');
                 table.querySelector('tbody').innerHTML = bodyCells;
 
@@ -81,7 +81,7 @@ function updatebtn() {
     const updateButtons = document.querySelectorAll('.update-btn');
     updateButtons.forEach(button => {
         button.addEventListener('click', () => {
-            const cell = button.parentElement.previousElementSibling.previousElementSibling;
+            const cell = button.parentElement.previousElementSibling.previousElementSibling.previousElementSibling;
             const oldValue = cell.innerText;
             const input = document.createElement('input');
             const swalWithBootstrapButtons = Swal.mixin({
@@ -124,22 +124,22 @@ function updatebtn() {
                         })
                     ) {
                         // Update the data
-                        const proname = cell.getAttribute('id');
-                        const row = cell.parentElement.querySelector('td:nth-child(2)').getAttribute('id');
-                        const prosta = cell.parentElement.querySelector('select option:checked').value;
-                        const cerno = cell.nextElementSibling.getAttribute('id');
-                        const proseq = cell.previousElementSibling.previousElementSibling.getAttribute('id');
+                        const iname = cell.getAttribute('id');
+                        const row = cell.parentElement.querySelector('td:first-child').getAttribute('id');
+                        const ista = cell.parentElement.querySelector('select option:checked').value;
+                        const iprice = cell.nextElementSibling.getAttribute('id');
+                        const prono = cell.nextElementSibling.nextElementSibling.getAttribute('id');
                         // Send a PUT request to update the data on the server
-                        fetch(`/pro/update/${row}`, {
+                        fetch(`/item/update/${row}`, {
                             method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json'
                             },
                             body: JSON.stringify({
-                                proname: newValue,
-                                prosta: prosta,
-                                cerno: cerno,
-                                proseq: proseq
+                                iname: newValue,
+                                ista: ista,
+                                prono: prono,
+                                iprice: iprice
                             })
                         }).then(() => {
                             // Update the cell in the table
@@ -159,26 +159,3 @@ function updatebtn() {
         });
     });
 }
-
-$(document).on('change', '.form-select', function () {
-    const pronoText = $(this).closest('tr').find('.prono').text();
-    const prosta = $(this).val();
-    $.ajax({
-        url: '/pro/updateProsta',
-        method: 'POST',
-        data: {
-            prono: pronoText,
-            prosta: prosta
-        },
-        datatype: 'json',
-        success: function (response) {
-            console.log(response);
-            Swal.fire('狀態修改成功');
-        },
-        error: function (error) {
-            console.log(error);
-            Swal.fire('狀態修改失敗');
-        }
-    });
-});
-
