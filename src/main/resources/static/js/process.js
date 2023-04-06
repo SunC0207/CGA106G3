@@ -125,7 +125,7 @@ function updatebtn() {
                     ) {
                         // Update the data
                         const proname = cell.getAttribute('id');
-                        const row = cell.parentElement.querySelector('td:first-child').getAttribute('id');
+                        const row = cell.parentElement.querySelector('td:nth-child(2)').getAttribute('id');
                         const prosta = cell.parentElement.querySelector('select option:checked').value;
                         const cerno = cell.nextElementSibling.getAttribute('id');
                         const proseq = cell.previousElementSibling.previousElementSibling.getAttribute('id');
@@ -159,3 +159,25 @@ function updatebtn() {
         });
     });
 }
+
+$(document).on('change', '.form-select', function () {
+    const pronoText = $(this).closest('tr').find('.prono').text();
+    const prosta = $(this).val();
+    $.ajax({
+        url: '/pro/updateProsta',
+        method: 'POST',
+        data: {
+            prono: pronoText,
+            prosta: prosta
+        },
+        datatype: 'json',
+        success: function (response) {
+            console.log(response);
+            Swal.fire('狀態修改成功');
+        },
+        error: function (error) {
+            console.log(error);
+            Swal.fire('狀態修改失敗');
+        }
+    });
+});
