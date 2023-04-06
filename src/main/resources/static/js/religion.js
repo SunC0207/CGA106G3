@@ -3,10 +3,8 @@ $(document).ready(() => {
         method: 'GET',
     }).then((response) => {
         response.json().then(data => {
-            // Create a table element
             const table = document.querySelector('#table');
 
-            // Create the table body rows with an edit button and religion name input field
             const bodyCells = data.map(obj => {
                 const religionName = obj['relname'];
                 const religionNameCell = `<td id="${religionName}">${religionName}</td>`;
@@ -140,6 +138,36 @@ addButton.addEventListener('click', () => {
             // Reload the page to show the new data
             location.reload();
         }
+    });
+});
+
+
+const searchForm = document.querySelector('#search-form');
+searchForm.addEventListener('submit', function (event) {
+    event.preventDefault(); // 防止表單提交後頁面重整
+
+    const formData = new FormData(searchForm);
+    const searchValue = formData.get('search');
+
+    fetch(`rel/findbyid?relno=${searchValue}`, {
+        method: 'GET'
+    }).then(response => {
+        response.json().then(data => {
+            const table = document.querySelector('#table');
+            table.innerHTML = '';
+            const bodyCells = `<thead>
+            <tr>
+                <th scope="col">宗教編號</th>
+                <th scope="col">宗教名稱</th>
+                <th scope="col">修改</th>
+            </tr>
+            <tr>
+                <td id="${data.relno}">${data.relno}</td>
+                <td id="${data.relname}">${data.relname}</td>
+                <td><button type="button" class="btn btn-primary ms-2 update-btn">編輯</button></td>
+            </tr>`
+            table.innerHTML += bodyCells;
+        })
     });
 });
 
