@@ -16,8 +16,8 @@ public class EmpLoginController {
     @Autowired
     EmpLoginServiceImpl empLoginService;
 
-    @PostMapping(value = "/login")
-    public String EmpLogin(HttpServletRequest request, @RequestBody EmpLoginDTO empLoginDTO) {
+    @PostMapping("/login")
+    public PersistEmpDTO EmpLogin(HttpServletRequest request, @RequestBody EmpLoginDTO empLoginDTO) {
         PersistEmpDTO persistEmpDTO = empLoginService.login(empLoginDTO);
         if (persistEmpDTO != null) {
             if (request.getSession(false) != null) {
@@ -25,10 +25,11 @@ public class EmpLoginController {
             }
             HttpSession session = request.getSession();
             session.setAttribute("loginOrNot",true);
+            session.setAttribute("emp",persistEmpDTO);
 
         } ;
 
-        return null;
+        return persistEmpDTO;
     }
 
 }

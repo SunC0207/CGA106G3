@@ -130,13 +130,24 @@
           empno: `${empno.value}`,
           emppw: `${emppw.value}`,
         };
-        fetch("http://localhost:8080/empLogin/login", {
+        fetch("/empLogin/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(loginInfo),
-        });
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const { empDTO, perDTOS } = data;
+            sessionStorage.setItem("empno", empDTO.empno);
+            sessionStorage.setItem("ename", empDTO.ename);
+            sessionStorage.setItem("hiredate", empDTO.hiredate);
+            sessionStorage.setItem("empsta", empDTO.empsta);
+            sessionStorage.setItem("emppw", empDTO.emppw);
+            sessionStorage.setItem("perList", perDTOS);
+            location = "../index.html";
+          });
       });
     </script>
   </body>

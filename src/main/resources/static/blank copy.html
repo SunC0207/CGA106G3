@@ -354,6 +354,7 @@
           </button>
           <div
             class="row vh-100 bg-secondary rounded align-items-center justify-content-center mx-0 con"
+            id="blank"
           >
             <div id="calendar"></div>
           </div>
@@ -419,6 +420,8 @@
   <script>
     //載入行程的方法
     function showCalendar(body) {
+      let blank = document.getElementById("blank");
+      blank.innerHTML = '<div id="calendar"></div>';
       let event = [];
       fetch("/PODetail/findByRangeAndEmpno", {
         method: "POST",
@@ -446,6 +449,7 @@
             eventLimit: true, // allow "more" link when too many events
             events: event,
           });
+
           calendar.render();
         });
     }
@@ -470,7 +474,7 @@
         startDate: startDay,
         endDate: endDay,
         defaultDate: toDay,
-        empno: 9003, //之後要改成動態的員工編號
+        empno: sessionStorage.getItem("empno"), //之後要改成動態的員工編號
       };
       showCalendar(body);
     }
@@ -489,7 +493,7 @@
         startDate: startDate.value,
         endDate: endDate.value,
         defaultDate: startDate.value,
-        empno: 9003, //之後要改成動態的員工編號
+        empno: sessionStorage.getItem("empno"), //之後要改成動態的員工編號
       };
       showCalendar(dayRange);
     });
