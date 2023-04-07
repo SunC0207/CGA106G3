@@ -7,10 +7,10 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -53,15 +53,19 @@ public class OpicService {
         return opicDTO;
     }
 
-    public Page<OpicDTO> findAllOpicDTO(Pageable pageable) {
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-        Page<Opic> opicPage = opicRepository.findAll(pageable);
-        List<OpicDTO> opics = opicPage.getContent()
-                .stream()
-                .map(this::EntityToDTO)
-                .collect(Collectors.toList());
-        return new PageImpl<>(opics, pageable, opicPage.getTotalElements());
+    public Page<Opic> findAll(Pageable pageable) {
+        Page<Opic> page = opicRepository.findAll(pageable);
+        List<Opic> opicList = page.getContent();
+        for (Opic opic : opicList) {
+            byte[] upfile = opic.getUpfile();
+            if (upfile != null && upfile.length > 0) {
+                String upfileBase64 = Base64.getEncoder().encodeToString(upfile);
+                opic.setUpfileBase64(upfileBase64);
+            }
+        }
+        return page;
     }
+
 
     public long count(){
         return opicRepository.count();

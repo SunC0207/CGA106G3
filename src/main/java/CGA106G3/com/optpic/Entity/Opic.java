@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Blob;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -25,6 +23,10 @@ public class Opic extends EntityCore {
     private String picname;
 
     @Lob
-    private Blob upfile;
+    @Column(columnDefinition = "BLOB")
+    private byte[] upfile;
+
+    @Transient
+    private String upfileBase64;
 
 }

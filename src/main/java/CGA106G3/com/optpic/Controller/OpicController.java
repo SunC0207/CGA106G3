@@ -1,6 +1,5 @@
 package CGA106G3.com.optpic.Controller;
 
-import CGA106G3.com.optpic.DTO.OpicDTO;
 import CGA106G3.com.optpic.Entity.Opic;
 import CGA106G3.com.optpic.Service.OpicService;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -11,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -45,10 +41,10 @@ public class OpicController extends JsonSerializer<Blob> {
         return opicservice.findOpicById(opicno);
     }
 
-    @RequestMapping("/findAll")
-    public Page<OpicDTO> getAllOpice(@RequestParam int page, @RequestParam int size){
+    @GetMapping("/findAll")
+    public Page<Opic> findAll(@RequestParam int page, @RequestParam int size) {
         Pageable pageable = PageRequest.of(page -1, size);
-        return opicservice.findAllOpicDTO(pageable);
+        return opicservice.findAll(pageable);
     }
 
     @RequestMapping("/getTotalPages")
