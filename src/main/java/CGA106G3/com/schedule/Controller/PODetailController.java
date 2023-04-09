@@ -37,4 +37,14 @@ public class PODetailController {
         return poDetailService.getByDateRangeAndPono(poDetailRangeDTO);
     }
 
+    @GetMapping("/findByLocno")
+    public List<PODetailDTO> findByLocno(@RequestParam Integer locno){
+        return poDetailService.findByLocno(locno);
+    }
+
+    @GetMapping("/listAll")
+    public List<ScheduleDTO> listAll(){
+        return poDetailService.listAll();
+    }
+
 }

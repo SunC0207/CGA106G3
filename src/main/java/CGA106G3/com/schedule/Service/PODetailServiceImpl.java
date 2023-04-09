@@ -89,6 +89,32 @@ public class PODetailServiceImpl implements PODetailService {
 
         return list;
     }
+
+    @Override
+    public List<PODetailDTO> findByLocno(Integer locno) {
+        return poDetailRepository.findByLocno(locno)
+                .stream()
+                .map(this::EntityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ScheduleDTO> listAll() {
+        List<PODetailDTO> poDetailDTOList = poDetailRepository.findAll()
+                .stream()
+                .map(this::EntityToDTO)
+                .collect(Collectors.toList());
+        List<ScheduleDTO> list = new ArrayList<>();
+        for (PODetailDTO poDetailDTO : poDetailDTOList) {
+            ScheduleDTO scheduleDTO = new ScheduleDTO();
+            scheduleDTO.setDate(poDetailDTO.getDate());
+            Loc loc = locRepository.getReferenceById(poDetailDTO.getLocno());
+            scheduleDTO.setLocation(loc.getLocname());
+            list.add(scheduleDTO);
+        }
+        return list;
+    }
+
     private POrdDTO EntityToDTO(POrd pOrd) {
         POrdDTO pOrdDTO = new POrdDTO();
         return modelMapper.map(pOrd, POrdDTO.class);
