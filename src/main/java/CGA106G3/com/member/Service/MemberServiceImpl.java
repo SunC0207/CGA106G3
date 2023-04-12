@@ -8,6 +8,7 @@ import CGA106G3.com.member.Entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import CGA106G3.com.member.Repository.MemberRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
@@ -38,10 +39,8 @@ public void deleteMember(Integer member){
 
 
 @Override
-    public List<MemberDTO> getAllMember(){
-        return memberRepository.findAll().stream()
-                .map(this::EntityToDTO).
-                collect(Collectors.toList());
+    public List<Member> findAllMember(){
+        return memberRepository.findAll();
     }
 
     @Override
@@ -55,6 +54,55 @@ public void deleteMember(Integer member){
         modelMapper.map(member, MemberDTO.class);
         return memberDto;
     }
+
+
+    @Transactional
+    @Override
+    public Member register(Member member) {
+
+
+
+//        if (member.getMname() == null) {
+//            member.setMessage("帳號未輸入");
+//            member.setSuccessful(false);
+//            return member;
+//        }
+//
+//        if (member.getMpw() == null) {
+//            member.setMessage("密碼未輸入");
+//            member.setSuccessful(false);
+//            return member;
+//        }
+//        if (member.getMpic() == null) {
+//            member.setMessage("請上傳圖片");
+//            member.setSuccessful(false);
+//            return member;
+//        }
+//
+//
+//        if (member.getMobile() == null) {
+//            member.setMessage("請輸入手機號碼");
+//            member.setSuccessful(false);
+//            return member;
+//        }
+//
+//        if (member.getReferenceByEmail(member.getEmail()) != null) {
+//            member.setMessage("帳號重複");
+//            member.setSuccessful(false);
+//            return member;
+//        }
+//        member.setVersta(0);
+//        member = memberRepository.save(member);
+        memberRepository.save(member);
+        member.setMessage("註冊成功");
+        member.setSuccessful(true);
+
+        return member;
+    }
+
+
+
+
 
 
 

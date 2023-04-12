@@ -13,9 +13,12 @@ public interface MemberService extends ServiceCore {
 
     Member updateMember(Member member);
 
-    List<MemberDTO> getAllMember();
+    List<Member> findAllMember();
 
     Member findMemberById(Integer membno);
 
+//    Member findMemberByEmail(String email);
+
+    Member register(Member member);
 
 }

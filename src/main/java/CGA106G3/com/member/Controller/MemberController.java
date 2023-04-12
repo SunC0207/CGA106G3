@@ -1,9 +1,12 @@
 package CGA106G3.com.member.Controller;
 
+import CGA106G3.com.member.DTO.MemberDTO;
 import CGA106G3.com.member.Entity.Member;
 import CGA106G3.com.member.Service.MemberServiceImpl;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/memb")
@@ -32,5 +35,11 @@ public class MemberController {
     public Member updateMember(@RequestBody Member member) {
         return memberServiceImpl.updateMember(member);
     }
+
+    @GetMapping("/getAllMember")
+    public List<Member> getAllMember() {
+        return memberServiceImpl.findAllMember();
+    }
+
 
 }

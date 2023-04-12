@@ -1,15 +1,30 @@
 package CGA106G3.com.member.Repository;
 
-import CGA106G3.com.member.Service.MemberService;
+
+
+
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import CGA106G3.com.member.Entity.Member;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.Optional;
+import org.springframework.data.jpa.repository.Query;
 
 
-public interface MemberRepository extends JpaRepository<Member,Integer>{
+
+
+public interface MemberRepository extends JpaRepository<Member,Integer>,MemberOpreation{
+
+
+
+
+    @Query(value ="Select * from MEMBER where Email = :email and Mpw = :mpw",
+            nativeQuery = true)
+    Member selectForlogin(String email, String mpw);
+
+
+
+
+
 
 
 }
+
