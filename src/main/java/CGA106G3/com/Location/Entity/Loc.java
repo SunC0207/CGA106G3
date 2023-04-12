@@ -17,6 +17,7 @@ public class Loc {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer locno;
 
+
     @Column( nullable = false,length = 20)
     private String locname;
 

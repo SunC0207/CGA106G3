@@ -17,6 +17,7 @@ public class LocController {
     @Autowired
     private LocServiceImpl service;
 
+
     @Autowired
     private ModelMapper modelMapper;
 
