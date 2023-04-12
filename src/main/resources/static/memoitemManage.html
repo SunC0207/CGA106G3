@@ -42,11 +42,11 @@
     <link href="css/style.css" rel="stylesheet" />
 
     <style>
-      #searchMemoitemcate {
+      #searchMemoitem {
         display: inline;
         width: 200px;
       }
-      #searchMemoitemcatebtn {
+      #searchMemoitembtn {
         display: inline-block;
       }
       #search {
@@ -56,7 +56,7 @@
         /* background-color: aliceblue; */
         width: 350px;
       }
-      #callAddMemoitemcate {
+      #callAddMemoitem {
         position: fixed;
         bottom: 20px;
         right: 20px;
@@ -80,7 +80,7 @@
         position: absolute;
         z-index: 2;
       }
-      #addMemoitemcate {
+      #addMemoitem {
         position: absolute;
         right: 30px;
         bottom: 30px;
@@ -92,6 +92,7 @@
         bottom: 30px;
         width: 70px;
       }
+      
     </style>
   </head>
 
@@ -229,18 +230,18 @@
           <div class="row g-4" id="holder">
             <div class="col-12">
               <div class="bg-secondary rounded h-100 p-4">
-                <h6 class="mb-4">追思品類別列表</h6>
+                <h6 class="mb-4">追思品列表</h6>
                 <div id="search">
                   <input
                     class="form-control bg-dark border-0"
                     type="search"
                     placeholder="查詢"
-                    id="searchMemoitemcate"
+                    id="searchMemoitem"
                   />
                   <button
                     type="button"
                     class="btn btn-primary m-2"
-                    id="searchMemoitemcatebtn"
+                    id="searchMemoitembtn"
                   >
                     搜尋<i class="bi bi-search"></i>
                   </button>
@@ -250,11 +251,12 @@
                   <table class="table">
                     <thead>
                       <tr>
-                        <th scope="col">追思品類別編號</th>
-                        <th scope="col">追思品類別名稱</th>
-                        <th scope="col">新增日期</th>
-
+                        <th scope="col">追思品編號</th>
+                        <th scope="col">追思品名稱</th>
                         <th scope="col">狀態</th>
+                        <th scope="col">價格</th>
+                        <th scope="col">追思品類別</th>
+                        <th scope="col">圖示</th>
                         <th scope="col"></th>
                       </tr>
                     </thead>
@@ -264,9 +266,9 @@
 
                 <button
                   class="btn btn-lg btn-primary btn-lg-square"
-                  id="callAddMemoitemcate"
+                  id="callAddMemoitem"
                   data-bs-toggle="modal"
-                  data-bs-target="#addMemoitemcatePatt"
+                  data-bs-target="#addMemoitemPatt"
                 >
                   <i class="bi bi-person-plus"></i>
                 </button>
@@ -278,7 +280,7 @@
 
         <!--新增-->
 
-        <div class="modal" tabindex="-1" aria-hidden="true" id="addMemoitemcatePatt">
+        <div class="modal" tabindex="-1" aria-hidden="true" id="addMemoitemPatt">
           <div class="modal-dialog">
             <div class="container-fluid pt-4 px-4">
               <div
@@ -294,7 +296,7 @@
                           type="text"
                           class="form-control"
                           aria-describedby="emailHelp"
-                          id="micateno"
+                          id="mino"
                           disabled
                         />
                       </div>
@@ -305,36 +307,49 @@
                           type="text"
                           class="form-control"
                           aria-describedby="emailHelp"
-                          id="micname"
+                          id="miname"
                         />
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label">上架日期</label>
-                        <div class="relative">
-                          <input
-                            class="form-control"
-                            type="date"
-                            id="ondate"
-                          />
-                          <i class="bi bi-calendar"></i>
-                        </div>
                       </div>
 
                       <label class="form-label">狀態</label>
                       <select
                         class="form-select mb-3"
                         aria-label="Default select example"
-                        id="micatesta"
+                        id="mista"
                       >
                         <option selected value="0">下架</option>
                         <option value="1">上架</option>
                       </select>
+
+                      <div class="mb-3">
+                        <label class="form-label">價格</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          aria-describedby="emailHelp"
+                          id="miprice"
+                        />
+                      </div>  
+                      
+                        <label class="form-label">追思品列別</label>
+                        <select
+                        class="form-select mb-3"
+                        aria-label="Default select example"
+                        id="micateno"
+                      >
+                        <option selected value="1">花籃訂購</option>
+                        <option value="2">水果籃訂購</option>
+                        <option value="3">紙紮類</option>
+                        <option value="4">罐頭塔訂購</option>
+                        <option value="5">蓮花塔訂購</option>
+                      </select>
+                      
                     </div>
                   </div>
                   <button
                     type="submit"
                     class="btn btn-primary"
-                    id="addMemoitemcate"
+                    id="addMemoitem"
                     data-bs-dismiss="modal"
                   >
                     送出
@@ -388,7 +403,7 @@
     <script>
       //進頁面直接呼叫 listAll
       window.onload = function(){
-      fetch("/memoitemcateManage/getAll")
+      fetch("/memoitemManage/getAll")
         .then((response) => response.json())
         .then((data) => {
           listTbody(data);
@@ -397,41 +412,77 @@
 
     <script>
       //用編號及名稱來搜尋
-      const searchMemoitemcatebtn = document.getElementById("searchMemoitemcatebtn");
+      const searchMemoitembtn = document.getElementById("searchMemoitembtn");
 
-      searchMemoitemcatebtn.addEventListener("click", function () {
-        const searchMemoitemcate = document.getElementById("searchMemoitemcate");
+      searchMemoitembtn.addEventListener("click", function () {
+        const searchMemoitem = document.getElementById("searchMemoitem");
 
-        if (!searchMemoitemcate.value) {
-          fetch("/memoitemcateManage/getAll")
+        if (!searchMemoitem.value) {
+          fetch("/memoitemManage/getAll")
             .then((response) => response.json())
             .then((data) => {
               listTbody(data);
             });
-        } else if (
-          searchMemoitemcate.value === "上架" ||
-          searchMemoitemcate.value === "下架" 
+        } else if(
+            searchMemoitem.value === "上架" ||
+            searchMemoitem.value === "下架" 
+        ){
+            let staNum;
+            switch(searchMemoitem.value){
+                case "下架":{
+                    staNum = 0;
+                    break;
+                }
+                case "上架":{
+                    staNum = 1;
+                    break;
+                }
+            }
+            fetch(`/memoitemManage/SearchBySTA?mista=${staNum}`)
+            .then((response) => response.json())
+            .then((data) => {
+              listTbody(data);
+            });
+        }   else if (
+            searchMemoitem.value === "花籃訂購" ||
+            searchMemoitem.value === "水果籃訂購" || 
+            searchMemoitem.value === "紙紮類" || 
+            searchMemoitem.value === "罐頭塔訂購" || 
+            searchMemoitem.value === "蓮花塔訂購" 
         ) {
-          let staNum;
-          switch (searchMemoitemcate.value) {
-            case "下架": {
-              staNum = 0;
+          let memoitemcatenoNum;
+          switch (searchMemoitem.value) {
+            case "花籃訂購": {
+                memoitemcatenoNum = 1;
               break;
             }
-            case "上架": {
-              staNum = 1;
+            case "水果籃訂購": {
+                memoitemcatenoNum = 2;
+              break;
+            }
+            case "紙紮類": {
+                memoitemcatenoNum = 3;
+              break;
+            }
+            case "罐頭塔訂購": {
+                memoitemcatenoNum = 4;
+              break;
+            }
+            case "蓮花塔訂購": {
+                memoitemcatenoNum = 5;
               break;
             }
           }
-
-          fetch(`/memoitemcateManage/searchBySTA?micatesta=${staNum}`)
+          fetch(
+            `/memoitemManage/SearchBymicateno?micateno=${memoitemcatenoNum}`
+          )
             .then((response) => response.json())
             .then((data) => {
               listTbody(data);
             });
-        } else if (!isNaN(searchMemoitemcate.value)) {
+        } else if (!isNaN(searchMemoitem.value)) {
           fetch(
-            `/memoitemcateManage/getOne?micateno=${searchMemoitemcate.value}`
+            `/memoitemManage/getOne?mino=${searchMemoitem.value}`
           )
             .then((response) => response.json())
             .then((data) => {
@@ -439,7 +490,7 @@
             });
         } else {
           fetch(
-            `/memoitemcateManage/searchByName?micname=${searchMemoitemcate.value}`
+            `/memoitemManage/SearchByName?miname=${searchMemoitem.value}`
           )
             .then((response) => response.json())
             .then((data) => {
@@ -458,50 +509,91 @@
         for (let i of data) {
           let tr = document.createElement("tr");
           let th = document.createElement("th");
-          th.textContent = `${i.micateno}`;
+          th.textContent = `${i.mino}`;
           th.setAttribute("scope", "row");
           tr.append(th);
-          let micatename = document.createElement("td");
-          micatename.textContent = `${i.micname}`;
-          tr.append(micatename);
 
-          let ondate = document.createElement("td");
-          ondate.textContent = `${i.micatedate}`;
-          tr.append(ondate);
+          let miname = document.createElement("td");
+          miname.textContent = `${i.miname}`;
+          tr.append(miname);
 
-          let micatesta = document.createElement("td");
-          switch (i.micatesta) {
+          let mista = document.createElement("td");
+          switch (i.mista) {
             case 0: {
-              micatesta.textContent = "下架";
-              tr.append(micatesta);
+                mista.textContent = "下架";
+              tr.append(mista);
               break;
             }
             case 1: {
-              micatesta.textContent = "上架";
-              tr.append(micatesta);
+                mista.textContent = "上架";
+              tr.append(mista);
               break;
             }
           }
-          let btntd = document.createElement("td");
 
+          let miprice = document.createElement("td");
+          miprice.textContent = `${i.miprice}`;
+          tr.append(miprice);
+
+          let micateno = document.createElement("td");
+          switch (i.micateno) {
+            case 1: {
+                micateno.textContent = "花籃訂購";
+              tr.append(micateno);
+              break;
+            }
+            case 2: {
+                micateno.textContent = "水果籃訂購";
+              tr.append(micateno);
+              break;
+            }
+            case 3: {
+                micateno.textContent = "紙紮類";
+              tr.append(micateno);
+              break;
+            }
+            case 4: {
+                micateno.textContent = "罐頭塔訂購";
+              tr.append(micateno);
+              break;
+            }
+            case 5: {
+                micateno.textContent = "蓮花塔訂購";
+              tr.append(micateno);
+              break;
+            }
+          }
+
+
+          let pictd = document.createElement("td")
+          let mipicno = document.createElement("img");
+          let src = `data:image/jpeg;base64,${i.memoitempic.mipicno}`;
+          mipicno.setAttribute("src",src);
+          pictd.append(mipicno);
+          tr.append(pictd);
+          
+
+          let btntd = document.createElement("td");
           let btn = document.createElement("button");
           btn.textContent = "修改";
           btn.setAttribute("type", "button");
-          btn.setAttribute("value", `${i.micateno}`);
+          btn.setAttribute("value", `${i.mino}`);
           btn.setAttribute("class", "btn btn-link rounded-pill m-2");
           btn.setAttribute("data-bs-toggle", "modal");
-          btn.setAttribute("data-bs-target", "#addMemoitemcatePatt");
+          btn.setAttribute("data-bs-target", "#addMemoitemPatt");
           btn.addEventListener("click", function () {
-            fetch(`/memoitemcateManage/getOne?micateno=${i.micateno}`)
+            fetch(`/memoitemManage/getOne?mino=${i.mino}`)
               .then((response) => response.json())
               .then((data) => {
+                document.getElementById("mino").value = data.mino;
+
+                document.getElementById("miname").value = data.miname;
+
+                document.getElementById("mista").value = data.mista;
+
+                document.getElementById("miprice").value = data.miprice;
+
                 document.getElementById("micateno").value = data.micateno;
-
-                document.getElementById("micname").value = data.micname;
-
-                document.getElementById("ondate").value = data.micatedate;
-
-                document.getElementById("micatesta").value = data.micatesta;
               });
           });
 
@@ -518,51 +610,88 @@
 
         let tr = document.createElement("tr");
         let th = document.createElement("th");
-        th.textContent = `${i.micateno}`;
+        th.textContent = `${i.mino}`;
         th.setAttribute("scope", "row");
         tr.append(th);
-        let micname = document.createElement("td");
-        micname.textContent = `${i.micname}`;
-        tr.append(micname);
+        let miname = document.createElement("td");
+        miname.textContent = `${i.miname}`;
+        tr.append(miname);
 
-        let ondate = document.createElement("td");
-        ondate.textContent = `${i.ondate}`;
-        tr.append(ondate);
-
-        let micatesta = document.createElement("td");
-        switch (i.micatesta) {
+        let mista = document.createElement("td");
+        switch (i.mista) {
           case 0: {
-            micatesta.textContent = "下架";
-            tr.append(micatesta);
+            mista.textContent = "下架";
+            tr.append(mista);
             break;
           }
           case 1: {
-            micatesta.textContent = "上架";
-            tr.append(micatesta);
+            mista.textContent = "上架";
+            tr.append(mista);
             break;
           }
         }
 
-        let btntd = document.createElement("td");
+        let miprice = document.createElement("td");
+        miprice.textContent = `${i.miprice}`;
+        tr.append(miprice);
 
+        let micateno = document.createElement("td");
+          switch (i.micateno) {
+            case 1: {
+                micateno.textContent = "花籃訂購";
+              tr.append(micateno);
+              break;
+            }
+            case 2: {
+                micateno.textContent = "水果籃訂購";
+              tr.append(micateno);
+              break;
+            }
+            case 3: {
+                micateno.textContent = "紙紮類";
+              tr.append(micateno);
+              break;
+            }
+            case 4: {
+                micateno.textContent = "罐頭塔訂購";
+              tr.append(micateno);
+              break;
+            }
+            case 5: {
+                mimicatenosta.textContent = "蓮花塔訂購";
+              tr.append(micateno);
+              break;
+            }
+          }
+
+          let pictd = document.createElement("td")
+          let mipicno = document.createElement("img");
+          let src = `data:image/jpeg;base64,${i.memoitempic.mipicno}`;
+          mipicno.setAttribute("src",src);
+          pictd.append(mipicno);
+          tr.append(pictd);
+
+        let btntd = document.createElement("td");
         let btn = document.createElement("button");
         btn.textContent = "修改";
         btn.setAttribute("type", "button");
         btn.setAttribute("value", `${i.micateno}`);
         btn.setAttribute("class", "btn btn-link rounded-pill m-2");
         btn.setAttribute("data-bs-toggle", "modal");
-        btn.setAttribute("data-bs-target", "#addMemoitemcatePatt");
+        btn.setAttribute("data-bs-target", "#addMemoitemPatt");
         btn.addEventListener("click", function () {
-          fetch(`/memoitemcateManage/getOne?micateno=${i.micateno}`)
+          fetch(`/memoitemManage/getOne?micateno=${i.mino}`)
             .then((response) => response.json())
             .then((data) => {
-              document.getElementById("micateno").value = data.micateno;
+                document.getElementById("mino").value = data.mino;
 
-              document.getElementById("micname").value = data.micname;
+                document.getElementById("miname").value = data.miname;
 
-              document.getElementById("ondate").value = data.micatedate;
+                document.getElementById("mista").value = data.mista;
 
-              document.getElementById("micatesta").value = data.micatesta;
+                document.getElementById("miprice").value = data.miprice;
+
+                document.getElementById("micateno").value = data.micateno;
             });
         });
 
@@ -577,31 +706,29 @@
 
     <script>
       //新增修改
-      const addMemoitemcateBtn = document.getElementById("addMemoitemcate");
+      const addMemoitemBtn = document.getElementById("addMemoitem");
 
-      addMemoitemcateBtn.addEventListener("click", addMemoitemcate);
+      addMemoitemBtn.addEventListener("click", addMemoitem);
 
-      addMemoitemcateBtn.addEventListener("click", function () {
-        fetch("/memoitemcateManage/getAll")
+      addMemoitemBtn.addEventListener("click", function () {
+        fetch("/memoitemManage/getAll")
           .then((response) => response.json())
           .then((data) => {
             listTbody(data);
           });
       });
 
-      function addMemoitemcate() {
-        if ($("#micateno").val() != "") {
+      function addMemoitem() {
+        if ($("#mino").val() != "") {
 
           let body = {
-            
+              mino: $("#mino").val(),
+              miname: $("#miname").val(),
+              mista: $("#mista").val(),
+              miprice: $("#miprice").val(),
               micateno: $("#micateno").val(),
-              micname: $("#micname").val(),
-              micatedate: $("#ondate").val(),
-              micatesta: $("#micatesta").val(),
-            
           };
-
-          fetch(`/memoitemcateManage/updateMemoitemcate`, {
+          fetch("/memoitemManage/UpdateMemoitem", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -612,19 +739,19 @@
             if(response.ok){
               window.location.reload();
             }else{
-              throw new Error('添加失败');
+              throw new Error('更新失败');
             }
           })
           .catch(error => console.log(error));
         } else {
           let body = {
-            empno: "",
-            micname: $("#micname").val(),
-            micatedate: $("#ondate").val(),
-            micatesta: $("#micatesta").val(),
+            mino: "",
+            miname: $("#miname").val(),
+            mista: $("#mista").val(),
+            miprice: $("#miprice").val(),
+            micateno: $("#micateno").val(),
           };
-
-          fetch("/memoitemcateManage/addMemoitemcate", {
+          fetch("/memoitemManage/addMemoitem", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -650,13 +777,15 @@
         for (let i of fctnoList) {
           i.checked = false;
         }
+        document.getElementById("mino").value = "";
+
+        document.getElementById("miname").value = "";
+
+        document.getElementById("mista").value = "";
+
+        document.getElementById("miprice").value = "";
+
         document.getElementById("micateno").value = "";
-
-        document.getElementById("micname").value = "";
-
-        document.getElementById("ondate").value = "";
-
-        document.getElementById("micatesta").value = "";
       }
 
       document.getElementById("cancelAdd").addEventListener("click", clear);
