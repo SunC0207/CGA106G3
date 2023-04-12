@@ -673,14 +673,6 @@
 
       addEmpBtn.addEventListener("click", addEmp);
 
-      addEmpBtn.addEventListener("click", function () {
-        fetch("/empManage/getAll")
-          .then((response) => response.json())
-          .then((data) => {
-            listTbody(data);
-          });
-      });
-
       function addEmp() {
         if ($("#empno").val() != "") {
           let fctnoList = $('input[name = "fctno"]:checked');

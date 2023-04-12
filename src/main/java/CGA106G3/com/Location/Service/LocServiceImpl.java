@@ -24,15 +24,13 @@ public class LocServiceImpl implements LocService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Transactional
-    @Override
-    public Loc addLoc(Loc loc){
-        return locRepository.save(loc);
-    }
 
     @Override
-    public Loc updateLoc(Loc loc){
-        return locRepository.save(loc);
+    public LocDTO updateLoc(LocDTO locDTO){
+        Loc loc = modelMapper.map(locDTO,Loc.class);
+         locRepository.save(loc);
+         return locDTO;
+
     }
 
     @Override

@@ -118,6 +118,7 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    
 
     <script>
       let loginbtn = document.getElementById("loginbtn");
@@ -145,8 +146,13 @@
             sessionStorage.setItem("hiredate", empDTO.hiredate);
             sessionStorage.setItem("empsta", empDTO.empsta);
             sessionStorage.setItem("emppw", empDTO.emppw);
-            sessionStorage.setItem("perList", perDTOS);
-            location = "../index.html";
+            let perList = "";
+            for (let per of perDTOS) {
+              perList += per.fctno;
+            }
+            sessionStorage.setItem("perList", perList);
+            sessionStorage.setItem("loginOrNot", true);
+            location.replace("/index.html");
           });
       });
     </script>
