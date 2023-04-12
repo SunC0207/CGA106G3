@@ -12,4 +12,7 @@ public class LocDTO {
     private String locpur;
 
     private Integer locsta;
+
+
+
 }
