@@ -1,26 +1,20 @@
-package CGA106G3.Core.Entity;
+package CGA106G3.com.member.Core;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.Transient;
 import lombok.Data;
 
 import java.io.Serializable;
 @Data
 @JsonIgnoreProperties({ "hibernateLazyInitializer" })
-
-public class EntityCore implements Serializable {
-
+public class Core implements Serializable {
     private  boolean successful;
+@Transient
     private  String message;
-    public EntityCore(){}
+    public Core(){}
 
-    public EntityCore(boolean successful, String message) {
+    public Core(boolean successful, String message) {
         this.successful = successful;
         this.message = message;
-    }
-    public void setMessage(String 帳號未輸入) {
-    }
-
-    public String getReferenceByEmail(String email) {
-        return email;
     }
 }
