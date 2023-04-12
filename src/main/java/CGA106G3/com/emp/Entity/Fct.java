@@ -14,9 +14,6 @@ public class Fct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-//    @OneToMany(targetEntity = Per.class)
-//    @JoinColumn(name = "fctno")
     private Integer fctno;
     @Column(nullable = false)
     private String fctname;

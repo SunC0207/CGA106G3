@@ -1,7 +1,6 @@
 package CGA106G3.com.member.Controller;
 
 import CGA106G3.com.member.Entity.Member;
-import CGA106G3.com.member.Service.MemberService;
 import CGA106G3.com.member.Service.MemberServiceImpl;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
