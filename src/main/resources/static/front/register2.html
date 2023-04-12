@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>註冊頁面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 2em;
+            font-family: "Core Sans N W01 35 Light";
+            font-weight: normal;
+            margin: .67em 0;
+            display: block;
+        }
+
+        #registered {
+            margin-top: 50px;
+        }
+
+        #registered img {
+            margin-bottom: 0px;
+            width: 100px;
+            height: 100px;
+        }
+
+        #registered span {
+            clear: both;
+            display: block;
+        }
+
+        .body-content {
+            position: relative;
+            top: 20px;
+            height: 700px;
+            width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            background: transparent;
+        }
+
+        select,
+        textarea,
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            height: 30px;
+            width: 100%;
+            ;
+            display: inline-block;
+            vertical-align: middle;
+            height: 34px;
+            padding: 0 10px;
+            margin-top: 3px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            line-height: 20px;
+            /* border: 1px solid rgba(255, 255, 255, 0.3); */
+            /* background-color: rgba(0, 0, 0, 0.5); */
+            /* color: rgba(255, 255, 255, 0.7); */
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            border-radius: 2px;
+        }
+
+        .module {
+            position: relative;
+            top: 10%;
+            height: 65%;
+            width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <link href="//db.onlinewebfonts.com/c/a4e256ed67403c6ad5d43937ed48a77b?family=Core+Sans+N+W01+35+Light"
+        rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="form.css" type="text/css">
+    <div class="body-content">
+        <div class="module">
+            <h1>彼岸會員註冊</h1>
+            <!-- <form class="form" id="form" action="form.php" name="registerForm" method="post"
+                enctype="multipart/form-data" autocomplete="off" onsubmit="checkform(event1)"> -->
+            <input type="text" placeholder="請輸入會員姓名" name="username" id="username" required />
+            <input type="email" id="email" placeholder="Email" name="email" required />
+            <input type="password" placeholder="請輸入密碼" name="password" id="password" autocomplete="new-password"
+                required />
+            <input type="password" placeholder="再輸入密碼" name="confirmpassword" autocomplete="new-password" required />
+            <select id="gender" name="gender" itemid="gender" required>
+                <option value="" disabled>請選擇性別</option>
+                <option value="1">男</option>
+
+                <option value="0">女</option>
+            </select>
+            <input type="text" id="mobile" placeholder="mobile" name="mobile" id="mobile" autocomplete="new-password"
+                required />
+
+            <!-- <div class="captcha">
+                    <img id="captcha-img" src="#" alt="驗證碼" onclick="refreshCaptchaImg()">
+                    <button type="button" onclick="refreshCaptchaImg()" id="captcha">點擊圖片可以更換驗證碼</button>
+                    <input type="text" placeholder="請輸入驗證碼" name="captcha1" id="captcha1" required />
+                </div> -->
+
+
+            <div class="avatar">
+                <label for="avatar">
+                    上傳大頭貼:
+                </label>
+                <input type="file" id="avatar" accept="image/*" required />
+                <img id="preview" src="" alt="預覽圖片" style="display:none; max-width: 100px; max-height: 100px;">
+            </div>
+
+            <div>
+                <button id="btnregister" value="送出" name="btnregister" class="btn btn-block btn-primary">註冊</button>
+            </div>
+            <div id="msg" class="error"></div>
+
+            <!-- 
+            </form> -->
+
+            <form onsubmit="return checkForm()">
+                <!-- 表單內容 -->
+            </form>
+
+
+        </div>
+
+
+    </div>
+    <script>
+
+    </script>
+    <script src="js/memberRegister.js"></script>
+</body>
+
+</html>
