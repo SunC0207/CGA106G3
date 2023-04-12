@@ -1,6 +1,7 @@
 package CGA106G3.com.memoitempic.Entity;
 
 import CGA106G3.Core.Entity.EntityCore;
+import CGA106G3.com.memoitem.Entity.Memoitem;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,10 +16,11 @@ import java.sql.Blob;
 @Data
 public class Memoitempic extends EntityCore {
     @Id
-    private Integer mipicno;
-    @Lob
+    @GeneratedValue
+    private Integer mino;
     @Column(nullable = false)
-    private Blob mino;
+    private byte[] mipicno;
     @Column(nullable = false,length = 20)
     private String mipicname;
+
 }

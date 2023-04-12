@@ -12,19 +12,44 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class MemoitemcateServiceImpl  implements MemoitemcateService{
+public class MemoitemcateServiceImpl implements MemoitemcateService {
     @Autowired
-    private MemoitemcateRepository MemoitemcateRepository;
+    private MemoitemcateRepository memoitemcateRepository;
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<MemoitemcateDTO> getAllMemoitemcate(){
-        return MemoitemcateRepository.findAll()
+    public MemoitemcateDTO addMemoitemcate(MemoitemcateDTO memoitemcateDTO) {
+        Memoitemcate memoitemcate = modelMapper.map(memoitemcateDTO, Memoitemcate.class);
+        memoitemcateRepository.save(memoitemcate);
+        return memoitemcateDTO;
+    }
+
+    public MemoitemcateDTO getOne(Integer micateno) {
+        return EntityToDTO(memoitemcateRepository.getReferenceById(micateno));
+    }
+
+    public List<MemoitemcateDTO> getAllMemoitemcate() {
+        return memoitemcateRepository.findAll()
                 .stream()
                 .map(this::EntityToDTO)
                 .collect(Collectors.toList());
     }
-    public MemoitemcateDTO EntityToDTO(Memoitemcate memoitemcate){
+
+    public List<MemoitemcateDTO> getBySTA(Integer micatesta) {
+        return memoitemcateRepository.findByMicatesta(micatesta)
+                .stream()
+                .map(this::EntityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<MemoitemcateDTO> getByName(String micname) {
+        return memoitemcateRepository.findByMicname(micname)
+                .stream()
+                .map(this::EntityToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public MemoitemcateDTO EntityToDTO(Memoitemcate memoitemcate) {
         MemoitemcateDTO memoitemcateDTO = new MemoitemcateDTO();
         memoitemcateDTO = modelMapper.map(memoitemcate, MemoitemcateDTO.class);
         return memoitemcateDTO;
