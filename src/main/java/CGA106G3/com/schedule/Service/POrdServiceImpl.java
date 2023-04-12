@@ -25,6 +25,8 @@ public class POrdServiceImpl implements POrdService {
                 .map(this::EntityToDTO)
                 .collect(Collectors.toList());
 
+
+
     }
 
 
@@ -37,8 +39,6 @@ public class POrdServiceImpl implements POrdService {
         POrdDTO pOrdDTO = new POrdDTO();
         return modelMapper.map(pOrd, POrdDTO.class);
     }
-
-    ;
 
 
 }

@@ -546,7 +546,7 @@
           btn.setAttribute("data-bs-toggle", "modal");
           btn.setAttribute("data-bs-target", "#addEmpPatt");
           btn.addEventListener("click", function () {
-            fetch(`http://localhost:8080/empManage/getOne?empno=${i.empno}`)
+            fetch(`/empManage/getOne?empno=${i.empno}`)
               .then((response) => response.json())
               .then((data) => {
                 document.getElementById("empno").value = data.empno;
@@ -560,7 +560,7 @@
                 document.getElementById("empsta").value = data.empsta;
               });
 
-            fetch(`http://localhost:8080/Per/getPerByEmpno?empno=${i.empno}`)
+            fetch(`/Per/getPerByEmpno?empno=${i.empno}`)
               .then((response) => response.json())
               .then((data) => {
                 for (let i of data) {
@@ -626,7 +626,7 @@
         btn.setAttribute("data-bs-toggle", "modal");
         btn.setAttribute("data-bs-target", "#addEmpPatt");
         btn.addEventListener("click", function () {
-          fetch(`http://localhost:8080/empManage/getOne?empno=${i.empno}`)
+          fetch(`/empManage/getOne?empno=${i.empno}`)
             .then((response) => response.json())
             .then((data) => {
               document.getElementById("empno").value = data.empno;
@@ -640,7 +640,7 @@
               document.getElementById("empsta").value = data.empsta;
             });
 
-          fetch(`http://localhost:8080/Per/getPerByEmpno?empno=${i.empno}`)
+          fetch(`/Per/getPerByEmpno?empno=${i.empno}`)
             .then((response) => response.json())
             .then((data) => {
               for (let i of data) {
@@ -658,12 +658,13 @@
 
     <script>
       //進頁面直接呼叫 listAll
-
-      fetch("http://localhost:8080/empManage/getAll")
-        .then((response) => response.json())
-        .then((data) => {
-          listTbody(data);
-        });
+      window.onload = function () {
+        fetch("/empManage/getAll")
+          .then((response) => response.json())
+          .then((data) => {
+            listTbody(data);
+          });
+      };
     </script>
 
     <script>
@@ -671,14 +672,6 @@
       const addEmpBtn = document.getElementById("addEmp");
 
       addEmpBtn.addEventListener("click", addEmp);
-
-      addEmpBtn.addEventListener("click", function () {
-        fetch("http://localhost:8080/empManage/getAll")
-          .then((response) => response.json())
-          .then((data) => {
-            listTbody(data);
-          });
-      });
 
       function addEmp() {
         if ($("#empno").val() != "") {
@@ -702,7 +695,7 @@
             perDTOS: str,
           };
 
-          fetch("http://localhost:8080/empManage/persistEmp", {
+          fetch("/empManage/persistEmp", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -719,7 +712,7 @@
             emppw: $("#emppw").val(),
           };
 
-          fetch("http://localhost:8080/empManage/addEmp", {
+          fetch("/empManage/addEmp", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -737,7 +730,7 @@
                 });
               }
 
-              fetch("http://localhost:8080/Per/addPer", {
+              fetch("/Per/addPer", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -779,7 +772,7 @@
         const searchEmp = document.getElementById("searchEmp");
 
         if (!searchEmp.value) {
-          fetch("http://localhost:8080/empManage/getAll")
+          fetch("/empManage/getAll")
             .then((response) => response.json())
             .then((data) => {
               listTbody(data);
@@ -805,23 +798,19 @@
             }
           }
 
-          fetch(`http://localhost:8080/empManage/searchBySta?empsta=${staNum}`)
+          fetch(`/empManage/searchBySta?empsta=${staNum}`)
             .then((response) => response.json())
             .then((data) => {
               listTbody(data);
             });
         } else if (!isNaN(searchEmp.value)) {
-          fetch(
-            `http://localhost:8080/empManage/getOne?empno=${searchEmp.value}`
-          )
+          fetch(`/getOne?empno=${searchEmp.value}`)
             .then((response) => response.json())
             .then((data) => {
               listOneTbody(data);
             });
         } else {
-          fetch(
-            `http://localhost:8080/empManage/searchByEname?ename=${searchEmp.value}`
-          )
+          fetch(`/empManage/searchByEname?ename=${searchEmp.value}`)
             .then((response) => response.json())
             .then((data) => {
               listTbody(data);
