@@ -108,11 +108,6 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form id="search-form" class="d-none d-md-flex ms-4">
-                    <input class="form-control bg-dark border-0" type="search" id="search" name="search"
-                        placeholder="Search">
-                    <button type="submit" class="btn btn-primary ms-2" style="width: 30%;">搜尋</button>
-                </form>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -123,9 +118,10 @@
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
                                     <img class="rounded-circle" src="img/user.jpg" alt=""
-                                        style="width: 40px; height: 40px;">
+                                    style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                                        
                                         <small>15 minutes ago</small>
                                     </div>
                                 </div>
@@ -202,9 +198,15 @@
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-secondary rounded h-100 p-4">
+                            <form style="width:fit-content;" id="search-form" class="d-none d-md-flex ms-4">
+                            <input class="form-control bg-dark border-0" type="search" id="search" name="search"
+                                placeholder="Search">
+                            <button type="submit" class="btn btn-primary ms-2" style="width: 30%;">搜尋</button>
+                        </form>
                             <button type="button" class="btn btn-square btn-primary m-2" style="float: right;"
                                 id="add">+</button>
                             <h6 class="mb-4">宗教管理</h6>
+                            
                             <table class="table" id="table">
                                 <thead>
                                     <tr>

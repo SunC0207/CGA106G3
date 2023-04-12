@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class ProDTO {
-    private Integer prono;
-    private String proname;
-    private Integer prosta;
-    private Integer cerno;
-    private Integer proseq;
+    private Integer proNo;
+    private String proName;
+    private Integer proSta;
+    private Integer cerNo;
+    private Integer proSeq;
 
 }

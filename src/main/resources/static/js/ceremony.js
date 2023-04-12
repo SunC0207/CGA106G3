@@ -16,27 +16,27 @@ $(document).ready(() => {
     // 顯示表格
     function showTable(pageNum) {
         currentPage = pageNum;
-        fetch(`/cere/findAll?page=${pageNum}&size=${pageSize}`, {
+        fetch(`/ceremony/findAll?page=${pageNum}&size=${pageSize}`, {
             method: 'GET',
         }).then((response) => {
             response.json().then(data => {
                 const table = document.querySelector('#table');
                 const bodyCells = data.content.map(obj => {
-                    const cerno = obj['cerno'];
-                    const cernoCell = `<td id="${cerno}" class="cerno">${cerno}</td>`;
-                    const cername = obj['cername'];
-                    const cernameCell = `<td id="${cername}">${cername}</td>`;
-                    const relno = obj['relno'];
-                    const relnoCell = `<td id="${relno}">${relno}</td>`;
-                    const cersta = obj['cersta'];
-                    const cerstaOptions = `
-                        <select id="cersta-${cerno}" class="form-select">
-                            <option value="1" ${cersta === 1 && 'selected'}>上架</option>
-                            <option value="2" ${cersta === 2 && 'selected'}>下架</option>
+                    const cerNo = obj['cerNo'];
+                    const cerNoCell = `<td id="${cerNo}" class="cerNo">${cerNo}</td>`;
+                    const cerName = obj['cerName'];
+                    const cerNameCell = `<td id="${cerName}">${cerName}</td>`;
+                    const relNo = obj['relNo'];
+                    const relNoCell = `<td id="${relNo}">${relNo}</td>`;
+                    const cerSta = obj['cerSta'];
+                    const cerStaOptions = `
+                        <select id="cerSta-${cerNo}" class="form-select">
+                            <option value="1" ${cerSta === 1 && 'selected'}>上架</option>
+                            <option value="2" ${cerSta === 2 && 'selected'}>下架</option>
                         </select>`;
-                    const cerstaCell = `<td>${cerstaOptions}</td>`;
+                    const cerStaCell = `<td>${cerStaOptions}</td>`;
                     const editButtonCell = `<td><button type="button" class="btn btn-primary ms-2 update-btn">編輯</button></td>`;
-                    return `<tr>${cernoCell}${cernameCell}${relnoCell}${editButtonCell}${cerstaCell}</tr>`;
+                    return `<tr>${cerNoCell}${cerNameCell}${relNoCell}${editButtonCell}${cerStaCell}</tr>`;
                 }).join('');
                 table.querySelector('tbody').innerHTML = bodyCells;
 
@@ -77,14 +77,14 @@ function revertCell(cell, oldValue, input) {
 
 
 $(document).on('change', '.form-select', function () {
-    const cernoText = $(this).closest('tr').find('.cerno').text();
-    const cersta = $(this).val();
+    const cerNoText = $(this).closest('tr').find('.cerNo').text();
+    const cerSta = $(this).val();
     $.ajax({
-        url: '/cere/updateCersta',
+        url: '/ceremony/updateCerSta',
         method: 'POST',
         data: {
-            cerno: cernoText,
-            cersta: cersta
+            cerNo: cerNoText,
+            cerSta: cerSta
         },
         datatype: 'json',
         success: function (response) {
@@ -145,20 +145,20 @@ function updatebtn() {
                         })
                     ) {
                         // Update the data
-                        const cername = cell.getAttribute('id');
+                        const cerName = cell.getAttribute('id');
                         const row = cell.parentElement.querySelector('td:first-child').getAttribute('id');
-                        const cersta = cell.parentElement.querySelector('select option:checked').value;
-                        const relno = cell.nextElementSibling.getAttribute('id');
+                        const cerSta = cell.parentElement.querySelector('select option:checked').value;
+                        const relNo = cell.nextElementSibling.getAttribute('id');
                         // Send a PUT request to update the data on the server
-                        fetch(`/cere/update/${row}`, {
+                        fetch(`/ceremony/update/${row}`, {
                             method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json'
                             },
                             body: JSON.stringify({
-                                cername: newValue,
-                                cersta: cersta,
-                                relno: relno
+                                cerName: newValue,
+                                cerSta: cerSta,
+                                relNo: relNo
                             })
                         }).then(() => {
                             // Update the cell in the table
@@ -199,12 +199,12 @@ addButton.addEventListener('click', () => {
 
         if (formValues) {
             const cere = {
-                cername: formValues[0],
-                relno: formValues[1],
-                cersta: 2
+                cerName: formValues[0],
+                relNo: formValues[1],
+                cerSta: 2
             };
 
-            fetch('/cere/add', {
+            fetch('/ceremony/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -243,20 +243,20 @@ searchForm.addEventListener('submit', function (event) {
     const formData = new FormData(searchForm);
     const searchValue = formData.get('search');
 
-    fetch(`cere/find?cerno=${searchValue}`, {
+    fetch(`ceremony/find?cerNo=${searchValue}`, {
         method: 'GET'
     }).then(response => {
         response.json().then(data => {
             const table = document.querySelector('#table');
             table.querySelector('tbody').innerHTML = '';
             const bodyCells = `
-            <td id="${data.cerno}" class="cerno">${data.cerno}</td>
-            <td id="${data.cername}">${data.cername}</td>
-            <td id="${data.relno}">${data.relno}</td>
+            <td id="${data.cerNo}" class="cerNo">${data.cerNo}</td>
+            <td id="${data.cerName}">${data.cerName}</td>
+            <td id="${data.relNo}">${data.relNo}</td>
             <td><button type="button" class="btn btn-primary ms-2 update-btn">編輯</button></td>
-            <td><select id="cersta-${data.cerno}" class="form-select">
-                <option value="1" ${data.cersta === 1 && 'selected'}>上架</option>
-                <option value="2" ${data.cersta === 2 && 'selected'}>下架</option>
+            <td><select id="cerSta-${data.cerNo}" class="form-select">
+                <option value="1" ${data.cerSta === 1 && 'selected'}>上架</option>
+                <option value="2" ${data.cerSta === 2 && 'selected'}>下架</option>
             </select></td>`
             table.querySelector('tbody').innerHTML += bodyCells;
             updatebtn();

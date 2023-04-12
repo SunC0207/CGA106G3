@@ -16,24 +16,22 @@ $(document).ready(() => {
     // 顯示表格
     function showTable(pageNum) {
         currentPage = pageNum;
-        fetch(`/optPic/findAll?page=${pageNum}&size=${pageSize}`, {
+        fetch(`/ceremony/findAll?page=${pageNum}&size=${pageSize}`, {
             method: 'GET',
         }).then((response) => {
             response.json().then(data => {
                 const table = document.querySelector('#table');
                 const bodyCells = data.content.map(obj => {
-                    const picNo = obj['picNo'];
-                    const picNoCell = `<td id="${picNo}" class="cerno">${picNo}</td>`;
-                    const optNo = obj['optNo'];
-                    const optNoCell = `<td id="${optNo}">${optNo}</td>`;
-                    const picName = obj['picName'];
-                    const picNameCell = `<td id="${picName}">${picName}</td>`;
-                    const upFile = obj['upFile'];
-                    const upFileCell = `<td><img style="height: 50px" src="data:image/jpg;base64,${upFile}" alt="圖片"></td>`;
-                    return `<tr>${picNoCell}${optNoCell}${picNameCell}${upFileCell}</tr>`;
+                    const cerNo = obj['cerNo'];
+                    const cerNoCell = `<td id="${cerNo}" class="cerNo">${cerNo}</td>`;
+                    const cerName = obj['cerName'];
+                    const cerNameCell = `<td id="${cerName}">${cerName}</td>`;
+                    const relNo = obj['relNo'];
+                    const relNoCell = `<td id="${relNo}">${relNo}</td>`;
+                    return `<tr>${cerNoCell}${cerNameCell}${relNoCell}</tr>`;
                 }).join('');
                 table.querySelector('tbody').innerHTML = bodyCells;
-                
+
                 // 更新分頁按鈕
                 const pagination = document.querySelector('.pagination');
                 const totalPage = data.totalPages;
@@ -58,6 +56,7 @@ $(document).ready(() => {
                         </a>
                     </li>
                 `;
+                updatebtn();
             });
         });
     }
@@ -67,3 +66,28 @@ function revertCell(cell, oldValue, input) {
     cell.innerText = oldValue;
     cell.removeChild(input);
 }
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const navreligion = document.querySelector('#religion');
+    navreligion.addEventListener('click', function (event) {
+        event.preventDefault();
+        console.log('click event triggered!');
+        fetch(`rel/findAll`, {
+            method: 'GET'
+        }).then(response => {
+            response.json().then(data => {
+                const div = document.querySelector('#religion-div');
+                div.innerHTML = '';
+                data.forEach(rel => {
+                    const body = `<a href="" class="dropdown-item">${rel.relName}</a>`;
+                    div.innerHTML += body;
+                });
+            })
+        })
+    });
+});

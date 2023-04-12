@@ -22,23 +22,23 @@ $(document).ready(() => {
             response.json().then(data => {
                 const table = document.querySelector('#table');
                 const bodyCells = data.content.map(obj => {
-                    const itemno = obj['itemno'];
-                    const itemnoCell = `<td id="${itemno}" class="cerno">${itemno}</td>`;
+                    const itemNo = obj['itemNo'];
+                    const itemNoCell = `<td id="${itemNo}" class="itemNo">${itemNo}</td>`;
                     const iname = obj['iname'];
                     const inameCell = `<td id="${iname}">${iname}</td>`;
                     const iprice = obj['iprice'];
                     const ipriceCell = `<td id="${iprice}">$${iprice}</td>`;
-                    const prono = obj['prono'];
-                    const pronoCell = `<td id="${prono}">${prono}</td>`;
+                    const proNo = obj['proNo'];
+                    const proNoCell = `<td id="${proNo}">${proNo}</td>`;
                     const ista = obj['ista'];
                     const istaOptions = `
-                        <select id="ista-${itemno}" class="form-select">
+                        <select id="ista-${itemNo}" class="form-select">
                             <option value="1" ${ista === 1 && 'selected'}>上架</option>
                             <option value="2" ${ista === 2 && 'selected'}>下架</option>
                         </select>`;
                     const istaCell = `<td>${istaOptions}</td>`;
                     const editButtonCell = `<td><button type="button" class="btn btn-primary ms-2 update-btn">編輯</button></td>`;
-                    return `<tr>${itemnoCell}${inameCell}${ipriceCell}${pronoCell}${editButtonCell}${istaCell}</tr>`;
+                    return `<tr>${itemNoCell}${inameCell}${ipriceCell}${proNoCell}${editButtonCell}${istaCell}</tr>`;
                 }).join('');
                 table.querySelector('tbody').innerHTML = bodyCells;
 
@@ -128,7 +128,7 @@ function updatebtn() {
                         const row = cell.parentElement.querySelector('td:first-child').getAttribute('id');
                         const ista = cell.parentElement.querySelector('select option:checked').value;
                         const iprice = cell.nextElementSibling.getAttribute('id');
-                        const prono = cell.nextElementSibling.nextElementSibling.getAttribute('id');
+                        const proNo = cell.nextElementSibling.nextElementSibling.getAttribute('id');
                         // Send a PUT request to update the data on the server
                         fetch(`/item/update/${row}`, {
                             method: 'PUT',
@@ -138,7 +138,7 @@ function updatebtn() {
                             body: JSON.stringify({
                                 iname: newValue,
                                 ista: ista,
-                                prono: prono,
+                                proNo: proNo,
                                 iprice: iprice
                             })
                         }).then(() => {

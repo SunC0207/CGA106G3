@@ -29,20 +29,10 @@ public class ItemService {
     public Item updateItem(Item item){
         return itemRepository.save(item);
     }
-    public Optional<Item> findItemById(Integer itemno){
-        return itemRepository.findById(itemno);
+    public Optional<Item> findItemById(Integer itemNo){
+        return itemRepository.findById(itemNo);
     }
-//    public List<ItemDTO> getAllItem(Pageable pageable){
-//        modelMapper.getConfiguration()
-//                .setMatchingStrategy(MatchingStrategies.LOOSE);
-//        Page<Item> itemPage = itemRepository.findAll(pageable);
-//        List<ItemDTO> items = itemPage.getContent()
-//                .stream()
-//                .map(this::EntityToDTO)
-//                .collect(Collectors.toList());
-//        return items;
-//    }
-    private ItemDTO EntityToDTO(Item item){
+    private ItemDTO entityToDTO(Item item){
         modelMapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.LOOSE);
         ItemDTO itemDTO = new ItemDTO();
@@ -59,7 +49,7 @@ public class ItemService {
         Page<Item> itemPage = itemRepository.findAll(pageable);
         List<ItemDTO> items = itemPage.getContent()
                 .stream()
-                .map(this::EntityToDTO)
+                .map(this::entityToDTO)
                 .collect(Collectors.toList());
         return new PageImpl<>(items, pageable, itemPage.getTotalElements());
     }

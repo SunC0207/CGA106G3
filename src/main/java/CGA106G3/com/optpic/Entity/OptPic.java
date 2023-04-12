@@ -11,22 +11,20 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "optpic")
 @Data
-public class Opic extends EntityCore {
+public class OptPic extends EntityCore {
     @Id
-    @Column(nullable = false)
+    @Column(name="PICNO", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer picno;
-    @Column(nullable = false)
-    private Integer optno;
+    private Integer picNo;
+    @Column(name="OPTNO",nullable = false)
+    private Integer optNo;
 
-    @Column(nullable = false, length = 10)
-    private String picname;
+    @Column(name="PICNAME",nullable = false, length = 10)
+    private String picName;
 
     @Lob
-    @Column(columnDefinition = "BLOB")
-    private byte[] upfile;
+    @Column(name="UPFILE",columnDefinition = "BLOB")
+    private byte[] upFile;
 
-    @Transient
-    private String upfileBase64;
 
 }

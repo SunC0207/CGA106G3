@@ -17,43 +17,43 @@ import java.util.Optional;
 @RequestMapping("/item")
 public class ItemController {
     @Autowired
-    private ItemService itemservice;
+    private ItemService itemService;
     @PostMapping("/add")
     public Item addItem(@RequestBody Item item){
-        return itemservice.addItem(item);
+        return itemService.addItem(item);
     }
 
     @RequestMapping("/update/{row}")
     public Item updateItem(@PathVariable("row") int row, @RequestBody Item item) {
-        item.setItemno(row);
-        return itemservice.addItem(item);
+        item.setItemNo(row);
+        return itemService.addItem(item);
     }
 
     @RequestMapping("/find")
-    public Optional<Item> findItemById(Integer itemno, HttpServletResponse hsr){
+    public Optional<Item> findItemById(Integer itemNo, HttpServletResponse hsr){
         hsr.addHeader("Access-Control-Allow-Origin","*");
-        return itemservice.findItemById(itemno);
+        return itemService.findItemById(itemNo);
     }
 
     @RequestMapping("/findAll")
     public Page<ItemDTO> getAllItem(@RequestParam int page, @RequestParam int size){
         Pageable pageable = PageRequest.of(page -1, size);
-        return itemservice.findAllItemDTO(pageable);
+        return itemService.findAllItemDTO(pageable);
     }
 
     @RequestMapping("/getTotalPages")
     public int getTotalPages(@RequestParam int size){
-        int totalRecords = (int) itemservice.count();
+        int totalRecords = (int) itemService.count();
         return (totalRecords + size - 1) / size;
     }
 
     @PostMapping("/updateIsta")
-    public ResponseEntity<String> updateIsta(@RequestParam("itemno") Integer itemno, @RequestParam("ista") Integer ista){
-        Optional<Item> optionalItem = itemservice.findItemById(itemno);
+    public ResponseEntity<String> updateIsta(@RequestParam("itemNo") Integer itemNo, @RequestParam("iSta") Integer iSta){
+        Optional<Item> optionalItem = itemService.findItemById(itemNo);
         if(optionalItem.isPresent()){
             Item item = optionalItem.get();
-            item.setIsta(ista);
-            itemservice.updateItem(item);
+            item.setISta(iSta);
+            itemService.updateItem(item);
             return ResponseEntity.ok("Success");
         }else {
             return ResponseEntity.notFound().build();

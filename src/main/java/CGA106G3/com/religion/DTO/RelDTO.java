@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class RelDTO {
-    private Integer relno;
-    private String relname;
+    private Integer relNo;
+    private String relName;
 }

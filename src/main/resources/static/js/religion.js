@@ -6,10 +6,10 @@ $(document).ready(() => {
             const table = document.querySelector('#table');
 
             const bodyCells = data.map(obj => {
-                const religionName = obj['relname'];
+                const religionName = obj['relName'];
                 const religionNameCell = `<td id="${religionName}">${religionName}</td>`;
                 const editButtonCell = `<td><button type="button" class="btn btn-primary ms-2 update-btn">編輯</button></td>`;
-                const row = obj['relno'];
+                const row = obj['relNo'];
                 const rowCells = `<td id="${row}">${row}</td>`
                 return `<tr>${rowCells}${religionNameCell}${editButtonCell}</tr>`;
             }).join('');
@@ -71,7 +71,7 @@ $(document).ready(() => {
                                         'Content-Type': 'application/json'
                                     },
                                     body: JSON.stringify({
-                                        relname: newValue
+                                        relName: newValue
                                     })
                                 }).then(() => {
                                     // Update the cell in the table
@@ -121,7 +121,7 @@ addButton.addEventListener('click', () => {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        relname: newReligionName
+                        relName: newReligionName
                     })
                 }).then(response => {
                     if (!response.ok) {
@@ -149,7 +149,7 @@ searchForm.addEventListener('submit', function (event) {
     const formData = new FormData(searchForm);
     const searchValue = formData.get('search');
 
-    fetch(`rel/findbyid?relno=${searchValue}`, {
+    fetch(`rel/findById?relNo=${searchValue}`, {
         method: 'GET'
     }).then(response => {
         response.json().then(data => {
@@ -162,8 +162,8 @@ searchForm.addEventListener('submit', function (event) {
                 <th scope="col">修改</th>
             </tr>
             <tr>
-                <td id="${data.relno}">${data.relno}</td>
-                <td id="${data.relname}">${data.relname}</td>
+                <td id="${data.relNo}">${data.relNo}</td>
+                <td id="${data.relName}">${data.relName}</td>
                 <td><button type="button" class="btn btn-primary ms-2 update-btn">編輯</button></td>
             </tr>`
             table.innerHTML += bodyCells;

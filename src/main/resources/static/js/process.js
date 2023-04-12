@@ -22,23 +22,23 @@ $(document).ready(() => {
             response.json().then(data => {
                 const table = document.querySelector('#table');
                 const bodyCells = data.content.map(obj => {
-                    const proseq = obj['proseq'];
-                    const proseqCell = `<td id="${proseq}" class="${proseq <= 199 ? 'proseq-chinese' : proseq <= 299 && proseq >= 200 ? 'proseq-western' : 'proseq-buddhist'}">${proseq}</td>`;
-                    const prono = obj['prono'];
-                    const pronoCell = `<td id="${prono}" class="prono">${prono}</td>`;
-                    const proname = obj['proname'];
-                    const pronameCell = `<td id="${proname}">${proname}</td>`;
-                    const cerno = obj['cerno'];
-                    const cernoCell = `<td id="${cerno}">${cerno}</td>`;
-                    const prosta = obj['prosta'];
-                    const prostaOptions = `
-                        <select id="prosta-${prono}" class="form-select">
-                            <option value="1" ${prosta === 1 && 'selected'}>上架</option>
-                            <option value="2" ${prosta === 2 && 'selected'}>下架</option>
+                    const proSeq = obj['proSeq'];
+                    const proSeqCell = `<td id="${proSeq}" class="${proSeq <= 199 ? 'proSeq-chinese' : proSeq <= 299 && proSeq >= 200 ? 'proSeq-western' : 'proSeq-buddhist'}">${proSeq}</td>`;
+                    const proNo = obj['proNo'];
+                    const proNoCell = `<td id="${proNo}" class="proNo">${proNo}</td>`;
+                    const proName = obj['proName'];
+                    const proNameCell = `<td id="${proName}">${proName}</td>`;
+                    const cerNo = obj['cerNo'];
+                    const cerNoCell = `<td id="${cerNo}">${cerNo}</td>`;
+                    const proSta = obj['proSta'];
+                    const proStaOptions = `
+                        <select id="proSta-${proNo}" class="form-select">
+                            <option value="1" ${proSta === 1 && 'selected'}>上架</option>
+                            <option value="2" ${proSta === 2 && 'selected'}>下架</option>
                         </select>`;
-                    const prostaCell = `<td>${prostaOptions}</td>`;
+                    const proStaCell = `<td>${proStaOptions}</td>`;
                     const editButtonCell = `<td><button type="button" class="btn btn-primary ms-2 update-btn">編輯</button></td>`;
-                    return `<tr>${proseqCell}${pronoCell}${pronameCell}${cernoCell}${editButtonCell}${prostaCell}</tr>`;
+                    return `<tr>${proSeqCell}${proNoCell}${proNameCell}${cerNoCell}${editButtonCell}${proStaCell}</tr>`;
                 }).join('');
                 table.querySelector('tbody').innerHTML = bodyCells;
 
@@ -124,11 +124,11 @@ function updatebtn() {
                         })
                     ) {
                         // Update the data
-                        const proname = cell.getAttribute('id');
+                        const proName = cell.getAttribute('id');
                         const row = cell.parentElement.querySelector('td:nth-child(2)').getAttribute('id');
-                        const prosta = cell.parentElement.querySelector('select option:checked').value;
-                        const cerno = cell.nextElementSibling.getAttribute('id');
-                        const proseq = cell.previousElementSibling.previousElementSibling.getAttribute('id');
+                        const proSta = cell.parentElement.querySelector('select option:checked').value;
+                        const cerNo = cell.nextElementSibling.getAttribute('id');
+                        const proSeq = cell.previousElementSibling.previousElementSibling.getAttribute('id');
                         // Send a PUT request to update the data on the server
                         fetch(`/pro/update/${row}`, {
                             method: 'PUT',
@@ -136,10 +136,10 @@ function updatebtn() {
                                 'Content-Type': 'application/json'
                             },
                             body: JSON.stringify({
-                                proname: newValue,
-                                prosta: prosta,
-                                cerno: cerno,
-                                proseq: proseq
+                                proName: newValue,
+                                proSta: proSta,
+                                cerNo: cerNo,
+                                proSeq: proSeq
                             })
                         }).then(() => {
                             // Update the cell in the table
@@ -161,14 +161,14 @@ function updatebtn() {
 }
 
 $(document).on('change', '.form-select', function () {
-    const pronoText = $(this).closest('tr').find('.prono').text();
-    const prosta = $(this).val();
+    const proNoText = $(this).closest('tr').find('.proNo').text();
+    const proSta = $(this).val();
     $.ajax({
-        url: '/pro/updateProsta',
+        url: '/pro/updateproSta',
         method: 'POST',
         data: {
-            prono: pronoText,
-            prosta: prosta
+            proNo: proNoText,
+            proSta: proSta
         },
         datatype: 'json',
         success: function (response) {

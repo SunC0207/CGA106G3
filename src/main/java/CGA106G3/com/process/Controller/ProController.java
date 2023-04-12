@@ -25,14 +25,14 @@ public class ProController {
 
     @RequestMapping("/update/{row}")
     public Pro updatePro(@PathVariable("row") int row, @RequestBody Pro pro) {
-        pro.setProno(row);
+        pro.setProNo(row);
         return proservice.addPro(pro);
     }
 
     @RequestMapping("/find")
-    public Optional<Pro> findProById(Integer prono, HttpServletResponse hsr){
+    public Optional<Pro> findProById(Integer proNo, HttpServletResponse hsr){
         hsr.addHeader("Access-Control-Allow-Origin","*");
-        return proservice.findProById(prono);
+        return proservice.findProById(proNo);
     }
 
     @RequestMapping("/findAll")
@@ -47,12 +47,12 @@ public class ProController {
         return (totalRecords + size - 1) / size;
     }
 
-    @PostMapping("/updateProsta")
-    public ResponseEntity<String> updateProsta(@RequestParam("prono") Integer prono, @RequestParam("prosta") Integer prosta){
-        Optional<Pro> optionalPro = proservice.findProById(prono);
+    @PostMapping("/updateProSta")
+    public ResponseEntity<String> updateProSta(@RequestParam("proNo") Integer proNo, @RequestParam("proSta") Integer proSta){
+        Optional<Pro> optionalPro = proservice.findProById(proNo);
         if(optionalPro.isPresent()){
             Pro pro = optionalPro.get();
-            pro.setProsta(prosta);
+            pro.setProSta(proSta);
             proservice.updatePro(pro);
             return ResponseEntity.ok("Success");
         }else {
