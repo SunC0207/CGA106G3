@@ -15,6 +15,7 @@ public interface PODetailService {
 
     List<PODetailDTO> getByDateRange(PODetailRangeDTO poDetailRangeDTO);
 
+
     List<ScheduleDTO> getByDateRangeAndPono(PODetailRangeDTO poDetailRangeDTO);
 
     List<PODetailDTO> findByLocno(Integer locno);
