@@ -108,6 +108,7 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
+
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -118,10 +119,9 @@
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
                                     <img class="rounded-circle" src="img/user.jpg" alt=""
-                                    style="width: 40px; height: 40px;">
+                                        style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        
                                         <small>15 minutes ago</small>
                                     </div>
                                 </div>
@@ -196,25 +196,76 @@
             <!-- Table Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
+                    <nav style="width: min-content;" class=" rounded navbar-nav navbar bg-secondary navbar-dark">
+                        <div class="navbar-nav w-100">
+                            <div class="nav-item dropdown">
+                                <a  href="#" id="religion" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                        class="fa fa-laptop me-2"></i>宗教</a>
+                                <div id="religion-div" class="dropdown-menu bg-transparent border-0">
+                                    <a href="" class="dropdown-item">Buttons</a>
+                                    <a href="" class="dropdown-item">Typography</a>
+                                    <a href="" class="dropdown-item">Other Elements</a>
+                                </div>
+                            </div>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                        class="fa fa-laptop me-2"></i>儀式</a>
+                                <div class="dropdown-menu bg-transparent border-0">
+                                    <a href="" class="dropdown-item">Buttons</a>
+                                    <a href="" class="dropdown-item">Typography</a>
+                                    <a href="" class="dropdown-item">Other Elements</a>
+                                </div>
+                            </div>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                        class="fa fa-laptop me-2"></i>流程</a>
+                                <div class="dropdown-menu bg-transparent border-0">
+                                    <a href="" class="dropdown-item">Buttons</a>
+                                    <a href="" class="dropdown-item">Typography</a>
+                                    <a href="" class="dropdown-item">Other Elements</a>
+                                </div>
+                            </div>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                        class="fa fa-laptop me-2"></i>細項</a>
+                                <div class="dropdown-menu bg-transparent border-0">
+                                    <a href="" class="dropdown-item">Buttons</a>
+                                    <a href="" class="dropdown-item">Typography</a>
+                                    <a href="" class="dropdown-item">Other Elements</a>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-secondary rounded h-100 p-4">
-                            <form style="width:fit-content;" id="search-form" class="d-none d-md-flex ms-4">
-                            <input class="form-control bg-dark border-0" type="search" id="search" name="search"
-                                placeholder="Search">
-                            <button type="submit" class="btn btn-primary ms-2" style="width: 30%;">搜尋</button>
-                        </form>
-                            <button type="button" class="btn btn-square btn-primary m-2" style="float: right;"
-                                id="add">+</button>
-                            <h6 class="mb-4">宗教管理</h6>
-                            
+                            <h6 class="mb-4">儀式管理</h6>
                             <table class="table" id="table">
                                 <thead>
                                     <tr>
+                                        <th scope="col">儀式編號</th>
+                                        <th scope="col">儀式名稱</th>
                                         <th scope="col">宗教編號</th>
-                                        <th scope="col">宗教名稱</th>
-                                        <th scope="col">修改</th>
                                     </tr>
+                                </thead>
+                                <tbody id="tableBody"></tbody>
                             </table>
+                            <nav>
+                                <ul class="pagination">
+                                    <li class="page-item ${pageNum === 1 ? 'disabled' : ''}">
+                                        <a class="page-link" href="#" data-page="${pageNum - 1}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+                                    ${pageButtons}
+                                    <li class="page-item ${pageNum === totalPage ? 'disabled' : ''}">
+                                        <a class="page-link" href="#" data-page="${pageNum + 1}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
 
                         </div>
                     </div>
@@ -266,7 +317,7 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    <script src="js/religion.js"></script>
+    <script src="js/addorder.js"></script>
     <script src="sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />

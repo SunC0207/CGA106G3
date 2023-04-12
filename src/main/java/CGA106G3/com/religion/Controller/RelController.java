@@ -22,26 +22,31 @@ public class RelController {
         return relservice.addRel(rel);
     }
 
-    @GetMapping("/{relname}")
-    public Optional<Rel> findByRelname(@PathVariable String relname) {
-        return relservice.findByRelname(relname);
+    @GetMapping("/{relName}")
+    public Optional<Rel> findByRelName(@PathVariable String relName) {
+        return relservice.findByRelName(relName);
     }
 
     @RequestMapping("/update/{row}")
     public Rel updateRel(@PathVariable("row") int row, @RequestBody Rel rel) {
-        rel.setRelno(row);
+        rel.setRelNo(row);
         return relservice.addRel(rel);
     }
 
-    @RequestMapping("/findbyid")
-    public Optional<Rel> findRelById(Integer relno, HttpServletResponse hsr){
+    @RequestMapping("/findById")
+    public Optional<Rel> findRelById(Integer relNo, HttpServletResponse hsr){
         hsr.addHeader("Access-Control-Allow-Origin","*");
-        return relservice.findRelById(relno);
+        return relservice.findRelById(relNo);
     }
 
     @RequestMapping("/findAll")
     public List<RelDTO> getAllRel(){
         return relservice.getAllRel();
     }
+
+//    @RequestMapping("/findCereName")
+//    public List<String> getCeremonyName(Integer relNo){
+//        return relservice.getCeremonyName(relNo);
+//    }
 
 }
