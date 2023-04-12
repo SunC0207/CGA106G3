@@ -3,10 +3,8 @@ package CGA106G3.com.memoitem.Controller;
 import CGA106G3.com.memoitem.DTO.MemoitemDTO;
 import CGA106G3.com.memoitem.Service.MemoitemServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,7 +13,24 @@ import java.util.List;
 public class MemoitemController {
     @Autowired
     private MemoitemServiceImpl service;
-
-    @PostMapping("/getAll")
+    @GetMapping("/getOne")
+    public MemoitemDTO getOne(@RequestParam Integer mino){
+        return service.getOne(mino);
+    }
+    @GetMapping("/SearchByName")
+    public List<MemoitemDTO> getByMemoitemName(@RequestParam String miname){return  service.getByName(miname);}
+    @GetMapping("/SearchBySTA")
+    public List<MemoitemDTO> getByMemoitemSTA(@RequestParam Integer mista){return  service.getBySTA(mista);}
+    @PostMapping("/UpdateMemoitem")
+    public  MemoitemDTO updateMemoitem(@RequestBody MemoitemDTO memoitemDTO){
+        return  service.addMemoitem(memoitemDTO);
+    }
+    @PostMapping("/addMemoitem")
+    public void addMemoitem(@RequestBody MemoitemDTO memoitemDTO){
+        service.addMemoitem(memoitemDTO);
+    }
+    @GetMapping("/getAll")
     public List<MemoitemDTO> getAllmemotiem(){return service.getAll();};
+    @GetMapping("/SearchBymicateno")
+    public List<MemoitemDTO> findByMicateno(@RequestParam Integer micateno){return service.findByMicateno(micateno);}
 }

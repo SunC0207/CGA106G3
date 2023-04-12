@@ -6,7 +6,7 @@ import java.sql.Blob;
 
 @Data
 public class MemoitempicDTO {
-    private Integer mipicno;
-    private Blob mino;
+    private Integer mipicnomino;
+    private Blob mipicno;
     private String mipicname;
 }
