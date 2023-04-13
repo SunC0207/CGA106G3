@@ -804,7 +804,8 @@
               listTbody(data);
             });
         } else if (!isNaN(searchEmp.value)) {
-          fetch(`/getOne?empno=${searchEmp.value}`)
+          console.log("123");
+          fetch(`/empManage/getOne?empno=${searchEmp.value}`)
             .then((response) => response.json())
             .then((data) => {
               listOneTbody(data);
