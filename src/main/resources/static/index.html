@@ -40,6 +40,21 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet" />
+    <style>
+      #chat {
+        
+        position: fixed;
+        
+        bottom: 0;
+        
+        right: 100px;
+        width: 450px;
+        height: 50px;
+    }
+    .showChat{
+        height: 550px !important;
+    }
+    </style>
   </head>
 
   <body>
@@ -158,17 +173,20 @@
         <!-- Widgets End -->
 
         <!-- Footer Start -->
-        <div class="container-fluid pt-4 px-4">
-          <div class="bg-secondary rounded-top p-4">
-            <div class="row">
-              <div class="col-12 col-sm-6 text-center text-sm-start">
-                &copy; <a href="#">Your Site Name</a>, All Right Reserved.
-              </div>
-              <div class="col-12 col-sm-6 text-center text-sm-end">
-                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-              </div>
+        <div class="p-2 mb-2 bg-white text-dark" id="chat">
+          <div class="p-2 mb-2 bg-danger text-white" id="chatBar" style="position: sticky;">
+              <i class="bi bi-arrow-bar-left" id="chatBackbtn"></i>
+              <span>聊天室</span>
+             
+          </div>
+          <div style="background-color: lightblue; width: 100%;height: 80%;">
+            <div id="messageArea">
+
             </div>
+          </div>
+          <div class="inputHolder">
+              <input type="text" id = "chatInput" style="width: 350px;" onkeydown="if (event.keyCode == 13) send();">
+              <button type="button" class="btn btn-outline-danger m-2" id="chatSendbtn" onclick="send();">送出</button>
           </div>
         </div>
         <!-- Footer End -->
@@ -176,9 +194,7 @@
       <!-- Content End -->
 
       <!-- Back to Top -->
-      <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
-        ><i class="bi bi-arrow-up"></i
-      ></a>
+      
     </div>
 
     <!-- JavaScript Libraries -->
@@ -191,6 +207,8 @@
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
     <!-- Template Javascript -->
     
@@ -362,7 +380,127 @@
               break;
           }
         }
+        connect();
       };
     </script>
+
+
+<script>
+  let chatBar = document.getElementById("chatBar");
+  chatBar.addEventListener("click",function(){
+     $("#chat").toggleClass("showChat");
+     
+  })
+</script>
+
+
+<!-- webSocket聊天室 -->
+<script>
+  // <div class="p-2 mb-2 bg-white text-dark" id="chat">
+  //         <div class="p-2 mb-2 bg-danger text-white" id="chatBar" style="position: sticky;">
+  //             <i class="bi bi-arrow-bar-left" id="chatBackbtn"></i>
+  //             <span>聊天室</span>
+             
+  //         </div>
+  //         <div style="background-color: black; width: 100%;height: 80%;">
+              
+  //         </div>
+  //         <div class="inputHolder">
+  //             <input type="text" id = "chatInput" style="width: 350px;">
+  //             <button type="button" class="btn btn-outline-danger m-2" id="chatSendbtn">送出</button>
+  //         </div>
+  //       </div>
+  let stompClient = null;
+  let username = null;
+
+  let chatInput = document.getElementById("chatInput");
+
+  let chatArea = document.getElementById("messageArea");
+
+  // let chatSendbtn = document.getElementById("chatSendbtn");
+
+  // let chatbar = document.getElementById("chatBar");
+
+function connect(event){
+  console.log("connect");
+  username = sessionStorage.getItem("ename");
+  let socket = new SockJS("/ws");
+  stompClient = Stomp.over(socket);
+  stompClient.connect({},onConnect,onError);
+  // event.preventDefault();
+  
+}
+
+function onConnect(){
+  console.log("onConnect");
+  stompClient.subscribe("/chatroom/public",onMessageReceived)
+}
+function onError(error){
+  console.log("error");
+}
+
+function send(event){
+  console.log("send");
+  let messageContext = chatInput.value.trim();
+
+  if(messageContext&&stompClient){
+    let messageSend ={
+      senderName:username,
+      message:chatInput.value,
+      status:"MESSAGE",
+      date:moment().format("YYYY-MM-D kk:mm")
+    }
+    stompClient.send("/app/message",{},JSON.stringify(messageSend));
+  chatInput.value ="";
+  };
+  // event.preventDefault();
+}
+
+function onMessageReceived(payload){
+
+  let message = JSON.parse(payload.body);
+  console.log(message);
+
+  let messageElement = document.createElement("div");
+
+  messageElement.classList.add("chat-message");
+
+
+
+  let usernameElement = document.createElement("span");
+  let usernameText =document.createTextNode(message.senderName);
+  usernameElement.appendChild(usernameText);
+  messageElement.appendChild(usernameElement);
+
+  let sendtime = document.createElement("span");
+  let time =document.createTextNode(message.date);
+  sendtime.setAttribute("style","color:gray;")
+  sendtime.appendChild(time);
+  messageElement.appendChild(sendtime);
+
+  let textElement = document.createElement("p");
+  let messageText = document.createTextNode(message.message);
+  textElement.appendChild(messageText);
+
+  messageElement.appendChild(textElement);
+
+  chatArea.appendChild(messageElement);
+  chatArea.scrollTop =chatArea.scrollHeight;
+
+
+  // function getAvatarColor(messageSender){
+  //   let hash = 0;
+    
+  //     hash =31*hash+messageSender.charCodeAt(i);
+    
+  //   let index = Math.abs(hash % colors.length);
+  //   return colors[index];
+  // }
+// chatBar.addEventListener("click", connect, true);
+
+// chatSendbtn.addEventListener("click",function(){console.log("click")},true);
+
+}
+</script>
   </body>
 </html>

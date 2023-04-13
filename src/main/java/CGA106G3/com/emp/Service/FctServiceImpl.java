@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class FctServiceImpl {
+public class FctServiceImpl implements FctService{
     @Autowired
     private FctRepository repository;
     @Autowired
@@ -23,6 +23,8 @@ public class FctServiceImpl {
                 .map(this::EntityToDTO)
                 .collect(Collectors.toList());
     }
+
+
 
     public FctDTO EntityToDTO(Fct fct){
         FctDTO fctDTO = new FctDTO();

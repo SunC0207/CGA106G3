@@ -6,7 +6,7 @@ import CGA106G3.com.emp.Entity.Fct;
 import java.util.List;
 
 public interface FctService {
-    public List<FctDTO> getAllFct();
-    public FctDTO EntityToDTO(Fct fct);
+    List<FctDTO> getAllFct();
+
 
 }

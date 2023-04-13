@@ -40,20 +40,7 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet" />
-    <style>
-      #chat {
-        
-        position: fixed;
-        bottom: 0;
-        
-        right: 100px;
-        width: 450px;
-        height: 50px;
-    }
-    .showChat{
-        height: 550px !important;
-    }
-    </style>
+    
   </head>
 
   <body>
@@ -301,20 +288,7 @@
         <!-- Footer Start -->
 
         <!-- Footer End -->
-        <div class="p-2 mb-2 bg-white text-dark" id="chat">
-            <div class="p-2 mb-2 bg-danger text-white" id="chatBar" style="position: sticky;">
-                <i class="bi bi-arrow-bar-left" id="chatBackbtn"></i>
-                <span>聊天室</span>
-               
-            </div>
-            <div style="background-color: black; width: 100%;height: 80%;">
-                
-            </div>
-            <div class="inputHolder">
-                <input type="text" id = "chatInput" style="width: 350px;">
-                <button type="button" class="btn btn-outline-danger m-2" id="chatSendbtn">送出</button>
-            </div>
-        </div>
+        
       
       <!-- Content End -->
     </div>
@@ -333,12 +307,5 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
   </body>
-  <script>
-    let chatBar = document.getElementById("chatBar");
-    chatBar.addEventListener("click",function(){
-       $("#chat").toggleClass("showChat");
-       
-    })
-
-  </script>
+  
 </html>

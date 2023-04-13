@@ -15,8 +15,9 @@ public class ChatController {
     private SimpMessagingTemplate simpMessagingTemplate;
 
     @MessageMapping("/message")// /app/message
-    @SendTo("/chatroom")
+    @SendTo("/chatroom/public")
     private Message receivePublicMessage(@Payload Message message){
+        System.out.println("receice");
         return message;
     }
 
