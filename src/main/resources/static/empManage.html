@@ -1,367 +1,585 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>DarkPan - Bootstrap 5 Admin Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
 
-<head>
-  <meta charset="utf-8" />
-  <title>DarkPan - Bootstrap 5 Admin Template</title>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <meta content="" name="keywords" />
-  <meta content="" name="description" />
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon" />
 
-  <!-- Favicon -->
-  <link href="img/favicon.ico" rel="icon" />
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Google Web Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
-    rel="stylesheet" />
+    <!-- Icon Font Stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
 
-  <!-- Icon Font Stylesheet -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link
+      href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
+      rel="stylesheet"
+    />
 
-  <!-- Libraries Stylesheet -->
-  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
-  <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
 
-  <!-- Customized Bootstrap Stylesheet -->
-  <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet" />
 
-  <!-- Template Stylesheet -->
-  <link href="css/style.css" rel="stylesheet" />
+    <style>
+      #searchEmp {
+        display: inline;
+        width: 200px;
+      }
+      #searchEmpbtn {
+        display: inline-block;
+      }
+      #search {
+        position: absolute;
+        right: 50px;
+        top: 100px;
+        /* background-color: aliceblue; */
+        width: 350px;
+      }
+      #callAddEmp {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+      }
+      .relative {
+        position: relative;
+        z-index: 2;
+      }
 
-  <style>
-    #searchEmp {
-      display: inline;
-      width: 200px;
-    }
+      .relative i {
+        position: absolute;
+        right: 18px;
+        top: 20%;
+        z-index: 1;
+      }
+      input::-webkit-calendar-picker-indicator {
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: transparent;
+        position: absolute;
+        z-index: 2;
+      }
+      #addEmp {
+        position: absolute;
+        right: 30px;
+        bottom: 30px;
+        width: 100px;
+      }
+      #cancelAdd {
+        position: absolute;
+        right: 150px;
+        bottom: 30px;
+        width: 70px;
+      }
+    </style>
+  </head>
 
-    #searchEmpbtn {
-      display: inline-block;
-    }
-
-    #search {
-      position: absolute;
-      right: 50px;
-      top: 100px;
-      /* background-color: aliceblue; */
-      width: 350px;
-    }
-
-    #callAddEmp {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-    }
-
-    .relative {
-      position: relative;
-      z-index: 2;
-    }
-
-    .relative i {
-      position: absolute;
-      right: 18px;
-      top: 20%;
-      z-index: 1;
-    }
-
-    input::-webkit-calendar-picker-indicator {
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background: transparent;
-      position: absolute;
-      z-index: 2;
-    }
-
-    #addEmp {
-      position: absolute;
-      right: 30px;
-      bottom: 30px;
-      width: 100px;
-    }
-
-    #cancelAdd {
-      position: absolute;
-      right: 150px;
-      bottom: 30px;
-      width: 70px;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="container-fluid position-relative d-flex p-0">
-    <!-- Spinner Start -->
-    <div id="spinner"
-      class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-      <div class="spinner-border text-primary" style="width: 3rem; height: 3rem" role="status">
-        <span class="sr-only">Loading...</span>
+  <body>
+    <div class="container-fluid position-relative d-flex p-0">
+      <!-- Spinner Start -->
+      <div
+        id="spinner"
+        class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+      >
+        <div
+          class="spinner-border text-primary"
+          style="width: 3rem; height: 3rem"
+          role="status"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
       </div>
-    </div>
-    <!-- Spinner End -->
+      <!-- Spinner End -->
 
-    <!-- Sidebar Start -->
-    <div class="sidebar pe-4 pb-3">
-      <nav class="navbar bg-secondary navbar-dark">
-        <a href="index.html" class="navbar-brand mx-4 mb-3">
-          <h3 class="text-primary">
-            <i class="fa fa-user-edit me-2"></i>彼岸
-          </h3>
-        </a>
-        <div class="d-flex align-items-center ms-4 mb-4">
-          <div class="position-relative">
-            <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px" />
-            <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+      <!-- Sidebar Start -->
+      <div class="sidebar pe-4 pb-3">
+        <nav class="navbar bg-secondary navbar-dark">
+          <a href="index.html" class="navbar-brand mx-4 mb-3">
+            <h3 class="text-primary">
+              <i class="fa fa-user-edit me-2"></i>彼岸
+            </h3>
+          </a>
+          <div class="d-flex align-items-center ms-4 mb-4">
+            <div class="position-relative">
+              <img
+                class="rounded-circle"
+                src="img/user.jpg"
+                alt=""
+                style="width: 40px; height: 40px"
+              />
+              <div
+                class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"
+              ></div>
+            </div>
+            <div class="ms-3">
+              <h6 class="mb-0">徐淞熙</h6>
             </div>
           </div>
-          <div class="ms-3">
-            <h6 class="mb-0">徐淞熙</h6>
-          </div>
-        </div>
-        <div class="navbar-nav w-100">
-          <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-          <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                class="fa fa-laptop me-2"></i>Elements</a>
-            <div class="dropdown-menu bg-transparent border-0">
-              <a href="button.html" class="dropdown-item">Buttons</a>
-              <a href="typography.html" class="dropdown-item">Typography</a>
-              <a href="element.html" class="dropdown-item">Other Elements</a>
+          <div class="navbar-nav w-100">
+            <a href="index.html" class="nav-item nav-link"
+              ><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a
+            >
+            <div class="nav-item dropdown">
+              <a
+                href="#"
+                class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+                ><i class="fa fa-laptop me-2"></i>Elements</a
+              >
+              <div class="dropdown-menu bg-transparent border-0">
+                <a href="button.html" class="dropdown-item">Buttons</a>
+                <a href="typography.html" class="dropdown-item">Typography</a>
+                <a href="element.html" class="dropdown-item">Other Elements</a>
+              </div>
+            </div>
+            <a href="widget.html" class="nav-item nav-link"
+              ><i class="fa fa-th me-2"></i>Widgets</a
+            >
+            <a href="form.html" class="nav-item nav-link"
+              ><i class="fa fa-keyboard me-2"></i>Forms</a
+            >
+            <a href="table.html" class="nav-item nav-link active"
+              ><i class="fa fa-table me-2"></i>Tables</a
+            >
+            <a href="chart.html" class="nav-item nav-link"
+              ><i class="fa fa-chart-bar me-2"></i>Charts</a
+            >
+            <div class="nav-item dropdown">
+              <a
+                href="#"
+                class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+                ><i class="far fa-file-alt me-2"></i>Pages</a
+              >
+              <div class="dropdown-menu bg-transparent border-0">
+                <a href="signin.html" class="dropdown-item">Sign In</a>
+                <a href="signup.html" class="dropdown-item">Sign Up</a>
+                <a href="404.html" class="dropdown-item">404 Error</a>
+                <a href="blank.html" class="dropdown-item">Blank Page</a>
+              </div>
             </div>
           </div>
-          <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-          <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
-          <a href="table.html" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Tables</a>
-          <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
-          <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                class="far fa-file-alt me-2"></i>Pages</a>
-            <div class="dropdown-menu bg-transparent border-0">
-              <a href="signin.html" class="dropdown-item">Sign In</a>
-              <a href="signup.html" class="dropdown-item">Sign Up</a>
-              <a href="404.html" class="dropdown-item">404 Error</a>
-              <a href="blank.html" class="dropdown-item">Blank Page</a>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </div>
-    <!-- Sidebar End -->
+        </nav>
+      </div>
+      <!-- Sidebar End -->
 
-    <!-- Content Start -->
-    <div class="content">
-      <!-- Navbar Start -->
-      <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-        <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-          <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
-        </a>
-        <a href="#" class="sidebar-toggler flex-shrink-0">
-          <i class="fa fa-bars"></i>
-        </a>
+      <!-- Content Start -->
+      <div class="content">
+        <!-- Navbar Start -->
+        <nav
+          class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0"
+        >
+          <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+            <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+          </a>
+          <a href="#" class="sidebar-toggler flex-shrink-0">
+            <i class="fa fa-bars"></i>
+          </a>
 
-        <div class="navbar-nav align-items-center ms-auto">
-          <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-              <i class="fa fa-bell me-lg-2"></i>
-              <span class="d-none d-lg-inline-flex">通知</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-              <a href="#" class="dropdown-item">
-                <h6 class="fw-normal mb-0">行程通知</h6>
-                <small>您今日(3/18)上午9:00時 於天德廳...</small>
+          <div class="navbar-nav align-items-center ms-auto">
+            <div class="nav-item dropdown">
+              <a
+                href="#"
+                class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+              >
+                <i class="fa fa-bell me-lg-2"></i>
+                <span class="d-none d-lg-inline-flex">通知</span>
               </a>
-              <hr class="dropdown-divider" />
-              <a href="#" class="dropdown-item">
-                <h6 class="fw-normal mb-0">行程通知</h6>
-                <small>您今日(3/12)下午16:00時 於桃園市...</small>
+              <div
+                class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0"
+              >
+                <a href="#" class="dropdown-item">
+                  <h6 class="fw-normal mb-0">行程通知</h6>
+                  <small>您今日(3/18)上午9:00時 於天德廳...</small>
+                </a>
+                <hr class="dropdown-divider" />
+                <a href="#" class="dropdown-item">
+                  <h6 class="fw-normal mb-0">行程通知</h6>
+                  <small>您今日(3/12)下午16:00時 於桃園市...</small>
+                </a>
+                <hr class="dropdown-divider" />
+                <a href="#" class="dropdown-item text-center">查看所有通知</a>
+              </div>
+            </div>
+            <div class="nav-item dropdown">
+              <a
+                href="#"
+                class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+              >
+                <img
+                  class="rounded-circle me-lg-2"
+                  src="img/user.jpg"
+                  alt=""
+                  style="width: 40px; height: 40px"
+                />
+                <span class="d-none d-lg-inline-flex">徐淞熙</span>
               </a>
-              <hr class="dropdown-divider" />
-              <a href="#" class="dropdown-item text-center">查看所有通知</a>
+              <div
+                class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0"
+              >
+                <a href="#" class="dropdown-item">我的資料</a>
+                <a href="#" class="dropdown-item">登出</a>
+              </div>
             </div>
           </div>
-          <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-              <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px" />
-              <span class="d-none d-lg-inline-flex">徐淞熙</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-              <a href="#" class="dropdown-item">我的資料</a>
-              <a href="#" class="dropdown-item">登出</a>
-            </div>
-          </div>
-        </div>
-      </nav>
-      <!-- Navbar End -->
+        </nav>
+        <!-- Navbar End -->
 
-      <!-- Table Start -->
-      <div class="container-fluid pt-4 px-4">
-        <div class="row g-4" id="holder">
-          <div class="col-12">
-            <div class="bg-secondary rounded h-100 p-4">
-              <h6 class="mb-4">員工列表</h6>
-              <div id="search">
-                <input class="form-control bg-dark border-0" type="search" placeholder="搜尋員工" id="searchEmp" />
-                <button type="button" class="btn btn-primary m-2" id="searchEmpbtn">
-                  搜尋<i class="bi bi-search"></i>
+        <!-- Table Start -->
+        <div class="container-fluid pt-4 px-4">
+          <div class="row g-4" id="holder">
+            <div class="col-12">
+              <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">員工列表</h6>
+                <div id="search">
+                  <input
+                    class="form-control bg-dark border-0"
+                    type="search"
+                    placeholder="搜尋員工"
+                    id="searchEmp"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-primary m-2"
+                    id="searchEmpbtn"
+                  >
+                    搜尋<i class="bi bi-search"></i>
+                  </button>
+                </div>
+
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">員工編號</th>
+                        <th scope="col">員工姓名</th>
+                        <th scope="col">雇用日期</th>
+
+                        <th scope="col">在職狀態</th>
+                        <th scope="col">密碼</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                  </table>
+                </div>
+
+                <button
+                  class="btn btn-lg btn-primary btn-lg-square"
+                  id="callAddEmp"
+                  data-bs-toggle="modal"
+                  data-bs-target="#addEmpPatt"
+                >
+                  <i class="bi bi-person-plus"></i>
                 </button>
               </div>
-
-              <div class="table-responsive">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">員工編號</th>
-                      <th scope="col">員工姓名</th>
-                      <th scope="col">雇用日期</th>
-
-                      <th scope="col">在職狀態</th>
-                      <th scope="col">密碼</th>
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tbody id="tbody"></tbody>
-                </table>
-              </div>
-
-              <button class="btn btn-lg btn-primary btn-lg-square" id="callAddEmp" data-bs-toggle="modal"
-                data-bs-target="#addEmpPatt">
-                <i class="bi bi-person-plus"></i>
-              </button>
             </div>
           </div>
         </div>
-      </div>
-      <!-- Table End -->
+        <!-- Table End -->
 
-      <!--新增員工-->
+        <!--新增員工-->
 
-      <div class="modal" tabindex="-1" aria-hidden="true" id="addEmpPatt">
-        <div class="modal-dialog">
-          <div class="container-fluid pt-4 px-4">
-            <div class="row bg-secondary rounded align-items-center justify-content-center mx-0 modal-content">
-              <div class="row g-4">
-                <div class="col-sm-12 col-xl-6">
-                  <div class="bg-secondary rounded h-100 p-4">
-                    <h6 class="mb-4">新增/修改員工資料</h6>
-                    <div class="mb-3">
-                      <label class="form-label">員工編號</label>
-                      <input type="text" class="form-control" aria-describedby="emailHelp" id="empno" disabled />
+        <div class="modal" tabindex="-1" aria-hidden="true" id="addEmpPatt">
+          <div class="modal-dialog">
+            <div class="container-fluid pt-4 px-4">
+              <div
+                class="row bg-secondary rounded align-items-center justify-content-center mx-0 modal-content"
+              >
+                <div class="row g-4">
+                  <div class="col-sm-12 col-xl-6">
+                    <div class="bg-secondary rounded h-100 p-4">
+                      <h6 class="mb-4">新增/修改員工資料</h6>
+                      <div class="mb-3">
+                        <label class="form-label">員工編號</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          aria-describedby="emailHelp"
+                          id="empno"
+                          disabled
+                        />
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label">員工姓名</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          aria-describedby="emailHelp"
+                          id="ename"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">員工密碼</label>
+                        <input type="text" class="form-control" id="emppw" />
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label">雇用日期</label>
+                        <div class="relative">
+                          <input
+                            class="form-control"
+                            type="date"
+                            id="hiredate"
+                          />
+                          <i class="bi bi-calendar"></i>
+                        </div>
+                      </div>
+
+                      <label class="form-label">在職狀態</label>
+                      <select
+                        class="form-select mb-3"
+                        aria-label="Default select example"
+                        id="empsta"
+                      >
+                        <option selected value="0">在職</option>
+                        <option value="1">離職</option>
+                        <option value="2">停職</option>
+                      </select>
                     </div>
+                  </div>
+                  <div class="col-sm-12 col-xl-6">
+                    <div class="bg-secondary rounded h-100 p-4">
+                      <h6 class="mb-4">員工權限</h6>
 
-                    <div class="mb-3">
-                      <label class="form-label">員工姓名</label>
-                      <input type="text" class="form-control" aria-describedby="emailHelp" id="ename" />
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label">員工密碼</label>
-                      <input type="text" class="form-control" id="emppw" />
-                    </div>
-
-                    <div class="mb-3">
-                      <label class="form-label">雇用日期</label>
-                      <div class="relative">
-                        <input class="form-control" type="date" id="hiredate" />
-                        <i class="bi bi-calendar"></i>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value="2"
+                          name="fctno"
+                          id="fctno2"
+                        />
+                        <label class="form-check-label"> 建立禮儀服務 </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value="1"
+                          name="fctno"
+                          id="fctno1"
+                        />
+                        <label class="form-check-label"> 服務項目管理 </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value="6"
+                          name="fctno"
+                          id="fctno6"
+                        />
+                        <label class="form-check-label"> 網站資訊管理 </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value="7"
+                          name="fctno"
+                          id="fctno7"
+                        />
+                        <label class="form-check-label"> 員工及權限管理 </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value="5"
+                          name="fctno"
+                          id="fctno5"
+                        />
+                        <label class="form-check-label"> 會員資料管理 </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value="4"
+                          name="fctno"
+                          id="fctno4"
+                        />
+                        <label class="form-check-label"> 訂單管理 </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          value="3"
+                          name="fctno"
+                          id="fctno3"
+                        />
+                        <label class="form-check-label"> 排程瀏覽 </label>
                       </div>
                     </div>
-
-                    <label class="form-label">在職狀態</label>
-                    <select class="form-select mb-3" aria-label="Default select example" id="empsta">
-                      <option selected value="0">在職</option>
-                      <option value="1">離職</option>
-                      <option value="2">停職</option>
-                    </select>
                   </div>
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="addEmp"
+                    data-bs-dismiss="modal"
+                  >
+                    送出
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+                    id="cancelAdd"
+                  >
+                    取消
+                  </button>
                 </div>
-                <div class="col-sm-12 col-xl-6">
-                  <div class="bg-secondary rounded h-100 p-4">
-                    <h6 class="mb-4">員工權限</h6>
-
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="2" name="fctno" id="fctno2" />
-                      <label class="form-check-label"> 建立禮儀服務 </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="1" name="fctno" id="fctno1" />
-                      <label class="form-check-label"> 服務項目管理 </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="6" name="fctno" id="fctno6" />
-                      <label class="form-check-label"> 網站資訊管理 </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="7" name="fctno" id="fctno7" />
-                      <label class="form-check-label"> 員工及權限管理 </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="5" name="fctno" id="fctno5" />
-                      <label class="form-check-label"> 會員資料管理 </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="4" name="fctno" id="fctno4" />
-                      <label class="form-check-label"> 訂單管理 </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="3" name="fctno" id="fctno3" />
-                      <label class="form-check-label"> 排程瀏覽 </label>
-                    </div>
-                  </div>
-                </div>
-                <button type="submit" class="btn btn-primary" id="addEmp" data-bs-dismiss="modal">
-                  送出
-                </button>
-                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" id="cancelAdd">
-                  取消
-                </button>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Footer Start -->
-      <div class="container-fluid pt-4 px-4">
-        <div class="bg-secondary rounded-top p-4">
-          <div class="row">
-            <div class="col-12 col-sm-6 text-center text-sm-start">
-              &copy; <a href="#">Your Site Name</a>, All Right Reserved.
-            </div>
-            <div class="col-12 col-sm-6 text-center text-sm-end">
-              <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-              Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+        <!-- Footer Start -->
+        <div class="container-fluid pt-4 px-4">
+          <div class="bg-secondary rounded-top p-4">
+            <div class="row">
+              <div class="col-12 col-sm-6 text-center text-sm-start">
+                &copy; <a href="#">Your Site Name</a>, All Right Reserved.
+              </div>
+              <div class="col-12 col-sm-6 text-center text-sm-end">
+                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+              </div>
             </div>
           </div>
         </div>
+        <!-- Footer End -->
       </div>
-      <!-- Footer End -->
+      <!-- Content End -->
     </div>
-    <!-- Content End -->
-  </div>
 
-  <!-- JavaScript Libraries -->
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="lib/chart/chart.min.js"></script>
-  <script src="lib/easing/easing.min.js"></script>
-  <script src="lib/waypoints/waypoints.min.js"></script>
-  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="lib/tempusdominus/js/moment.min.js"></script>
-  <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-  <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-  <!-- Template Javascript -->
-  <script src="js/main.js"></script>
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
 
-  <script>
-    const tbody = document.getElementById("tbody");
-    //產生列表的方法
-    function listTbody(data) {
-      tbody.textContent = "";
-      //每次產生列表前 先清空
-      for (let i of data) {
+    <script>
+      const tbody = document.getElementById("tbody");
+      //產生列表的方法
+      function listTbody(data) {
+        tbody.textContent = "";
+        //每次產生列表前 先清空
+        for (let i of data) {
+          let tr = document.createElement("tr");
+          let th = document.createElement("th");
+          th.textContent = `${i.empno}`;
+          th.setAttribute("scope", "row");
+          tr.append(th);
+          let ename = document.createElement("td");
+          ename.textContent = `${i.ename}`;
+          tr.append(ename);
+
+          let hiredate = document.createElement("td");
+          hiredate.textContent = `${i.hiredate}`;
+          tr.append(hiredate);
+
+          let empsta = document.createElement("td");
+          switch (i.empsta) {
+            case 0: {
+              empsta.textContent = "在職";
+              tr.append(empsta);
+              break;
+            }
+            case 1: {
+              empsta.textContent = "離職";
+              tr.append(empsta);
+              break;
+            }
+            case 2: {
+              empsta.textContent = "停職";
+              tr.append(empsta);
+              break;
+            }
+          }
+
+          let emppw = document.createElement("td");
+          emppw.textContent = `${i.emppw}`;
+          tr.append(emppw);
+
+          let btntd = document.createElement("td");
+
+          let btn = document.createElement("button");
+          btn.textContent = "修改";
+          btn.setAttribute("type", "button");
+          btn.setAttribute("value", `${i.empno}`);
+          btn.setAttribute("class", "btn btn-link rounded-pill m-2");
+          btn.setAttribute("data-bs-toggle", "modal");
+          btn.setAttribute("data-bs-target", "#addEmpPatt");
+          btn.addEventListener("click", function () {
+            fetch(`/empManage/getOne?empno=${i.empno}`)
+              .then((response) => response.json())
+              .then((data) => {
+                document.getElementById("empno").value = data.empno;
+
+                document.getElementById("ename").value = data.ename;
+
+                document.getElementById("emppw").value = data.emppw;
+
+                document.getElementById("hiredate").value = data.hiredate;
+
+                document.getElementById("empsta").value = data.empsta;
+              });
+
+            fetch(`/Per/getPerByEmpno?empno=${i.empno}`)
+              .then((response) => response.json())
+              .then((data) => {
+                for (let i of data) {
+                  document.getElementById(`fctno${i.fctno}`).checked = true;
+                }
+              });
+          });
+
+          btntd.append(btn);
+          tr.append(btntd);
+
+          tbody.append(tr);
+        }
+      }
+
+      function listOneTbody(i) {
+        tbody.textContent = "";
+        //每次產生列表前 先清空
+
         let tr = document.createElement("tr");
         let th = document.createElement("th");
         th.textContent = `${i.empno}`;
@@ -408,22 +626,10 @@
         btn.setAttribute("data-bs-toggle", "modal");
         btn.setAttribute("data-bs-target", "#addEmpPatt");
         btn.addEventListener("click", function () {
-          fetch(`http://localhost:8080/empManage/getOne?empno=${i.empno}`)
+          fetch(`/empManage/getOne?empno=${i.empno}`)
             .then((response) => response.json())
             .then((data) => {
               document.getElementById("empno").value = data.empno;
-          let btn = document.createElement("button");
-          btn.textContent = "修改";
-          btn.setAttribute("type", "button");
-          btn.setAttribute("value", `${i.empno}`);
-          btn.setAttribute("class", "btn btn-link rounded-pill m-2");
-          btn.setAttribute("data-bs-toggle", "modal");
-          btn.setAttribute("data-bs-target", "#addEmpPatt");
-          btn.addEventListener("click", function () {
-            fetch(`/empManage/getOne?empno=${i.empno}`)
-              .then((response) => response.json())
-              .then((data) => {
-                document.getElementById("empno").value = data.empno;
 
               document.getElementById("ename").value = data.ename;
 
@@ -434,15 +640,7 @@
               document.getElementById("empsta").value = data.empsta;
             });
 
-            fetch(`/Per/getPerByEmpno?empno=${i.empno}`)
-              .then((response) => response.json())
-              .then((data) => {
-                for (let i of data) {
-                  document.getElementById(`fctno${i.fctno}`).checked = true;
-                }
-              });
-          });
-          fetch(`http://localhost:8080/Per/getPerByEmpno?empno=${i.empno}`)
+          fetch(`/Per/getPerByEmpno?empno=${i.empno}`)
             .then((response) => response.json())
             .then((data) => {
               for (let i of data) {
@@ -456,107 +654,7 @@
 
         tbody.append(tr);
       }
-    }
-
-    function listOneTbody(i) {
-      tbody.textContent = "";
-      //每次產生列表前 先清空
-
-      let tr = document.createElement("tr");
-      let th = document.createElement("th");
-      th.textContent = `${i.empno}`;
-      th.setAttribute("scope", "row");
-      tr.append(th);
-      let ename = document.createElement("td");
-      ename.textContent = `${i.ename}`;
-      tr.append(ename);
-
-      let hiredate = document.createElement("td");
-      hiredate.textContent = `${i.hiredate}`;
-      tr.append(hiredate);
-
-      let empsta = document.createElement("td");
-      switch (i.empsta) {
-        case 0: {
-          empsta.textContent = "在職";
-          tr.append(empsta);
-          break;
-        }
-        case 1: {
-          empsta.textContent = "離職";
-          tr.append(empsta);
-          break;
-        }
-        case 2: {
-          empsta.textContent = "停職";
-          tr.append(empsta);
-          break;
-        }
-      }
-
-      let emppw = document.createElement("td");
-      emppw.textContent = `${i.emppw}`;
-      tr.append(emppw);
-
-      let btntd = document.createElement("td");
-
-        let btn = document.createElement("button");
-        btn.textContent = "修改";
-        btn.setAttribute("type", "button");
-        btn.setAttribute("value", `${i.empno}`);
-        btn.setAttribute("class", "btn btn-link rounded-pill m-2");
-        btn.setAttribute("data-bs-toggle", "modal");
-        btn.setAttribute("data-bs-target", "#addEmpPatt");
-        btn.addEventListener("click", function () {
-          fetch(`/empManage/getOne?empno=${i.empno}`)
-            .then((response) => response.json())
-            .then((data) => {
-              document.getElementById("empno").value = data.empno;
-      let btn = document.createElement("button");
-      btn.textContent = "修改";
-      btn.setAttribute("type", "button");
-      btn.setAttribute("value", `${i.empno}`);
-      btn.setAttribute("class", "btn btn-link rounded-pill m-2");
-      btn.setAttribute("data-bs-toggle", "modal");
-      btn.setAttribute("data-bs-target", "#addEmpPatt");
-      btn.addEventListener("click", function () {
-        fetch(`http://localhost:8080/empManage/getOne?empno=${i.empno}`)
-          .then((response) => response.json())
-          .then((data) => {
-            document.getElementById("empno").value = data.empno;
-
-            document.getElementById("ename").value = data.ename;
-
-            document.getElementById("emppw").value = data.emppw;
-
-            document.getElementById("hiredate").value = data.hiredate;
-
-            document.getElementById("empsta").value = data.empsta;
-          });
-
-        fetch(`http://localhost:8080/Per/getPerByEmpno?empno=${i.empno}`)
-          .then((response) => response.json())
-          .then((data) => {
-            for (let i of data) {
-              document.getElementById(`fctno${i.fctno}`).checked = true;
-            }
-          });
-      });
-          fetch(`/Per/getPerByEmpno?empno=${i.empno}`)
-            .then((response) => response.json())
-            .then((data) => {
-              for (let i of data) {
-                document.getElementById(`fctno${i.fctno}`).checked = true;
-              }
-            });
-        });
-
-      btntd.append(btn);
-      tr.append(btntd);
-
-      tbody.append(tr);
-    }
-  </script>
+    </script>
 
     <script>
       //進頁面直接呼叫 listAll
@@ -568,21 +666,12 @@
           });
       };
     </script>
-  <script>
-    //進頁面直接呼叫 listAll
 
-    fetch("http://localhost:8080/empManage/getAll")
-      .then((response) => response.json())
-      .then((data) => {
-        listTbody(data);
-      });
-  </script>
+    <script>
+      //員工的新修
+      const addEmpBtn = document.getElementById("addEmp");
 
-  <script>
-    //員工的新修
-    const addEmpBtn = document.getElementById("addEmp");
-
-    addEmpBtn.addEventListener("click", addEmp);
+      addEmpBtn.addEventListener("click", addEmp);
 
       function addEmp() {
         if ($("#empno").val() != "") {
@@ -594,52 +683,18 @@
               fctno: `${fctnoList[i].value}`,
             });
           }
-    addEmpBtn.addEventListener("click", function () {
-      fetch("http://localhost:8080/empManage/getAll")
-        .then((response) => response.json())
-        .then((data) => {
-          listTbody(data);
-        });
-    });
 
-    function addEmp() {
-      if ($("#empno").val() != "") {
-        let fctnoList = $('input[name = "fctno"]:checked');
-        let str = [];
-        for (let i = 0; i < fctnoList.length; i++) {
-          str.push({
-            empno: $("#empno").val(),
-            fctno: `${fctnoList[i].value}`,
-          });
-        }
+          let body = {
+            empDTO: {
+              empno: $("#empno").val(),
+              ename: $("#ename").val(),
+              hiredate: $("#hiredate").val(),
+              empsta: $("#empsta").val(),
+              emppw: $("#emppw").val(),
+            },
+            perDTOS: str,
+          };
 
-        let body = {
-          empDTO: {
-            empno: $("#empno").val(),
-            ename: $("#ename").val(),
-            hiredate: $("#hiredate").val(),
-            empsta: $("#empsta").val(),
-            emppw: $("#emppw").val(),
-          },
-          perDTOS: str,
-        };
-
-        fetch("/empManage/persistEmp", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
-        });
-        window.location.reload();
-      } else {
-        let body = {
-          empno: "",
-          ename: $("#ename").val(),
-          hiredate: $("#hiredate").val(),
-          empsta: $("#empsta").val(),
-          emppw: $("#emppw").val(),
-        };
           fetch("/empManage/persistEmp", {
             method: "POST",
             headers: {
@@ -657,23 +712,6 @@
             emppw: $("#emppw").val(),
           };
 
-        fetch("http://localhost:8080/empManage/addEmp", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            let fctnoList = $('input[name = "fctno"]:checked');
-            let str = [];
-            for (let i = 0; i < fctnoList.length; i++) {
-              str.push({
-                empno: data,
-                fctno: `${fctnoList[i].value}`,
-              });
-            }
           fetch("/empManage/addEmp", {
             method: "POST",
             headers: {
@@ -692,18 +730,6 @@
                 });
               }
 
-            fetch("http://localhost:8080/Per/addPer", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(str),
-            });
-          });
-        window.location.reload();
-      }
-    }
-  </script>
               fetch("/Per/addPer", {
                 method: "POST",
                 headers: {
@@ -717,60 +743,34 @@
       }
     </script>
 
-  <script>
-    //清除互動視窗參數
-    function clear() {
-      let fctnoList = $('input[name = "fctno"]');
-      for (let i of fctnoList) {
-        i.checked = false;
-      }
-      document.getElementById("empno").value = "";
-
-      document.getElementById("ename").value = "";
-
-      document.getElementById("emppw").value = "";
-
-      document.getElementById("hiredate").value = "";
-
-      document.getElementById("empsta").value = "";
-    }
-
-    document.getElementById("cancelAdd").addEventListener("click", clear);
-  </script>
-
-  <script>
-    //藉員工編號及名稱來搜尋員工
-    const searchEmpbtn = document.getElementById("searchEmpbtn");
-
-    searchEmpbtn.addEventListener("click", function () {
-      const searchEmp = document.getElementById("searchEmp");
-
-      if (!searchEmp.value) {
-        fetch("http://localhost:8080/empManage/getAll")
-          .then((response) => response.json())
-          .then((data) => {
-            listTbody(data);
-          });
-      } else if (
-        searchEmp.value === "在職" ||
-        searchEmp.value === "離職" ||
-        searchEmp.value === "停職"
-      ) {
-        let staNum;
-        switch (searchEmp.value) {
-          case "在職": {
-            staNum = 0;
-            break;
-          }
-          case "離職": {
-            staNum = 1;
-            break;
-          }
-          case "停職": {
-            staNum = 2;
-            break;
-          }
+    <script>
+      //清除互動視窗參數
+      function clear() {
+        let fctnoList = $('input[name = "fctno"]');
+        for (let i of fctnoList) {
+          i.checked = false;
         }
+        document.getElementById("empno").value = "";
+
+        document.getElementById("ename").value = "";
+
+        document.getElementById("emppw").value = "";
+
+        document.getElementById("hiredate").value = "";
+
+        document.getElementById("empsta").value = "";
+      }
+
+      document.getElementById("cancelAdd").addEventListener("click", clear);
+    </script>
+
+    <script>
+      //藉員工編號及名稱來搜尋員工
+      const searchEmpbtn = document.getElementById("searchEmpbtn");
+
+      searchEmpbtn.addEventListener("click", function () {
+        const searchEmp = document.getElementById("searchEmp");
+
         if (!searchEmp.value) {
           fetch("/empManage/getAll")
             .then((response) => response.json())
@@ -797,32 +797,6 @@
               break;
             }
           }
-
-        fetch(`http://localhost:8080/empManage/searchBySta?empsta=${staNum}`)
-          .then((response) => response.json())
-          .then((data) => {
-            listTbody(data);
-          });
-      } else if (!isNaN(searchEmp.value)) {
-        fetch(
-          `http://localhost:8080/empManage/getOne?empno=${searchEmp.value}`
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            listOneTbody(data);
-          });
-      } else {
-        fetch(
-          `http://localhost:8080/empManage/searchByEname?ename=${searchEmp.value}`
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            listTbody(data);
-          });
-      }
-    });
-  </script>
-</body>
 
           fetch(`/empManage/searchBySta?empsta=${staNum}`)
             .then((response) => response.json())
