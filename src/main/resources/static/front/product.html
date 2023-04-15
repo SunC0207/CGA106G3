@@ -307,11 +307,11 @@
         let item = document.querySelector(".item");
         for(let right of data){
             let itemsrc = `data:image/jpeg;base64,${right.memoitempic.mipicno}`;
-            item.innerHTML += `
+            str = `
             <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                 <div class="product-item bg-light mb-4">
                     <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100 img-item" src=${itemsrc} alt="">
+                        <img class="img-fluid w-100 img-item" src=${itemsrc} id=${right.mino} alt="" onclick ="imgclick(${right.mino})">
                         <div class="product-action">
                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark " href=""><img src="img/buy-now.png" alt="buynow" class="buy-now"></a>
@@ -326,8 +326,23 @@
                 </div>
             </div>
             `
+
+            item.insertAdjacentHTML("beforeend",str)
         }
     }
   </script>
+  <script>
+    // 監聽 img-item class
+    // document.querySelectorAll('.img-item').forEach(img => {
+      function imgclick(id){
+        // 取得被點擊的圖片的 id
+        
+        console.log(id);
+        // 帶入要跳轉的網址中
+        window.location.href = `/front/product-details.html?id=${id}`;
+      };
+    // });
+  </script>
 </html>
-<div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+
+    
