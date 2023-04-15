@@ -12,6 +12,6 @@ import java.util.List;
 public class MemoitemordController {
     @Autowired
     private MemoitemordServiceImpl service;
-    @PostMapping("/getAll")
+    @GetMapping("/getAll")
     public List<MemoitemordDTO> getAllMemoitemord(){return service.getAllMemoitemord();}
 }
