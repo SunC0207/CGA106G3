@@ -15,7 +15,11 @@ public class BeanConfig {
 
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
-        return new JedisConnectionFactory();
+        JedisConnectionFactory jedisConFactory
+                = new JedisConnectionFactory();
+        jedisConFactory.setHostName("localhost");
+        jedisConFactory.setPort(6379);
+        return jedisConFactory;
     }
 
     @Bean

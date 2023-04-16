@@ -65,11 +65,11 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
-    public Integer addEmp(EmpDTO empDTO) {
+    public EmpDTO addEmp(EmpDTO empDTO) {
         Emp emp = modelMapper.map(empDTO,Emp.class);
 
-        empRepository.save(emp);
-        return emp.getEmpno();
+        return modelMapper.map(empRepository.save(emp),EmpDTO.class);
+
     }
 
     @Override

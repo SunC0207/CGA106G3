@@ -20,7 +20,7 @@ public interface EmpService extends ServiceCore {
 
     List<EmpDTO> getAllEmp();
 
-    Integer addEmp(EmpDTO empDTO);
+    EmpDTO addEmp(EmpDTO empDTO);
 
     List<EmpDTO> getEmpByEname(String ename);
     List<EmpDTO> getEmpBySta(Integer empsta);
