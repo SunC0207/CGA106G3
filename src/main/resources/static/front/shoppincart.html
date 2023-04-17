@@ -30,6 +30,11 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+<style>
+    #quantity-input {
+        color: white; /* 將背景顏色設置為淺灰色 */
+    }
+</style>
 </head>
 
 <body>
@@ -129,149 +134,39 @@
                 <table class="table table-light table-borderless table-hover text-center mb-0">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Products</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
-                            <th>Remove</th>
+                            <th>追思品圖示</th>
+                            <th>追思品名稱</th>
+                            <th>追思品單價</th>
+                            <th>購買數量</th>
+                            <th>訂單金額</th>
+                            <th>移除</th>
                         </tr>
                     </thead>
-                    <tbody class="align-middle">
-                        <tr>
-                            <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;"> 花籃訂購</td>
-                            <td class="align-mi ddle">$150</td>
-                            <td class="align-middle">
-                                <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus">
-                                        <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
-                        </tr>
-                        <tr>
-                            <td class="align-middle"><img src="img/product-2.jpg" alt="" style="width: 50px;"> 罐頭塔訂購</td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus">
-                                        <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
-                        </tr>
-                        <tr>
-                            <td class="align-middle"><img src="img/product-3.jpg" alt="" style="width: 50px;"> 蓮花塔訂購</td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus">
-                                        <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
-                        </tr>
-                        <tr>
-                            <td class="align-middle"><img src="img/product-4.jpg" alt="" style="width: 50px;"> 紙紮類訂購</td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus">
-                                        <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
-                        </tr>
-                        <tr>
-                            <td class="align-middle"><img src="img/product-5.jpg" alt="" style="width: 50px;"> 忘記我還有設什麼訂購</td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle">
-                                <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus">
-                                        <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="align-middle">$150</td>
-                            <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
-                        </tr>
+                    <tbody class="align-middle" id="align-middle2">
+                        
                     </tbody>
                 </table>
             </div>
             <div class="col-lg-4">
-                <form class="mb-30" action="">
-                    <div class="input-group">
-                        <input type="text" class="form-control border-0 p-4" placeholder="Coupon Code">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary">Apply Coupon</button>
-                        </div>
-                    </div>
-                </form>
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Cart Summary</span></h5>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">付款詳情</span></h5>
                 <div class="bg-light p-30 mb-5">
                     <div class="border-bottom pb-2">
                         <div class="d-flex justify-content-between mb-3">
-                            <h6>Subtotal</h6>
-                            <h6>$150</h6>
+                            <h6>追思品總金額</h6>
+                            <h6 id="TotalCartPrice"></h6>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <h6 class="font-weight-medium">Shipping</h6>
-                            <h6 class="font-weight-medium">$10</h6>
+                            <h6 class="font-weight-medium">運費總金額</h6>
+                            <h6 class="font-weight-medium" id="shipMoney">$10</h6>
                         </div>
                     </div>
                     <div class="pt-2">
                         <div class="d-flex justify-content-between mt-2">
-                            <h5>Total</h5>
-                            <h5>$160</h5>
+                            <h5>總付款金額</h5>
+                            <h5 id="priceTotal">$160</h5>
                         </div>
-                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button>
+                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" onclick="location.href='/front/product.html'">繼續購買</button>
+                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" id="goCheckout">去結帳</button>   
                     </div>
                 </div>
             </div>
@@ -361,5 +256,47 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>
-
+<script>
+    //讀取localstorage並將相關資訊直接顯示在網頁上
+    const items = JSON.parse(localStorage.getItem("items"));
+    let itemPrices = document.querySelectorAll(".item-price");
+    let middle2 = document.getElementById("align-middle2");
+    let TotalCartPrice = document.getElementById("TotalCartPrice");
+    let totalItemPrice;
+    let totalprice =0;
+    for (let i = 0; i < items.length; i++) {
+    const itemImg = items[i].img;
+    const itemName = items[i].name;
+    const itemPrice = items[i].price;
+    const itemQuantity = items[i].quantity;
+    totalItemPrice =  itemPrice * itemQuantity;
+    middle2.innerHTML += `
+            <tr>
+            <td class="align-middle"><img src=${itemImg} alt="" style="width: 50px;"></td>
+            <td class="align-middle">${itemName}</td>
+            <td class="align-middle">$${itemPrice}</td>
+            <td class="align-middle">
+                <div class="input-group quantity mx-auto" style="width: 100px;">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-primary btn-minus">
+                        <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" id="quantity-input" value="1" min="1">
+                    <div class="input-group-btn">
+                        <button class="btn btn-sm btn-primary btn-plus">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </td>
+            <td class="align-middle item-price">$${totalItemPrice}</td>
+            <td class="align-middle"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
+        </tr>
+        `
+        totalprice += parseInt(itemPrice) * parseInt(itemQuantity);
+    }
+    const totalPriceElement = document.getElementById("TotalCartPrice");
+    totalPriceElement.textContent = "$" + totalprice;
+</script>
 </html>
