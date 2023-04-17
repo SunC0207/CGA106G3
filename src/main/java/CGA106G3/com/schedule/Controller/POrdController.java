@@ -1,6 +1,7 @@
 package CGA106G3.com.schedule.Controller;
 
 import CGA106G3.com.schedule.DTO.POrdDTO;
+import CGA106G3.com.schedule.Entity.POrd;
 import CGA106G3.com.schedule.Service.POrdServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,4 +41,12 @@ public class POrdController {
         int totalRecords = (int) pOrdService.count();
         return (totalRecords + size - 1) / size;
     }
+
+    @RequestMapping("/addPOrd")
+    public POrd addPOrd(@RequestBody POrd pOrd){
+
+        return pOrdService.addPOrd(pOrd);
+    }
+
+
 }

@@ -1,7 +1,6 @@
 package CGA106G3.com.item.Entity;
 
 import CGA106G3.Core.Entity.EntityCore;
-import CGA106G3.com.process.Entity.Pro;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,12 +26,12 @@ public class Item extends EntityCore {
     @Column(name="IPRICE", nullable = false, length = 10)
     private Integer iPrice;
 
-    @Column(name="PRONO", nullable = false, length = 10,insertable=false, updatable=false)
+    @Column(name="PRONO", nullable = false, length = 10)//,insertable=false, updatable=false)
     private Integer proNo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PRONO")
-    private Pro pro;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "PRONO")
+//    private Pro pro;
 
 
 }

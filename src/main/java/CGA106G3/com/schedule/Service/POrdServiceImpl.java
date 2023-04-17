@@ -21,6 +21,11 @@ public class POrdServiceImpl implements POrdService {
     @Autowired
     ModelMapper modelMapper;
 
+    public POrd addPOrd(POrd pOrd) {
+        return pOrdRepository.save(pOrd);
+    }
+
+
     @Override
     public List<POrdDTO> getAll() {
 

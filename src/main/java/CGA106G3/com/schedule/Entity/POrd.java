@@ -1,16 +1,11 @@
 package CGA106G3.com.schedule.Entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "plan_ord")
@@ -19,6 +14,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class POrd {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer pono;
     @Column
     private Integer membno;
@@ -27,8 +23,7 @@ public class POrd {
     @Column(name = "TOTAL_PR")
     private Integer tPrice;
     @Column(name = "PODATE")
-    @JsonFormat(pattern = "yyyy-MM-dd kk:mm", timezone = "GMT+8")
-    private Timestamp poDate;
+    private Date poDate;
     @Column(name = "PO_STA")
     private Integer posta;
     @Column(name = "PAY_STA")
