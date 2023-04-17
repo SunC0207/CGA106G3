@@ -392,6 +392,9 @@
     minutes ="0"+minutes;
   }
   let seconds = date.getSeconds();
+  if(seconds<10){
+    seconds ="0"+seconds;
+  }
   let time = hours + ":" + minutes + ":" + seconds;
   let dateTime = year + "年" + month + "月" + day + "日";
   document.getElementById("current-date").textContent = dateTime;

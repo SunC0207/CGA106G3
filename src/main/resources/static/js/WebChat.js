@@ -1,4 +1,4 @@
-const LOCAL_IP_ADDRESS = "172.20.10.5"; // change it
+const LOCAL_IP_ADDRESS = 10.1.1.207;
 
 const getElement = (id) => document.getElementById(id);
 const [

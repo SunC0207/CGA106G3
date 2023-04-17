@@ -1,16 +1,17 @@
 package CGA106G3.com.WebSocketChat.Controller;
 
 import CGA106G3.com.WebSocketChat.Entity.Message;
-//import CGA106G3.com.WebSocketChat.Service.ChatServiceImpl;
-import jakarta.websocket.OnOpen;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -21,13 +22,14 @@ public class ChatController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
-//    @Autowired
-//    private ChatServiceImpl chatService;
+    @Autowired
+    RedisTemplate redisTemplate;
+
 
     @MessageMapping("/message")// /app/message
     @SendTo("/chatroom/public")
     private Message receivePublicMessage(@Payload Message message){
-//        chatService.savePublicMessage("public",message);
+        redisTemplate.opsForList().rightPush("public",message);
         return message;
     }
 
@@ -43,6 +45,12 @@ public class ChatController {
         modelAndView.setViewName("webrtc.html");
         modelAndView.addObject("username",username);
         return modelAndView;
+    }
+
+    @GetMapping("/getPublicHistory")
+    @ResponseBody
+    public List<Message> getPublicHistory(){
+        return redisTemplate.opsForList().range("public",0,-1);
     }
 
 }

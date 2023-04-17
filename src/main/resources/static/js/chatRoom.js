@@ -22,6 +22,7 @@ function connect(event) {
   let socket = new SockJS("/ws");
   stompClient = Stomp.over(socket);
   stompClient.connect({}, onConnect, onError);
+  loadHistory();
 }
 
 function onConnect() {
@@ -45,6 +46,81 @@ function send(event) {
     stompClient.send("/app/message", {}, JSON.stringify(messageSend));
     chatInput.value = "";
   }
+}
+
+function loadHistory() {
+  fetch("/getPublicHistory")
+    .then((response) => response.json())
+    .then((data) => {
+      for (let message of data) {
+        let messageElement = document.createElement("li");
+        if (message.senderId == sessionStorage.getItem("empno")) {
+          messageElement.classList.add("my-message");
+
+          let spans = document.createElement("div");
+
+          let sendtime = document.createElement("span");
+          sendtime.textContent = message.date;
+          sendtime.setAttribute("class", "msgtime");
+
+          spans.appendChild(sendtime);
+
+          messageElement.appendChild(spans);
+          let messagelog = document.createElement("div");
+          if (message.status === "PIC") {
+            messagelog.setAttribute("class", "alert alert-danger mb-0 ");
+            let img = document.createElement("img");
+            img.setAttribute("src", message.message);
+            img.setAttribute("style", "width:100%;");
+            messagelog.appendChild(img);
+          } else if (message.status === "MESSAGE") {
+            messagelog.setAttribute("class", "alert alert-danger mb-0 ");
+            messagelog.textContent = message.message;
+          } else if (message.status === "STIKER") {
+            let img = document.createElement("img");
+            img.setAttribute("src", message.message);
+            img.setAttribute("style", "width:200px;");
+            messagelog.appendChild(img);
+          }
+
+          messageElement.appendChild(messagelog);
+        } else {
+          messageElement.classList.add("other-message");
+
+          let spans = document.createElement("div");
+          let sender = document.createElement("span");
+          sender.textContent = message.senderName;
+          spans.appendChild(sender);
+
+          let sendtime = document.createElement("span");
+          sendtime.textContent = message.date;
+          sendtime.setAttribute("class", "msgtime");
+          spans.appendChild(sendtime);
+
+          messageElement.appendChild(spans);
+          let messagelog = document.createElement("div");
+          if (message.status === "PIC") {
+            messagelog.setAttribute("class", "alert alert-dark mb-0 ");
+            let img = document.createElement("img");
+            img.setAttribute("src", message.message);
+            img.setAttribute("style", "width:100%;");
+            messagelog.appendChild(img);
+          } else if (message.status === "MESSAGE") {
+            messagelog.setAttribute("class", "alert alert-dark mb-0 ");
+            messagelog.textContent = message.message;
+          } else if (message.status === "STIKER") {
+            let img = document.createElement("img");
+            img.setAttribute("src", message.message);
+            img.setAttribute("style", "width:200px;");
+            messagelog.appendChild(img);
+          }
+
+          messageElement.appendChild(messagelog);
+        }
+        chatArea.appendChild(messageElement);
+      }
+      scroll.scrollTop = scroll.scrollHeight;
+    });
 }
 
 function onMessageReceived(payload) {
@@ -150,6 +226,7 @@ function SendImage(event) {
       reader.readAsDataURL(file);
     }
   }
+  scroll.scrollTop = scroll.scrollHeight;
 }
 let stikerHolder = document.getElementById("stikerHolder");
 
