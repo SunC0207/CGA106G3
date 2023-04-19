@@ -84,6 +84,7 @@ public class ItemService {
             dto.setCerName((String) item[6]);
             dto.setRelNo((Integer) item[7]);
             dto.setRelName((String) item[8]);
+            dto.setUpFile((byte[]) item[9]);
             detailDtos.add(dto);
         }
         return detailDtos;

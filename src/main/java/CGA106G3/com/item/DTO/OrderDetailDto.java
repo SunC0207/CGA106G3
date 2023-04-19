@@ -13,9 +13,10 @@ public class OrderDetailDto {
     private String cerName;
     private Integer relNo;
     private String relName;
+    private byte[] upFile;
 
     public OrderDetailDto(Integer ITEMNO, String INAME, Integer IPRICE, Integer PRONO, String PRONAME
-            , Integer CERNO, String CERNAME, Integer REL_NO, String REL_NAME) {
+            , Integer CERNO, String CERNAME, Integer REL_NO, String REL_NAME, byte[] UpFile) {
 
         this.itemNo = ITEMNO;
         this.iName = INAME;
@@ -26,10 +27,12 @@ public class OrderDetailDto {
         this.relNo = REL_NO;
         this.relName = REL_NAME;
         this.cerName = CERNAME;
+        this.upFile = UpFile;
 
     }
 
     public OrderDetailDto() {
 
     }
+
 }
