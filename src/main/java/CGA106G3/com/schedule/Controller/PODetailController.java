@@ -3,6 +3,7 @@ package CGA106G3.com.schedule.Controller;
 import CGA106G3.com.schedule.DTO.PODetailDTO;
 import CGA106G3.com.schedule.DTO.PODetailRangeDTO;
 import CGA106G3.com.schedule.DTO.ScheduleDTO;
+import CGA106G3.com.schedule.Entity.PODetail;
 import CGA106G3.com.schedule.Service.PODetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -61,4 +62,8 @@ public class PODetailController {
         return (totalRecords + size - 1) / size;
     }
 
+    @RequestMapping("/addPODetail")
+    public PODetail addPODetail(@RequestBody PODetail poDetail){
+        return poDetailService.addPODetail(poDetail);
+    }
 }

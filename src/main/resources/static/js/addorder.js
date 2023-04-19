@@ -3,11 +3,15 @@ new Vue({
     el: '#template',
     data() {
         return {
+            selectedLoc: 0,
+            selectedCereDate: null,
             selectedReligion: 0,
+            selectedReligionName: '',
             selectedCeremony: 0,
             selectedProcess: 0,
             selectedCereName: null,
             selectedProName: null,
+            locations: [],
             religions: [],
             ceremonies: [],
             processes: [],
@@ -25,9 +29,12 @@ new Vue({
             poType: 0,
         };
     },
+    // 自動執行
     created() {
+        // DOM 載入完成後執行裡面動作
         this.$nextTick(() => {
             const detailBody = this.$refs.detailBody;
+            // 監聽detailBody的子元素 若有變化就執行totalIprice()
             const observer = new MutationObserver(this.totalIprice);
             observer.observe(detailBody, { childList: true });
         });
@@ -36,16 +43,46 @@ new Vue({
         this.getEmp();
         this.getReligions();
         this.tbody = this.$refs.tbody;
+
+        // 重整清localstorage
+        window.onbeforeunload = () => {
+            window.localStorage.clear();
+        }
     },
     methods: {
+        // setStorageLoc(){
+        //     const key = this.selectedCeremony + '-Location'
+        //     localStorage.setItem(key, this.selectedLoc)
+        // },
+        getcereLoc() {
+            fetch('/Loc/getAllLoc', {
+                method: 'GET'
+            }).then(response => {
+                response.json().then(data => {
+                    this.locations = data;
+                })
+            })
+        },
+        // getceretime(){
+        //     const date = new Date(this.selectedCereDate);
+        //     const year = date.getFullYear();
+        //     const month = String(date.getMonth() + 1).padStart(2, '0');
+        //     const day = String(date.getDate()).padStart(2, '0');
+        //     const hour = String(date.getHours()).padStart(2, '0');
+        //     const minute = String(date.getMinutes()).padStart(2, '0');
+        //     const second = String(date.getSeconds()).padStart(2, '0');
+        //     const formattedTime = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+        //     const key = this.selectedCeremony + '-DateTime'
+        //     this.selectedCereDate = this.selectedCereDate.toString().replace('T', ' ');
+        //     localStorage.setItem(key, this.selectedCereDate)
+        // },
         getEmp() {
             fetch(`/empManage/getAll`, {
                 method: 'GET'
             }).then(response => {
                 response.json().then(data => {
                     this.emps = data;
-                }
-                )
+                })
             })
         },
         clear() {
@@ -97,6 +134,7 @@ new Vue({
                     });
                 });
             }
+            this.selectedReligionName = this.religions.find(r => r.relNo === this.selectedReligion)?.relName || '';
         },
         getProcesses() {
             this.selectedCereName = this.ceremonies.find(c => c.cerNo === this.selectedCeremony)?.cerName || '';
@@ -107,32 +145,40 @@ new Vue({
                     this.processes = data;
                 });
             });
+            this.selectedCereDate = '';
+            this.selectedLoc = 0;
         },
         fetchSelectedItem() {
             this.selectedProName = this.processes.find(p => p.proNo === this.selectedProcess)?.proName || '';
             if (this.selectedProcess) {
-                fetch(`/item/itemByProNo?proNo=${this.selectedProcess}`, {
+                fetch(`/item/itemJoinRelCerePro?proNo=${this.selectedProcess}`, {
                     method: 'GET',
                 }).then((response) => {
                     response.json().then(data => {
                         if (Array.isArray(data)) {
                             this.bodyCells = data.map(obj => {
+                                const cerNo = obj['cerNo'];
+                                const cerName = obj['cerName'];
+                                const cereCell = `<td id="${cerNo}">${cerName}</td>`;
                                 const itemNo = obj['itemNo'];
                                 const iname = obj['iname'];
                                 const inameCell = `<td id="${itemNo}">${iname}</td>`;
                                 const iprice = obj['iprice'];
                                 const ipriceCell = `<td value="${iprice}">$${iprice}</td>`;
                                 const radio = `<td><input class="form-check-input" type="checkbox" name="gridRadios" id="gridRadios1" value="option1" ></td>`
-                                return `<tr>${inameCell}${ipriceCell}${radio}</tr>`;
+                                return `<tr>${cereCell}${inameCell}${ipriceCell}${radio}</tr>`;
                             }).join('');
                         } else {
-                            const itemNo = obj['itemNo'];
+                            const cerNo = data['cerNo'];
+                            const cerName = data['cerName'];
+                            const cereCell = `<td id="${cerNo}">${cerName}</td>`;
+                            const itemNo = data['itemNo'];
                             const iname = data['iname'];
                             const inameCell = `<td id="${itemNo}">${iname}</td>`;
                             const iprice = data['iprice'];
                             const ipriceCell = `<td value="${iprice}">$${iprice}</td>`;
                             const radio = `<td><input class="form-check-input" type="checkbox" name="gridRadios" id="gridRadios1" value="option1" ></td>`
-                            this.bodyCells = `<tr>${inameCell}${ipriceCell}${radio}</tr>`;
+                            this.bodyCells = `<tr>${cereCell}${inameCell}${ipriceCell}${radio}</tr>`;
                         }
                         this.tbody.innerHTML = this.bodyCells;
 
@@ -148,11 +194,29 @@ new Vue({
             // 找所有被勾選的input
             const checkedBoxes = document.querySelectorAll('input[name="gridRadios"]:checked');
             // 找到父層tr 再找tr下第一個有id的td 取id值 把id值存進array
-            const selectedItems = Array.from(checkedBoxes).map(checkbox => checkbox.closest('tr').querySelector('td[id]').id);
+            const selectedItems = Array.from(checkedBoxes).map(checkbox => checkbox.closest('tr').querySelectorAll('td[id]')[1].id);
+            selectedItems.forEach(itemId => {
+                fetch(`/item/find?itemNo=${itemId}`, {
+                    method: 'GET',
+                }).then((response) => {
+                    response.json().then(data => {
+                        const iprice = data['iprice'];
+                        const ipriceKey = itemId + '-price'
+                        localStorage.setItem(ipriceKey, iprice)
+                    })
+                })
+                const locKey = itemId + '-Location'
+                const dateKey = itemId + '-DateTime'
+                this.selectedCereDate = this.selectedCereDate.toString().replace('T', ' ');
+                localStorage.setItem(locKey, this.selectedLoc)
+                localStorage.setItem(dateKey, this.selectedCereDate)
+            })
+
             // 把tbody的子元素存入array
             const tbodyRows = Array.from(this.tbody.children);
             tbodyRows.forEach(row => {
-                const itemId = row.querySelector('td[id]').id;
+                const cell = row.querySelectorAll('td[id]');
+                const itemId = cell[1].id;
                 if (selectedItems.includes(itemId)) {
                     // Create a new row in the detail table
                     const newRow = document.createElement('tr');
@@ -189,6 +253,8 @@ new Vue({
                 }
             });
 
+
+
         },
         totalIprice() {
             let total = 0;
@@ -196,7 +262,8 @@ new Vue({
             const itemIds = [];
             for (let i = 0; i < rows.length; i++) {
                 const row = rows[i];
-                const inameCell = row.querySelector('td[id]');
+                const cell = row.querySelectorAll('td[id]');
+                const inameCell = cell[1];
                 const ipriceCell = row.querySelector('td[value]');
                 if (ipriceCell) {
                     total += parseInt(ipriceCell.getAttribute('value'));
@@ -228,6 +295,9 @@ new Vue({
                 })
             }).then(response => {
                 if (response.ok) {
+                    response.json().then(data => { //儲存生成的POrd
+                        this.addPOrdDetail(data.pono); // 傳入pono 開始新增PODetail
+                    })
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
@@ -247,7 +317,48 @@ new Vue({
             })
 
 
-        }
+        },
+        addPOrdDetail(pono) { // 接收從addPOrd傳過來的pono
+            const itemnoArr = JSON.parse(localStorage.getItem('itemIds'))
+            itemnoArr.forEach(itemId => {
+                const locno = localStorage.getItem(itemId + '-Location');
+                const datetime = localStorage.getItem(itemId + '-DateTime');
+                const iprice = parseInt(localStorage.getItem(itemId + '-price'))
+                fetch('/PODetail/addPODetail', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        pono: pono,
+                        itemno: itemId,
+                        locno: locno,
+                        iprice: iprice,
+                        date: datetime,
+                    }),
+                }).then(response => {
+                    if (response.ok) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Your work has been saved',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    } else {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: 'failed',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                })
+            })
+            location.reload();
+        },
+
 
     }
 });

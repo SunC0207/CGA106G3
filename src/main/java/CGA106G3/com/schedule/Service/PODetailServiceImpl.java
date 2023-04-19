@@ -145,4 +145,9 @@ public class PODetailServiceImpl implements PODetailService {
     public long count(){
         return poDetailRepository.count();
     }
+
+    public PODetail addPODetail(PODetail poDetail) {
+        return poDetailRepository.save(poDetail);
+    }
+
 }

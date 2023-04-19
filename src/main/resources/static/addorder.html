@@ -7,6 +7,10 @@
         input[type="date"]::-webkit-calendar-picker-indicator {
             filter: invert(50%) hue-rotate(180deg);
         }
+
+        input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+            filter: invert(50%) hue-rotate(180deg);
+        }
     </style>
     <!-- 引入 Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -243,13 +247,20 @@
                                         }}
                                     </option>
                                 </select>
+                                <input v-model="selectedCereDate" @blur="getcereLoc" type="datetime-local"
+                                    class="form-control mb-3" max="" />
+                                <select v-model="selectedLoc" class="form-select form-select-lg mb-3"
+                                    aria-label=".form-select-lg example">
+                                    <option value="0" disabled selected>儀式場地</option>
+                                    <option v-for="location in locations" :value="location.locno">{{ location.locname }}
+                                    </option>
+                                </select>
                                 <select v-model="selectedProcess" @change="fetchSelectedItem"
                                     class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
                                     <option value="0" disabled selected>流程</option>
                                     <option v-for="process in processes" :value="process.proNo">{{ process.proName }}
                                     </option>
                                 </select>
-
                             </div>
                         </template>
                     </nav>
@@ -259,6 +270,7 @@
                             <table class="table" id="table" ref="table">
                                 <thead>
                                     <tr>
+                                        <th scope="col">儀式名稱</th>
                                         <th scope="col">細項名稱</th>
                                         <th scope="col">細項價錢</th>
                                         <th scope="col"></th>
@@ -266,8 +278,8 @@
                                 </thead>
                                 <tbody id="tableBody" ref="tbody"></tbody>
                             </table>
-                            <button @click="ipriceSubmit" style="float:right;" type="submit"
-                                class="btn btn-primary">送出</button>
+                            <button @click="ipriceSubmit" style="float:right;"
+                                type="submit" class="btn btn-primary">送出</button>
                             <!-- <nav>
                                 <ul class="pagination">
                                     <li class="page-item ${pageNum === 1 ? 'disabled' : ''}">
@@ -297,19 +309,21 @@
                                 <label class="mb-4">訂單建立日期：{{ poDate }},</label>
                                 <label class="mb-4">契約型態：{{ poType }},</label><br>
                                 <label class="mb-4">會員編號：{{ membno }},</label>
-                                <label class="mb-4">專責員工：{{ ename }}</label>
+                                <label class="mb-4">專責員工：{{ ename }}</label><br><br>
+                                <label class="mb-4">宗教：{{ selectedReligionName }}</label>
                             </div>
                             <table class="table" id="table">
                                 <thead>
                                     <tr>
+                                        <th scope="col">儀式名稱</th>
                                         <th scope="col">細項名稱</th>
                                         <th scope="col">細項價錢</th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
-                                <tbody  @change="totalIprice" ref="detailBody"></tbody>
+                                <tbody @change="totalIprice" ref="detailBody"></tbody>
                             </table>
-                            <label style="margin-left: 46%;" class="mb-4">訂單總價：$ {{ iPrice }}</label>
+                            <label style="margin-left: 70%;" class="mb-4">訂單總價：$ {{ iPrice }}</label>
                             <button @click="addPOrd" style="float:right;" type="submit"
                                 class="btn btn-primary">建立訂單</button>
                         </div>
@@ -319,7 +333,7 @@
 
             </div>
 
-            
+
 
 
 
@@ -351,10 +365,11 @@
                                     </select>
                                     會員編號：<input v-model="membno" class="form-control mb-3" type="text"
                                         placeholder="請輸入會員編號" aria-label="default input example">
-                                    專責員工：<select v-model="selectedEmp"
-                                        class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+                                    專責員工：<select v-model="selectedEmp" class="form-select form-select-sm mb-3"
+                                        aria-label=".form-select-sm example">
                                         <option value="0" disabled selected="">員工</option>
-                                        <option v-for="emp in emps" :value="{ empno: emp.empno, ename: emp.ename }">{{ emp.ename }}
+                                        <option v-for="emp in emps" :value="{ empno: emp.empno, ename: emp.ename }">{{
+                                            emp.ename }}
                                         </option>
                                     </select>
                                 </div>
@@ -362,8 +377,8 @@
                             <div class="modal-footer">
                                 <button @click="clear" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                                     aria-label="Close">關閉</button>
-                                <button @click.prevent="addlocalStorage() ; modalGetItem()" type="submit" class="btn btn-primary"
-                                    data-bs-dismiss="modal">保存變更</button>
+                                <button @click.prevent="addlocalStorage() ; modalGetItem()" type="submit"
+                                    class="btn btn-primary" data-bs-dismiss="modal">保存變更</button>
                             </div>
                         </div>
                     </div>

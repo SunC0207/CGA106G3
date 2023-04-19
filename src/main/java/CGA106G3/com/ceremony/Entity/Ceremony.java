@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "ceremony")
 @Data
+//@ToString(exclude = "pros")
 public class Ceremony extends EntityCore {
     @Id
     @Column(name="CERNO", nullable = false)
@@ -23,18 +24,19 @@ public class Ceremony extends EntityCore {
     @Column(name="CERSTA", nullable = false, length = 3)
     private Integer cerSta;
 
-    @Column(name="REL_NO", nullable = false, length = 10 )//, insertable=false, updatable=false)
+    @Column(name="REL_NO", nullable = false, length = 10 , insertable=false, updatable=false)
     private Integer relNo;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "REL_NO")
+//    @JoinColumn(name = "REL_NO" , insertable=false, updatable=false)
+//    @JsonIgnore
 //    private Rel rel;
 //
 //    @OneToMany(mappedBy = "ceremony", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Pro> pros = new ArrayList<>();
-//
-//
-//
+
+
+
 //    public List<Item> getItems() {
 //        List<Item> items = new ArrayList<>();
 //        for(Pro pro : pros){

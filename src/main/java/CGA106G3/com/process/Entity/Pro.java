@@ -26,12 +26,14 @@ public class Pro extends EntityCore {
     @Column(name = "PROSEQ",nullable = false,length = 10)
     private Integer proSeq;
 
-    @Column(name = "CERNO",nullable = false,length = 10)//, insertable=false, updatable=false)
+    @Column(name = "CERNO",nullable = false,length = 10, insertable=false, updatable=false)
     private Integer cerNo;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "CERNO")
+//    @JoinColumn(name = "CERNO", referencedColumnName = "CERNO", insertable = false, updatable = false)
+//    @JsonIgnore
 //    private Ceremony ceremony;
+//
 //
 //    @OneToMany(mappedBy = "pro", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Item> items = new ArrayList<>();

@@ -26,12 +26,31 @@ public class Item extends EntityCore {
     @Column(name="IPRICE", nullable = false, length = 10)
     private Integer iPrice;
 
-    @Column(name="PRONO", nullable = false, length = 10)//,insertable=false, updatable=false)
+    @Column(name="PRONO", nullable = false, length = 10) //,insertable=false, updatable=false)
     private Integer proNo;
 
+
+
 //    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "PRONO")
+//    @JoinColumn(name = "PRONO", referencedColumnName = "PRONO", insertable = false, updatable = false)
+//    @JsonIgnore
 //    private Pro pro;
+
+//    @JoinColumns({
+//            @JoinColumn(name = "CERNO", referencedColumnName = "CERNO", insertable = false, updatable = false),
+//    })
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumns({
+//            @JoinColumn(name = "CERNO", referencedColumnName = "CERNO", insertable = false, updatable = false),
+//            @JoinColumn(name = "REL_NO", referencedColumnName = "REL_NO", insertable = false, updatable = false)
+//    })
+//    private Ceremony ceremony;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "REL_NO", referencedColumnName = "REL_NO", insertable = false, updatable = false)
+//    private Rel rel;
+
 
 
 }

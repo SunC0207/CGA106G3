@@ -1,6 +1,7 @@
 package CGA106G3.com.item.Controller;
 
 import CGA106G3.com.item.DTO.ItemDTO;
+import CGA106G3.com.item.DTO.OrderDetailDto;
 import CGA106G3.com.item.Entity.Item;
 import CGA106G3.com.item.Service.ItemService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -65,6 +66,11 @@ public class ItemController {
     @RequestMapping("/itemByProNo")
     public List<Item> getByProNo(@Param("proNo") Integer proNo){
         return itemService.getByProNo(proNo);
+    }
+
+    @RequestMapping("/itemJoinRelCerePro")
+    public List<OrderDetailDto> findAllItemsWithProAndCeremonyAndRel(@Param("proNo") Integer proNo){
+        return itemService.findAllItemsWithProAndCeremonyAndRel(proNo);
     }
 
 }

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "religion")
 @Data
+//@ToString(exclude = "ceremonies")
 public class Rel extends EntityCore {
     @Id
     @Column(name = "REL_NO",nullable = false)
@@ -19,6 +20,7 @@ public class Rel extends EntityCore {
     @Column(name = "REL_NAME",nullable = false,length = 10)
     private String relName;
 
-//    @OneToMany(mappedBy = "rel", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @OneToMany(mappedBy = "rel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 //    private List<Ceremony> ceremonies = new ArrayList<>();
+
 }
