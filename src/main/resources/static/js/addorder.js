@@ -179,8 +179,8 @@ new Vue({
                                 const iprice = obj['iprice'];
                                 const ipriceCell = `<td value="${iprice}">$${iprice}</td>`;
                                 const upfile = obj['upFile'];
-                                const upfileCell = `<td ><img style="height: 80px" src="data:image/jpg;base64,${upfile}" alt="圖片"></td>`;
-                                const radio = `<td><input class="form-check-input" type="checkbox" name="gridRadios" id="gridRadios1" value="option1" ></td>`
+                                const upfileCell = upfile !== null ? `<td><img style="height: 80px" src="data:image/jpg;base64,${upfile}" alt="圖片"></td>` : '<td></td>';
+                                const radio =`<td><input class="form-check-input" type="checkbox" name="gridRadios" id="gridRadios1" value="option1" ></td>`
                                 return `<tr>${cereCell}${inameCell}${ipriceCell}${upfileCell}${radio}</tr>`;
                             }).join('');
                         } else {
@@ -193,7 +193,7 @@ new Vue({
                             const iprice = data['iprice'];
                             const ipriceCell = `<td value="${iprice}">$${iprice}</td>`;
                             const upfile = data['upFile'];
-                            const upfileCell = `<td ><img style="height: 50px" src="data:image/jpg;base64,${upfile}" alt="圖片"></td>`;
+                            const upfileCell = upfile !== null ? `<td><img style="height: 80px" src="data:image/jpg;base64,${upfile}" alt="圖片"></td>` : '<td></td>';
                             const radio = `<td><input class="form-check-input" type="checkbox" name="gridRadios" id="gridRadios1" value="option1" ></td>`
                             this.bodyCells = `<tr>${cereCell}${inameCell}${ipriceCell}${upfileCell}${radio}</tr>`;
                         }

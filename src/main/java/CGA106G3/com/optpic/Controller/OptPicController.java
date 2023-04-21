@@ -23,7 +23,7 @@ public class OptPicController  {
 
     @RequestMapping("/update")
     public OptPic updateOptPic(OptPic optPic) {
-        return optPicservice.addOptPic(optPic);
+        return optPicservice.updateOptPic(optPic);
     }
 
     @RequestMapping("/find")

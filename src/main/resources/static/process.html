@@ -34,6 +34,8 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/util.js"></script>
     <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/pagejs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
 </head>
 
 <body>
@@ -99,7 +101,7 @@
 
 
         <!-- Content Start -->
-        <div class="content">
+        <div class="content" id="process">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
@@ -108,7 +110,7 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                
+
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -203,8 +205,8 @@
                                     placeholder="Search">
                                 <button type="submit" class="btn btn-primary ms-2" style="width: 30%;">搜尋</button>
                             </form>
-                            <button type="button" class="btn btn-square btn-primary m-2" style="float: right;"
-                                id="add">+</button>
+                            <button type="button" @click="showModal" class="btn btn-square btn-primary m-2"
+                                style="float: right;">+</button>
                             <h6 class="mb-4">流程管理</h6>
                             <table class="table" id="table">
                                 <thead>
@@ -213,11 +215,27 @@
                                         <th scope="col">流程編號</th>
                                         <th scope="col">流程名稱</th>
                                         <th scope="col">儀式編號</th>
-                                        <th scope="col">修改</th>
                                         <th scope="col">流程狀態</th>
+                                        <th scope="col">修改</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tableBody"></tbody>
+                                <!-- conten的每一個元素建立一個tr, tr裡再建立td  :key指令來設置每個<tr>元素的唯一鍵-->
+                                <tr v-for="cere in ceremonies" :key="cere.cerNo" v-show="regex.test(cere.cerName) || regex.test(cere.cerNo) || 
+                                    (cere.cerSta === 1 && regex.test('上架')) || (cere.cerSta === 2 && regex.test('下架'))
+                                     || regex.test(cere.relNo)">
+                                    <td class="cerno">{{ cere.cerNo }}</td>
+                                    <td>{{ cere.cerName }}</td>
+                                    <td>{{ cere.relNo }}</td>
+                                    <td>
+                                        <span v-if="cere.cerSta === 1">上架</span>
+                                        <span v-else-if="cere.cerSta === 2">下架</span>
+                                    </td>
+                                    <td>
+                                        <button type="button" @click="showUpdateModal(cere)"
+                                            class="btn btn-primary ms-2 update-btn">編輯</button>
+                                    </td>
+                                </tr>
                             </table>
                             <nav>
                                 <ul class="pagination">

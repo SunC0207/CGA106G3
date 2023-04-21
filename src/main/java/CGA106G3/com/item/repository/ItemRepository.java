@@ -19,7 +19,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
             "JOIN process p ON i.proNo = p.proNo " +
             "JOIN Ceremony c ON p.cerNo = c.cerNo " +
             "JOIN Religion r ON c.REL_NO = r.REL_NO " +
-            "JOIN optpic op ON i.ITEMNO = op.OPTNO " +
+            "LEFT JOIN optpic op ON i.ITEMNO = op.OPTNO " +
             "WHERE i.PRONO = :proNo "
             , nativeQuery = true)
     List<Object[]> findAllItemsWithProAndCeremonyAndRel(@Param("proNo") Integer proNo);
