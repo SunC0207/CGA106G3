@@ -34,8 +34,8 @@ public class EmpManageController {
         return empService.persistEmp(persistEmpDTO);
     }
 
-    @PostMapping("/addEmp")
-    public Integer addEmp(@RequestBody EmpDTO empDTO) {
+    @PostMapping("/updateEmp")
+    public EmpDTO updateEmp(@RequestBody EmpDTO empDTO) {
 
         return empService.addEmp(empDTO);
     }

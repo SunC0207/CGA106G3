@@ -1,4 +1,4 @@
-var stompClient = null;
+let stompClient = null;
 
 function setConnected(connected) {
   $("#connect").prop("disabled", connected); //將id = connect 按鈕屬性改為disabled
