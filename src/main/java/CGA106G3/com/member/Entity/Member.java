@@ -34,6 +34,8 @@ public class Member extends EntityCore {
     @Column(name = "ver_sta", length = 1, nullable = false)
     private Integer versta;
 
+//    private String updater;
+
     //失敗計數器用
 //    private Integer loginAttempts;
 //

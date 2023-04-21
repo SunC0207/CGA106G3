@@ -1,7 +1,7 @@
 // 获取需要隐藏和显示的元素
 const registerLink = document.querySelector('a[href="register2.html"]');
 const loginLink = document.querySelector('a[href="login2.html"]');
-const editLink = document.querySelector('a[href="edit.html"]');
+// const editLink = document.querySelector('a[href="edit.html"]');
 const chatLink = document.querySelector('a[href="chat.html"]');
 const logoutLink = document.querySelector('a[href="#logout"]');
 const email = sessionStorage.getItem('email');
@@ -9,7 +9,8 @@ const mname = sessionStorage.getItem('mname');
 const mpic = sessionStorage.getItem('mpic');
 const membno = sessionStorage.getItem('membno');
 const pageHeader = document.getElementById('Page Header Start');
-const listbar = document.getElementById('listbar');
+const factitem = document.getElementById('factitem');
+const image1 = document.getElementById('avatar');
 
 // const manageLink = document.querySelector('a[href="manage.html"]');
 
@@ -20,24 +21,18 @@ function loginSuccess() {
     loginLink.style.display = 'none';
 
     // 显示编辑、聊天、管理和登出链接
-    editLink.style.display = 'inline';
+    // editLink.style.display = 'inline';
     chatLink.style.display = 'inline';
     logoutLink.style.display = 'inline';
     pageHeader.style.display = 'inline';
-    listbar.style.display = 'inline';
+    factitem.style.display = 'inline';
+    image1.style.display = 'inline';
     // manageLink.style.display = 'inline';
 }
 
 if (email) {
     loginSuccess();
     document.querySelector('#currentUser').textContent = mname;
-
-    // fetch(`/pictureReader?membno=${membno}`)
-    //     .then(response => response.blob())
-    //     .then(blob => {
-    //         const objectURL = URL.createObjectURL(blob);
-    //         document.querySelector('#avatar').src = objectURL;
-    //     })
 
 
     const imageBinartStr = atob(mpic);
@@ -51,8 +46,14 @@ if (email) {
     const blob = new Blob([uint8Array]);
     document.querySelector('#avatar').src = URL.createObjectURL(blob);
 
-    // document.querySelector('#avatar').src = `data:image/jpeg;base64,${mpic.mpic}`
 
+    // fetch(`/pictureReader?membno=${membno}`)
+    //     .then(response => response.blob())
+    //     .then(blob => {
+    //         const objectURL = URL.createObjectURL(blob);
+    //         document.querySelector('#avatar').src = objectURL;
+    // document.querySelector('#avatar').src = `data:image/jpeg;base64,${mpic.mpic}`;
+    //     })
 } else {
 
     registerLink.style.display = 'inline';
@@ -60,15 +61,17 @@ if (email) {
 
     logoutLink.style.display = 'none';
     chatLink.style.display = 'none';
-    editLink.style.display = 'none';
+    // editLink.style.display = 'none';
     pageHeader.style.display = 'none';
-    listbar.style.display = 'none';
+    factitem.style.display = 'none';
+    image1.style.display = 'none';
+
 }
 
 logoutLink.addEventListener('click', () => {
     // sessionStorage.removeItem('email');
     // sessionStorage.removeItem('mpic');
     sessionStorage.clear();
-    fetch('/member/logout');
+
     location = `../front/index_Chian.html`;
 });

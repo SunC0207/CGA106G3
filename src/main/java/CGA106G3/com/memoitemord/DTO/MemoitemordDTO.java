@@ -1,9 +1,12 @@
 package CGA106G3.com.memoitemord.DTO;
 
 
+import CGA106G3.com.memoorddetail.Entity.Memoorddetail;
 import lombok.Data;
 
 import java.sql.Date;
+import java.util.List;
+
 @Data
 public class MemoitemordDTO {
     private Integer ordno;
@@ -14,4 +17,8 @@ public class MemoitemordDTO {
     private Integer paysta;
     private String rec;
     private String recaddr;
+
+    private List<Memoorddetail> memoorddetails;
+
+
 }

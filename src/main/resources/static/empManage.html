@@ -408,22 +408,10 @@
         btn.setAttribute("data-bs-toggle", "modal");
         btn.setAttribute("data-bs-target", "#addEmpPatt");
         btn.addEventListener("click", function () {
-          fetch(`http://localhost:8080/empManage/getOne?empno=${i.empno}`)
+          fetch(`/empManage/getOne?empno=${i.empno}`)
             .then((response) => response.json())
             .then((data) => {
               document.getElementById("empno").value = data.empno;
-          let btn = document.createElement("button");
-          btn.textContent = "修改";
-          btn.setAttribute("type", "button");
-          btn.setAttribute("value", `${i.empno}`);
-          btn.setAttribute("class", "btn btn-link rounded-pill m-2");
-          btn.setAttribute("data-bs-toggle", "modal");
-          btn.setAttribute("data-bs-target", "#addEmpPatt");
-          btn.addEventListener("click", function () {
-            fetch(`/empManage/getOne?empno=${i.empno}`)
-              .then((response) => response.json())
-              .then((data) => {
-                document.getElementById("empno").value = data.empno;
 
               document.getElementById("ename").value = data.ename;
 
@@ -434,15 +422,7 @@
               document.getElementById("empsta").value = data.empsta;
             });
 
-            fetch(`/Per/getPerByEmpno?empno=${i.empno}`)
-              .then((response) => response.json())
-              .then((data) => {
-                for (let i of data) {
-                  document.getElementById(`fctno${i.fctno}`).checked = true;
-                }
-              });
-          });
-          fetch(`http://localhost:8080/Per/getPerByEmpno?empno=${i.empno}`)
+          fetch(`/Per/getPerByEmpno?empno=${i.empno}`)
             .then((response) => response.json())
             .then((data) => {
               for (let i of data) {
@@ -500,18 +480,6 @@
 
       let btntd = document.createElement("td");
 
-        let btn = document.createElement("button");
-        btn.textContent = "修改";
-        btn.setAttribute("type", "button");
-        btn.setAttribute("value", `${i.empno}`);
-        btn.setAttribute("class", "btn btn-link rounded-pill m-2");
-        btn.setAttribute("data-bs-toggle", "modal");
-        btn.setAttribute("data-bs-target", "#addEmpPatt");
-        btn.addEventListener("click", function () {
-          fetch(`/empManage/getOne?empno=${i.empno}`)
-            .then((response) => response.json())
-            .then((data) => {
-              document.getElementById("empno").value = data.empno;
       let btn = document.createElement("button");
       btn.textContent = "修改";
       btn.setAttribute("type", "button");
@@ -520,7 +488,7 @@
       btn.setAttribute("data-bs-toggle", "modal");
       btn.setAttribute("data-bs-target", "#addEmpPatt");
       btn.addEventListener("click", function () {
-        fetch(`http://localhost:8080/empManage/getOne?empno=${i.empno}`)
+        fetch(`/empManage/getOne?empno=${i.empno}`)
           .then((response) => response.json())
           .then((data) => {
             document.getElementById("empno").value = data.empno;
@@ -534,7 +502,7 @@
             document.getElementById("empsta").value = data.empsta;
           });
 
-        fetch(`http://localhost:8080/Per/getPerByEmpno?empno=${i.empno}`)
+        fetch(`/Per/getPerByEmpno?empno=${i.empno}`)
           .then((response) => response.json())
           .then((data) => {
             for (let i of data) {
@@ -542,14 +510,6 @@
             }
           });
       });
-          fetch(`/Per/getPerByEmpno?empno=${i.empno}`)
-            .then((response) => response.json())
-            .then((data) => {
-              for (let i of data) {
-                document.getElementById(`fctno${i.fctno}`).checked = true;
-              }
-            });
-        });
 
       btntd.append(btn);
       tr.append(btntd);
@@ -558,24 +518,15 @@
     }
   </script>
 
-    <script>
-      //進頁面直接呼叫 listAll
-      window.onload = function () {
-        fetch("/empManage/getAll")
-          .then((response) => response.json())
-          .then((data) => {
-            listTbody(data);
-          });
-      };
-    </script>
   <script>
     //進頁面直接呼叫 listAll
-
-    fetch("http://localhost:8080/empManage/getAll")
-      .then((response) => response.json())
-      .then((data) => {
-        listTbody(data);
-      });
+    window.onload = function () {
+      fetch("/empManage/getAll")
+        .then((response) => response.json())
+        .then((data) => {
+          listTbody(data);
+        });
+    };
   </script>
 
   <script>
@@ -583,24 +534,6 @@
     const addEmpBtn = document.getElementById("addEmp");
 
     addEmpBtn.addEventListener("click", addEmp);
-
-      function addEmp() {
-        if ($("#empno").val() != "") {
-          let fctnoList = $('input[name = "fctno"]:checked');
-          let str = [];
-          for (let i = 0; i < fctnoList.length; i++) {
-            str.push({
-              empno: $("#empno").val(),
-              fctno: `${fctnoList[i].value}`,
-            });
-          }
-    addEmpBtn.addEventListener("click", function () {
-      fetch("http://localhost:8080/empManage/getAll")
-        .then((response) => response.json())
-        .then((data) => {
-          listTbody(data);
-        });
-    });
 
     function addEmp() {
       if ($("#empno").val() != "") {
@@ -640,24 +573,8 @@
           empsta: $("#empsta").val(),
           emppw: $("#emppw").val(),
         };
-          fetch("/empManage/persistEmp", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body),
-          });
-          window.location.reload();
-        } else {
-          let body = {
-            empno: "",
-            ename: $("#ename").val(),
-            hiredate: $("#hiredate").val(),
-            empsta: $("#empsta").val(),
-            emppw: $("#emppw").val(),
-          };
 
-        fetch("http://localhost:8080/empManage/addEmp", {
+        fetch("/empManage/addEmp", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -674,25 +591,8 @@
                 fctno: `${fctnoList[i].value}`,
               });
             }
-          fetch("/empManage/addEmp", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              let fctnoList = $('input[name = "fctno"]:checked');
-              let str = [];
-              for (let i = 0; i < fctnoList.length; i++) {
-                str.push({
-                  empno: data,
-                  fctno: `${fctnoList[i].value}`,
-                });
-              }
 
-            fetch("http://localhost:8080/Per/addPer", {
+            fetch("/Per/addPer", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -704,18 +604,6 @@
       }
     }
   </script>
-              fetch("/Per/addPer", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(str),
-              });
-            });
-          window.location.reload();
-        }
-      }
-    </script>
 
   <script>
     //清除互動視窗參數
@@ -746,7 +634,7 @@
       const searchEmp = document.getElementById("searchEmp");
 
       if (!searchEmp.value) {
-        fetch("http://localhost:8080/empManage/getAll")
+        fetch("/empManage/getAll")
           .then((response) => response.json())
           .then((data) => {
             listTbody(data);
@@ -771,50 +659,21 @@
             break;
           }
         }
-        if (!searchEmp.value) {
-          fetch("/empManage/getAll")
-            .then((response) => response.json())
-            .then((data) => {
-              listTbody(data);
-            });
-        } else if (
-          searchEmp.value === "在職" ||
-          searchEmp.value === "離職" ||
-          searchEmp.value === "停職"
-        ) {
-          let staNum;
-          switch (searchEmp.value) {
-            case "在職": {
-              staNum = 0;
-              break;
-            }
-            case "離職": {
-              staNum = 1;
-              break;
-            }
-            case "停職": {
-              staNum = 2;
-              break;
-            }
-          }
 
-        fetch(`http://localhost:8080/empManage/searchBySta?empsta=${staNum}`)
+        fetch(`/empManage/searchBySta?empsta=${staNum}`)
           .then((response) => response.json())
           .then((data) => {
             listTbody(data);
           });
       } else if (!isNaN(searchEmp.value)) {
-        fetch(
-          `http://localhost:8080/empManage/getOne?empno=${searchEmp.value}`
-        )
+        console.log("123");
+        fetch(`/empManage/getOne?empno=${searchEmp.value}`)
           .then((response) => response.json())
           .then((data) => {
             listOneTbody(data);
           });
       } else {
-        fetch(
-          `http://localhost:8080/empManage/searchByEname?ename=${searchEmp.value}`
-        )
+        fetch(`/empManage/searchByEname?ename=${searchEmp.value}`)
           .then((response) => response.json())
           .then((data) => {
             listTbody(data);
@@ -824,25 +683,4 @@
   </script>
 </body>
 
-          fetch(`/empManage/searchBySta?empsta=${staNum}`)
-            .then((response) => response.json())
-            .then((data) => {
-              listTbody(data);
-            });
-        } else if (!isNaN(searchEmp.value)) {
-          fetch(`/getOne?empno=${searchEmp.value}`)
-            .then((response) => response.json())
-            .then((data) => {
-              listOneTbody(data);
-            });
-        } else {
-          fetch(`/empManage/searchByEname?ename=${searchEmp.value}`)
-            .then((response) => response.json())
-            .then((data) => {
-              listTbody(data);
-            });
-        }
-      });
-    </script>
-  </body>
 </html>

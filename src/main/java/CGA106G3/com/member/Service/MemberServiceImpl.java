@@ -1,6 +1,6 @@
 package CGA106G3.com.member.Service;
 
-import jakarta.annotation.Resource;
+import CGA106G3.com.member.DTO.MemberEditDTO;
 import org.modelmapper.ModelMapper;
 import CGA106G3.com.member.DTO.MemberDTO;
 import CGA106G3.com.member.Entity.Member;
@@ -12,19 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service
 public class MemberServiceImpl implements MemberService {
     @Autowired
-    @Resource
+//    @Resource
     private MemberRepository memberRepository;
     @Autowired
     private ModelMapper modelMapper;
 
 @Override
 public Member insertMember(Member member){
+
     return  memberRepository.save(member);
 }
 @Override
@@ -32,13 +32,30 @@ public void deleteMember(Integer member){
     memberRepository.deleteById(member);
 }
 @Override
+@Transactional
     public Member updateMember(Member member){
+    final Member omember=memberRepository.findByMname(member.getMname());
+    member.setMpw(omember.getMpw());
+//    member.setUpdater(member.getMname());
+    final int resultCount = memberRepository.update(member);
+    member.setSuccessful(resultCount>0);
+    member.setMessage(resultCount>0?"修改成功":"修改失敗");
 
-    return memberRepository.save(member);
+    final String password = member.getMpw();
+    if(password==null || password.isEmpty()){
+        member.setMpw(omember.getMpw());
+    }
+   return member;
+    }
+
+    @Override
+    public MemberEditDTO update( MemberEditDTO memberEditDTO) {
+        Member member = modelMapper.map(memberEditDTO,Member.class);
+        return modelMapper.map(memberRepository.save(member),MemberEditDTO.class);
     }
 
 
-@Override
+    @Override
     public List<Member> findAllMember(){
         return memberRepository.findAll();
     }
@@ -47,9 +64,14 @@ public void deleteMember(Integer member){
     public Member findMemberById(Integer membno) {
         return  memberRepository.findById(membno).orElse(null);
     }
+//    @Override
+//    public Member findVerstaByID(Integer membno){
+//     Member member = memberRepository.findById(membno).orElse(null);
+//        return member.getVersta();
+//    }
+
 
     private MemberDTO EntityToDTO(Member member){
-
         MemberDTO memberDto = new MemberDTO();
         modelMapper.map(member, MemberDTO.class);
         return memberDto;
@@ -86,11 +108,11 @@ public void deleteMember(Integer member){
 //            return member;
 //        }
 //
-//        if (member.getReferenceByEmail(member.getEmail()) != null) {
-//            member.setMessage("帳號重複");
-//            member.setSuccessful(false);
-//            return member;
-//        }
+        if (member.getReferenceByEmail(member.getEmail()) != null) {
+            member.setMessage("帳號重複");
+            member.setSuccessful(false);
+            return member;
+        }
 //        member.setVersta(0);
 //        member = memberRepository.save(member);
         memberRepository.save(member);

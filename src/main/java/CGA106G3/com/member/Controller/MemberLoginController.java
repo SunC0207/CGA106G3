@@ -25,11 +25,16 @@ public class MemberLoginController {
             member.setSuccessful(false);
             return member;
         }
+
+//        if (!memberAccountService.emailExists(email)){
+//            member.setMessage("登入失敗");
+//            return member;
+//        }
         member.setEmail(email);
         member.setMpw(mpw);
         member=memberAccountService.login(member);
 
-        if (member.isSuccessful()) {
+        if (!member.isSuccessful()) {
             if (request.getSession(false) != null) {
                 request.changeSessionId();
             }
