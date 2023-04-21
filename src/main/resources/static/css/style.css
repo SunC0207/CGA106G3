@@ -5,6 +5,26 @@
     --light: #6C7293;
     --dark: #000000;
 }
+/*faq*/
+    .change{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    top:0;
+    left:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    }
+
+    .change>div{
+    padding: 30px 20px;
+    height: 200px;
+    background: #fff;
+    }
+/**/
 
 .back-to-top {
     position: fixed;
