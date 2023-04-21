@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員資料修改</title>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Arkitektur - Architecture HTML Template</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Teko:wght@400;500;600&display=swap"
+            rel="stylesheet">
+
+        <!-- Icon Font Stylesheet -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="lib/animate/animate.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+        <style>
+            form {
+                margin: auto;
+                max-width: 500px;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            input,
+            select {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                box-sizing: border-box;
+            }
+
+            input[type="submit"] {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 3px;
+                padding: 10px 20px;
+                cursor: pointer;
+            }
+
+            input[type="submit"]:hover {
+                background-color: #45a049;
+            }
+
+            label,
+            input[type="file"],
+            img {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            label {
+                width: 80px;
+                /* 設置label的寬度 */
+                text-align: right;
+                /* 文字右對齊 */
+            }
+
+            img {
+                max-width: 100px;
+                max-height: 100px;
+                margin-left: 20px;
+                /* 設置圖片和input之間的距離 */
+            }
+        </style>
+        </style>
+    </head>
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <!-- <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center">
+        <div class="spinner-border position-relative text-primary" style="width: 6rem; height: 6rem;" role="status">
+        </div>
+        <img class="position-absolute top-50 start-50 translate-middle" src="img/icons/icon-1.png" alt="Icon">
+    </div> -->
+    <!-- Spinner End -->
+
+    <form action="update_member.php" method="post" enctype="multipart/form-data">
+        <h1>會員資料修改</h1>
+
+        <div id="currentUser">
+        </div>
+        <label for="mname">姓名：</label>
+        <input type="text" id="mname" name="mname"><br><br>
+
+        <label for="password">舊密碼：</label>
+        <input type="password" id="oPassword" name="oPassword"><br><br>
+
+        <label for="password">新密碼：</label>
+        <input type="password" id="nPassword" name="nPassword"><br><br>
+
+        <label for="comfirmpassword">確認密碼：</label>
+        <input type="password" id="confirmPassword" name="cconfirmPassword"><br><br>
+
+        <label for="picture">照片：</label>
+        <input type="file" id="picture" name="picture" accept="image/*"><br><br>
+        <img id="preImage" style="max-width: 100px; max-height: 100px;"><br><br>
+
+        <label for="sex">性別：</label>
+        <select id="sex" name="sex">
+            <option value="0">女性</option>
+            <option value="1">男性</option>
+        </select><br><br>
+
+        <label for="mobile">手機：</label>
+        <input type="tel" id="mobile" name="mobile"><br><br>
+
+        <label for="email">電子郵件：</label>
+        <input type="email" id="email" name="email"><br><br>
+
+        <button value="提交" id="btn2">送出</button>
+    </form>
+    <div id="msg" class="error"></div>
+    <script src="../front/js/memberEdit.js"></script>
+    <!-- <script src="sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script> -->
+</body>
+<script>
+
+    // document.getElementById("mname").value = sessionStorage.getItem("mname");
+    // document.getElementById("mobile").value = sessionStorage.getItem("mobile");
+    // document.getElementById("email").value = sessionStorage.getItem("email");
+
+</script>
+
+</html>
