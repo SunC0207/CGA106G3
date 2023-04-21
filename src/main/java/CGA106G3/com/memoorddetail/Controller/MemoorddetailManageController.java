@@ -14,7 +14,7 @@ public class MemoorddetailManageController {
     @Autowired
     private MemoordDETAILImpl service;
 
-    @PostMapping("/getAll")
+    @GetMapping("/getAll")
     @ResponseBody
     public List<MemoorddetailDTO> getAllMemoorddetail(){return service.getAllMemoorddetail();}
 }
