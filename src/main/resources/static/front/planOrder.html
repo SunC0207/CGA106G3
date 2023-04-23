@@ -186,72 +186,21 @@
 
     <!-- Service Start -->
     <section>
-        <div class="plan list all">
+        <div class="plan list all" id="table">
+
             <table>
-                <tr>
-                    <th class="th1">方案建立日期</th>
-                    <th class="th1">訂單編號</th>
-                    <th class="th1">往生者姓名</th>
-                    <th class="th1">總價</th>
-                    <th class="th1">付款狀態</th>
-                    <th class="th1">訂單狀態</th>
-                    <th class="th1"></th>
-                </tr>
-                <tr>
-                    <td class="td1">2023/01/01</td>
-                    <td class="td1">20230101001</td>
-                    <td class="td1">大蛇丸</td>
-                    <td class="td1">200000</td>
-                    <td class="td1">已付款</td>
-                    <td class="td1">已完成</td>
-                    <td class="td1"><a href="planOrderDetail.html" class="list-item"><input type="submit"
-                                value="查看訂單"></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="td1">2023/02/10</td>
-                    <td class="td1">20230210001</td>
-                    <td class="td1">王小美</td>
-                    <td class="td1">150000</td>
-                    <td class="td1">已付款</td>
-                    <td class="td1">未完成</td>
-                    <td class="td1"><a href="planOrderDetail.html" class="list-item"><input type="submit"
-                                value="查看訂單"></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="td1">2023/03/18</td>
-                    <td class="td1">20230101001</td>
-                    <td class="td1">張大雙</td>
-                    <td class="td1">150000</td>
-                    <td class="td1">未付款</td>
-                    <td class="td1">未完成</td>
-                    <td class="td1"><a href="planOrderDetail.html" class="list-item"><input type="submit"
-                                value="查看訂單"></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="td1">2023/03/18</td>
-                    <td class="td1">20230101001</td>
-                    <td class="td1">李大美</td>
-                    <td class="td1">150000</td>
-                    <td class="td1">未付款</td>
-                    <td class="td1">未完成</td>
-                    <td class="td1"><a href="planOrderDetail.html" class="list-item"><input type="submit"
-                                value="查看訂單"></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="td1">2023/03/18</td>
-                    <td class="td1">20230101001</td>
-                    <td class="td1">蔡曉明</td>
-                    <td class="td1">150000</td>
-                    <td class="td1">未付款</td>
-                    <td class="td1">未完成</td>
-                    <td class="td1"><a href="planOrderDetail.html" class="list-item"><input type="submit"
-                                value="查看訂單"></a>
-                    </td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th class="th1">方案建立日期</th>
+                        <th class="th1">訂單編號</th>
+                        <th class="th1">往生者姓名</th>
+                        <th class="th1">總價</th>
+                        <th class="th1">付款狀態</th>
+                        <th class="th1">訂單狀態</th>
+                        <th class="th1"></th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
             </table>
 
         </div>
@@ -341,6 +290,7 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="js/planord.js"></script>
     <script>
         const registerLink = document.querySelector('a[href="register2.html"]');
         const loginLink = document.querySelector('a[href="login2.html"]');

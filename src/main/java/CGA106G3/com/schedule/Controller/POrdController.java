@@ -1,5 +1,6 @@
 package CGA106G3.com.schedule.Controller;
 
+
 import CGA106G3.com.schedule.DTO.POrdDTO;
 import CGA106G3.com.schedule.Service.POrdServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,4 +41,14 @@ public class POrdController {
         int totalRecords = (int) pOrdService.count();
         return (totalRecords + size - 1) / size;
     }
+
+//    @GetMapping("/listPOrdByMembno")
+//    public List<MemberPOrdDTO>findPordByMembno(@RequestParam Integer membno){
+//        return pOrdService.findPordByMembno(membno);
+//    }
+@GetMapping("/findOrdbyMembno")
+    public List<POrdDTO>findOrdbyMembno(@RequestParam Integer membno){
+        return pOrdService.findByMembno(membno);
+}
+
 }

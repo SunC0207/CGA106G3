@@ -21,16 +21,23 @@ public class Member extends EntityCore {
 
     @Column(nullable = false, length = 20)
     private String mname;
+
+
     @Column(nullable = false, length = 20)
     private String mpw;
+
     @Lob
     private byte[] mpic;
+
     @Column(nullable = false, length = 1)
     private Integer sex;
+
     @Column(nullable = false, length = 10)
     private Integer mobile;
-    @Column(nullable = false, length = 30)
+
+    @Column(nullable = false, length = 30,unique = true)
     private String email;
+
     @Column(name = "ver_sta", length = 1, nullable = false)
     private Integer versta;
 
