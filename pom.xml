@@ -137,6 +137,28 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.github.huiaong</groupId>
+            <artifactId>base64-multipartfile-starter</artifactId>
+            <version>1.0.0-RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.huiaong</groupId>
+            <artifactId>base64-multipartfile-starter</artifactId>
+            <version>1.0.0-RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.huiaong</groupId>
+            <artifactId>base64-multipartfile-starter</artifactId>
+            <version>1.0.0-RELEASE</version>
+            <scope>import</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.huiaong</groupId>
+            <artifactId>base64-multipartfile-starter</artifactId>
+            <version>1.0.0-RELEASE</version>
+            <scope>import</scope>
+        </dependency>
 
 
     </dependencies>

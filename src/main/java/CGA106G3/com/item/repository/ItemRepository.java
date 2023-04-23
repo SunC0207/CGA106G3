@@ -14,7 +14,10 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
 
 
-    @Query(value = "SELECT i.ITEMNO, i.INAME, i.IPRICE, i.PRONO, p.PRONAME, c.CERNO, c.CERNAME ,r.rel_no, r.rel_name, op.upfile " +
+
+
+    @Query(value = "SELECT i.ITEMNO, i.INAME, i.IPRICE, i.PRONO, p.PRONAME, " +
+            "c.CERNO, c.CERNAME ,r.rel_no, r.rel_name, op.upfile " +
             "FROM Item i " +
             "JOIN process p ON i.proNo = p.proNo " +
             "JOIN Ceremony c ON p.cerNo = c.cerNo " +
@@ -23,4 +26,13 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
             "WHERE i.PRONO = :proNo "
             , nativeQuery = true)
     List<Object[]> findAllItemsWithProAndCeremonyAndRel(@Param("proNo") Integer proNo);
+
+    @Query(value = "SELECT i.ITEMNO, i.INAME, i.IPRICE, i.PRONO, p.PRONAME, " +
+            "i.ISTA , op.UPFILE " +
+            "FROM Item i " +
+            "JOIN process p ON i.proNo = p.proNo " +
+            "LEFT JOIN optpic op ON op.OPTNO = i.ITEMNO " +
+            "ORDER BY i.ITEMNO "
+            , nativeQuery = true)
+    List<Object[]> findAllItemsWithPro();
 }

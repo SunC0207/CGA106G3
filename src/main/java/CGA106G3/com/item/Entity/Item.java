@@ -21,7 +21,7 @@ public class Item extends EntityCore {
     private String iName;
 
     @Column(name="ISTA", nullable = false, length = 3)
-    private Integer iSta;
+    private Boolean iSta;
 
     @Column(name="IPRICE", nullable = false, length = 10)
     private Integer iPrice;

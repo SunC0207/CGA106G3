@@ -1,5 +1,6 @@
 package CGA106G3.com.item.Controller;
 
+import CGA106G3.com.item.DTO.AddProNameDto;
 import CGA106G3.com.item.DTO.ItemDTO;
 import CGA106G3.com.item.DTO.OrderDetailDto;
 import CGA106G3.com.item.Entity.Item;
@@ -51,7 +52,7 @@ public class ItemController {
     }
 
     @PostMapping("/updateIsta")
-    public ResponseEntity<String> updateIsta(@RequestParam("itemNo") Integer itemNo, @RequestParam("iSta") Integer iSta){
+    public ResponseEntity<String> updateIsta(@RequestParam("itemNo") Integer itemNo, @RequestParam("iSta") Boolean iSta){
         Optional<Item> optionalItem = itemService.findItemById(itemNo);
         if(optionalItem.isPresent()){
             Item item = optionalItem.get();
@@ -71,6 +72,11 @@ public class ItemController {
     @RequestMapping("/itemJoinRelCerePro")
     public List<OrderDetailDto> findAllItemsWithProAndCeremonyAndRel(@Param("proNo") Integer proNo){
         return itemService.findAllItemsWithProAndCeremonyAndRel(proNo);
+    }
+
+    @RequestMapping("/itemsAndProName")
+    public List<AddProNameDto> findAllItemsWithPro(){
+        return itemService.findAllItemsWithPro();
     }
 
 }

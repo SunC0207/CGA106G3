@@ -47,6 +47,10 @@ public class CeremonyService {
         return ceremonyRepository.findAll(pageable);
     }
 
+    public List<Ceremony> findAllCere (Ceremony ceremony) {
+        return ceremonyRepository.findAll();
+    }
+
     public Page<CeremonyDTO> findAllCeremonyDTO(Pageable pageable) {
         Page<Ceremony> ceremonyPage = ceremonyRepository.findAll(pageable);
         List<CeremonyDTO> ceremonys = ceremonyPage.getContent()
@@ -63,5 +67,9 @@ public class CeremonyService {
     @Transactional
     public List<Ceremony> findCeremoniesByRelNo(@RequestParam("relNo") Integer relNo){
         return ceremonyRepository.findByRelNo(relNo);
+    }
+
+    public List<Object> findRelNameByCerno(Integer cerNo){
+        return ceremonyRepository.findRelNameByCerno(cerNo);
     }
 }

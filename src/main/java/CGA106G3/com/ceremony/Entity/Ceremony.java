@@ -24,7 +24,7 @@ public class Ceremony extends EntityCore {
     @Column(name="CERSTA", nullable = false, length = 3)
     private Integer cerSta;
 
-    @Column(name="REL_NO", nullable = false, length = 10 , insertable=false, updatable=false)
+    @Column(name="REL_NO", nullable = false, length = 10 )
     private Integer relNo;
 
 //    @ManyToOne(fetch = FetchType.LAZY)

@@ -6,7 +6,6 @@ new Vue({
             newRelNo:'',
             religions: [],
             searchTerm:'',
-            newFilter: '',
 
         }
     },

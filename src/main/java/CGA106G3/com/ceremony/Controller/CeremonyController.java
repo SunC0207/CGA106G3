@@ -42,6 +42,11 @@ public class CeremonyController {
         return ceremonyService.findAllCeremonyDTO(pageable);
     }
 
+    @RequestMapping("/findAllCere")
+    public List<Ceremony> findAllCere(Ceremony ceremony){
+        return ceremonyService.findAllCere(ceremony);
+    }
+
     @RequestMapping("/getTotalPages")
     public int getTotalPages(@RequestParam int size){
         int totalRecords = (int) ceremonyService.count();
@@ -66,4 +71,8 @@ public class CeremonyController {
         return ceremonyService.findCeremoniesByRelNo(relNo);
     }
 
+    @RequestMapping("/findRelName")
+    public List<Object> findRelNameByCerno(@RequestParam("cerNo") Integer cerNo){
+        return ceremonyService.findRelNameByCerno(cerNo);
+    }
 }

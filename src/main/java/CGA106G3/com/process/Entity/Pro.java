@@ -21,12 +21,12 @@ public class Pro extends EntityCore {
     private String proName;
 
     @Column(name = "PROSTA",nullable = false,length = 3)
-    private Integer proSta;
+    private Boolean proSta;
 
     @Column(name = "PROSEQ",nullable = false,length = 10)
     private Integer proSeq;
 
-    @Column(name = "CERNO",nullable = false,length = 10, insertable=false, updatable=false)
+    @Column(name = "CERNO",nullable = false,length = 10)
     private Integer cerNo;
 
 //    @ManyToOne(fetch = FetchType.LAZY)

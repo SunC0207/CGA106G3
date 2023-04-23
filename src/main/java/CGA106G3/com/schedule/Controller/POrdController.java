@@ -1,5 +1,6 @@
 package CGA106G3.com.schedule.Controller;
 
+import CGA106G3.com.schedule.DTO.PODetailJoinDto;
 import CGA106G3.com.schedule.DTO.POrdDTO;
 import CGA106G3.com.schedule.Entity.POrd;
 import CGA106G3.com.schedule.Service.POrdServiceImpl;
@@ -19,6 +20,11 @@ public class POrdController {
     @Autowired
     private POrdServiceImpl pOrdService;
 
+    @RequestMapping("/update/{row}")
+    public POrd updatePro(@PathVariable("row") int row, @RequestBody POrd pOrd) {
+        pOrd.setPono(row);
+        return pOrdService.updatePOrd(pOrd);
+    }
 
     @GetMapping("/getAll")
     public List<POrdDTO> getAll() {
@@ -46,6 +52,11 @@ public class POrdController {
     public POrd addPOrd(@RequestBody POrd pOrd){
 
         return pOrdService.addPOrd(pOrd);
+    }
+
+    @RequestMapping("/detailJoin")
+    public List<PODetailJoinDto> detailByPoNO(Integer pono){
+        return pOrdService.detailByPoNO(pono);
     }
 
 

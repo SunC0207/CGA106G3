@@ -1,5 +1,6 @@
 package CGA106G3.com.item.Service;
 
+import CGA106G3.com.item.DTO.AddProNameDto;
 import CGA106G3.com.item.DTO.ItemDTO;
 import CGA106G3.com.item.DTO.OrderDetailDto;
 import CGA106G3.com.item.Entity.Item;
@@ -88,5 +89,25 @@ public class ItemService {
             detailDtos.add(dto);
         }
         return detailDtos;
+    }
+
+    public List<AddProNameDto> AddProNameToDto(List<Object[]> items){
+        List<AddProNameDto> detailDtos = new ArrayList<>();
+        for (Object[] item: items) {
+            AddProNameDto dto = new AddProNameDto();
+            dto.setItemNo((Integer) item[0]);
+            dto.setIName((String) item[1]);
+            dto.setIPrice((Integer) item[2]);
+            dto.setProNo((Integer) item[3]);
+            dto.setProName((String) item[4]);
+            dto.setISta((Boolean) item[5]);
+            dto.setUpFile((byte[]) item[6]);
+            detailDtos.add(dto);
+        }
+        return detailDtos;
+    }
+    public List<AddProNameDto> findAllItemsWithPro(){
+        List<Object[]> items = itemRepository.findAllItemsWithPro();
+        return AddProNameToDto(items);
     }
 }
