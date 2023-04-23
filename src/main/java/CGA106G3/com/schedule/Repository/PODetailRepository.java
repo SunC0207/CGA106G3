@@ -1,11 +1,13 @@
 package CGA106G3.com.schedule.Repository;
 
+import CGA106G3.com.schedule.DTO.FarewellDTO;
 import CGA106G3.com.schedule.DTO.PODetailDTO;
 import CGA106G3.com.schedule.Entity.PODetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.sql.Date;
+import java.util.Collection;
 import java.util.List;
 
 public interface PODetailRepository extends JpaRepository<PODetail,Integer> {
@@ -16,4 +18,6 @@ public interface PODetailRepository extends JpaRepository<PODetail,Integer> {
     List<PODetail> findByDateRangeAndPono(Date startDate, Date endDate,Integer pono);
 
     List<PODetail> findByLocno(Integer locno);
+
+
 }

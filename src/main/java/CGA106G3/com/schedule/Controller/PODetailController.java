@@ -1,5 +1,6 @@
 package CGA106G3.com.schedule.Controller;
 
+import CGA106G3.com.schedule.DTO.FarewellDTO;
 import CGA106G3.com.schedule.DTO.PODetailDTO;
 import CGA106G3.com.schedule.DTO.PODetailRangeDTO;
 import CGA106G3.com.schedule.DTO.ScheduleDTO;
@@ -66,4 +67,9 @@ public class PODetailController {
     public PODetail addPODetail(@RequestBody PODetail poDetail){
         return poDetailService.addPODetail(poDetail);
     }
+    @GetMapping("/getFarewell")
+    public List<FarewellDTO> getFarewell(@RequestParam String dname){
+        return poDetailService.farewells(dname);
+    }
+
 }

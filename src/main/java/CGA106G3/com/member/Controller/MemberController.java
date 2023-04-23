@@ -4,6 +4,7 @@ import CGA106G3.com.member.DTO.MemberDTO;
 import CGA106G3.com.member.Entity.Member;
 import CGA106G3.com.member.Service.MemberServiceImpl;
 import jakarta.annotation.Resource;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class MemberController {
     @Resource
     private MemberServiceImpl memberServiceImpl;
 
-    @GetMapping("/membno")
+    @GetMapping("/findById")
     public Member findById(@RequestParam Integer membno) {
         return memberServiceImpl.findMemberById(membno);
     }
@@ -31,10 +32,6 @@ public class MemberController {
 //        localhost:8080/memb/deleteMember/6
     }
 
-    @PutMapping("/updateMember")
-    public Member updateMember(@RequestBody Member member) {
-        return memberServiceImpl.updateMember(member);
-    }
 
     @GetMapping("/getAllMember")
     public List<Member> getAllMember() {

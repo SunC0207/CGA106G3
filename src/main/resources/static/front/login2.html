@@ -132,25 +132,60 @@
     <!-- <link href="//db.onlinewebfonts.com/c/a4e256ed67403c6ad5d43937ed48a77b?family=Core+Sans+N+W01+35+Light"
         rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="form.css" type="text/css"> -->
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
     <script>
         let btn1 = document.getElementById("btn1");
         btn1.addEventListener("click", function () {
             let email = document.getElementById("email");
             let mpw = document.getElementById("password");
-            fetch(`/memberlogin/login?email=${email.value}&mpw=${mpw.value}`)
 
-                .then((response) => response.json())
+            if (email.value === "") {
+                event.preventDefault;
 
-                .then((data) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: '登入失敗',
+                    text: '請輸入帳號',
+                    footer: ''
+                })
 
-                    sessionStorage.setItem("email", data.email);
-                    sessionStorage.setItem("mname", data.mname);
-                    sessionStorage.setItem("mobile", data.mobile);
-                    sessionStorage.setItem("membno", data.membno);
-                    sessionStorage.setItem("mpic", data.mpic);
-                    window.location.href = '../front/index_Chian.html';
-                });
+                return;
+            }
+            if (mpw.value === '') {
+                event.preventDefault;
+                Swal.fire({
+                    icon: 'error',
+                    title: '登入失敗',
+                    text: '請輸入密碼',
+                    footer: ''
+                })
+
+                return;
+            }
+            else {
+
+                fetch(`/memberlogin/login?email=${email.value}&mpw=${mpw.value}`)
+
+                    .then((response) => response.json())
+
+                    .then((data) => {
+                        sessionStorage.setItem("sex", data.sex);
+                        sessionStorage.setItem("email", data.email);
+                        sessionStorage.setItem("mname", data.mname);
+                        sessionStorage.setItem("mobile", data.mobile);
+                        sessionStorage.setItem("membno", data.membno);
+                        sessionStorage.setItem("mpic", data.mpic);
+                        sessionStorage.setItem('mpw', data.mpw);
+                        sessionStorage.setItem('versta', data.versta);
+                        window.location.href = '../front/index_Chian.html';
+                    });
+            }
         });
+
     </script>
 </body>
 

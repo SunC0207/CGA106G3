@@ -89,6 +89,11 @@ function isValidPhoneNumber(mobile) {
 
 // 
 // 當 input[type = "file"] 元素的值改變時觸發
+
+
+
+// document.querySelector('#registerForm').addEventListener('submit', checkform);
+
 document.getElementById('avatar').addEventListener('change', function () {
     // 取得選取的檔案
     const file = this.files[0];
@@ -161,21 +166,34 @@ btnregister.addEventListener('click', () => {
                     for (let input of inputs) {
                         input.disable = true;
                     }
-                    btnregister.disabled = true;
-                    msg.className = 'info';
-                    sessionStorage.setItem("email", body.email);
-                    sessionStorage.setItem("mname", body.mname);
-                    sessionStorage.setItem("mobile", body.mobile);
-                    window.location.href = '../front/index_Chian.html';
-                    msg.textContent = '註冊成功';
-                } else {
-                    msg.className = 'error';
-                    msg.textContent = '註冊失敗';
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: '註冊成功',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                        .then(() => {
+                            msg.className = 'info';
+                            sessionStorage.setItem("email", body.email);
+                            sessionStorage.setItem("mname", body.mname);
+                            sessionStorage.setItem("mobile", body.mobile);
+                            window.location.href = '../front/login2.html';
+                        });
+
                 }
-            });
+
+                else {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: '註冊失敗',
+                        text: '資料填寫錯誤，請重新輸入',
+                    })
+                }
+            })
     });
     fileReader.readAsBinaryString(img.files[0]);
-
 
 
     // if (img.files && img.files[0]) {

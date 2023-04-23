@@ -1,5 +1,7 @@
 package CGA106G3.com.memoorddetail.Entity;
 
+import CGA106G3.com.memoitem.Entity.Memoitem;
+import CGA106G3.com.memoitemord.Entity.Memoitemord;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,4 +29,12 @@ public class Memoorddetail {
     private Date midate;
     @Column(nullable = false)
     private Integer miprice;
+
+
+    @ManyToOne
+    @JoinColumn(name = "ORD_NO",insertable = false, updatable = false)
+    private Memoitemord memoitemord;
+    @OneToOne
+    @JoinColumn(name = "MINO",insertable = false, updatable = false)
+    private Memoitem memoitem;
 }

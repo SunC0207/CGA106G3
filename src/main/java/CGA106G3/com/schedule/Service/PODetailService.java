@@ -1,5 +1,6 @@
 package CGA106G3.com.schedule.Service;
 
+import CGA106G3.com.schedule.DTO.FarewellDTO;
 import CGA106G3.com.schedule.DTO.PODetailDTO;
 import CGA106G3.com.schedule.DTO.PODetailRangeDTO;
 import CGA106G3.com.schedule.DTO.ScheduleDTO;
@@ -22,6 +23,8 @@ public interface PODetailService {
     List<PODetailDTO> findByLocno(Integer locno);
 
     List<ScheduleDTO> listAll();
+
+    List<FarewellDTO> farewells(String dname);
 
 
 }

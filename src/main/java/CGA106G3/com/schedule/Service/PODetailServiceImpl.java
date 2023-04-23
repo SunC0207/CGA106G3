@@ -2,12 +2,10 @@ package CGA106G3.com.schedule.Service;
 
 import CGA106G3.com.Location.Entity.Loc;
 import CGA106G3.com.Location.Repository.LocRepository;
-import CGA106G3.com.schedule.DTO.PODetailDTO;
-import CGA106G3.com.schedule.DTO.PODetailRangeDTO;
-import CGA106G3.com.schedule.DTO.POrdDTO;
-import CGA106G3.com.schedule.DTO.ScheduleDTO;
+import CGA106G3.com.schedule.DTO.*;
 import CGA106G3.com.schedule.Entity.PODetail;
 import CGA106G3.com.schedule.Entity.POrd;
+import CGA106G3.com.schedule.Repository.FarewellRepository;
 import CGA106G3.com.schedule.Repository.PODetailRepository;
 import CGA106G3.com.schedule.Repository.POrdRepository;
 import org.modelmapper.ModelMapper;
@@ -29,8 +27,8 @@ public class PODetailServiceImpl implements PODetailService {
 
     @Autowired
     private PODetailRepository poDetailRepository;
-
-
+    @Autowired
+    FarewellRepository farewellRepository;
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
@@ -120,6 +118,13 @@ public class PODetailServiceImpl implements PODetailService {
         }
         return list;
     }
+
+    @Override
+    public List<FarewellDTO> farewells(String dname) {
+        return farewellRepository.findByDname(dname).stream().toList();
+    }
+
+
 
     private POrdDTO EntityToDTO(POrd pOrd) {
         POrdDTO pOrdDTO = new POrdDTO();
