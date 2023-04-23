@@ -2,6 +2,7 @@ package CGA106G3.com.member.Controller;
 
 import CGA106G3.com.member.Core.Core;
 import CGA106G3.com.member.DTO.MemberEditDTO;
+import CGA106G3.com.member.DTO.UpdateVerstaDTO;
 import CGA106G3.com.member.Entity.Member;
 import CGA106G3.com.member.Service.MemberServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,4 +76,8 @@ public class MemberEditController {
 //    }
 //    return  member;
 //}
+    @PostMapping("/updateVersta")
+    public void updateVersta(@RequestBody UpdateVerstaDTO updateVerstaDTO){
+        memberService.updateVersta(updateVerstaDTO);
+    }
 }

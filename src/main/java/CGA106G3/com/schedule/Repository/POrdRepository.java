@@ -21,4 +21,7 @@ public interface POrdRepository extends JpaRepository<POrd, Integer> {
             "LEFT JOIN religion r ON c.REL_NO = r.REL_NO " +
             "WHERE pl.pono = :pono " , nativeQuery = true)
     List<Object[]> detailByPoNO(Integer pono);
+
+    List<POrd> findByMembno(Integer membno);
+
 }

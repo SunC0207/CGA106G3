@@ -1,10 +1,12 @@
 package CGA106G3.com.schedule.Service;
 
 import CGA106G3.com.schedule.DTO.PODetailJoinDto;
+
 import CGA106G3.com.schedule.DTO.POrdDTO;
 import CGA106G3.com.schedule.Entity.POrd;
 import CGA106G3.com.schedule.Repository.POrdRepository;
 import CGA106G3.com.schedule.Service.POrdService;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ import java.util.stream.Collectors;
 public class POrdServiceImpl implements POrdService {
     @Autowired
     POrdRepository pOrdRepository;
+//    @Autowired
+//    PordMemberRepository pordMemberRepository;
     @Autowired
     ModelMapper modelMapper;
 
@@ -52,6 +56,49 @@ public class POrdServiceImpl implements POrdService {
     public POrdDTO getOne(Integer pono) {
         return modelMapper.map(pOrdRepository.getReferenceById(pono), POrdDTO.class);
     }
+
+    @Override
+    public List<POrdDTO> findByMembno(Integer membno) {
+        return pOrdRepository.findByMembno(membno)
+                .stream().map(this::EntityToDTO)
+                .collect(Collectors.toList());
+
+    }
+
+//    public List<MemberPOrdDTO>pOrdObjetctoDTO(List<Object[]> details){
+//        List<MemberPOrdDTO>detailDTO=new ArrayList<>();
+//        for(Object[] detail:details){
+//            MemberPOrdDTO dto = new MemberPOrdDTO();
+//            dto.setPoDate((Timestamp) detail[0]);
+//            dto.setPoDate((Timestamp) detail[0]);
+//            dto.setPono((Integer) detail[1]);
+//            dto.setMembno((Integer) detail[2]);
+//            dto.setTPrice((Integer) detail[4]);
+//            dto.setPoDate((Timestamp) detail[5]);
+//            dto.setPaysta((Integer) detail[7]);
+//            dto.setPoType((Integer) detail[8]);
+//            dto.setDname((String) detail[9]);
+//            detailDTO.add(dto);
+//
+//        }
+//        return detailDTO;
+//    }
+//
+// @Override
+//    public List<MemberPOrdDTO> findPordByMembno(Integer membno) {
+//        List<Object[]> detail = pordMemberRepository.findPordByMembno(membno);
+//        if(detail.isEmpty()){
+//            return new ArrayList<>();
+//        }
+//        return pOrdObjetctoDTO(detail);
+//    }
+
+
+
+
+
+
+
 
     private POrdDTO EntityToDTO(POrd pOrd) {
         POrdDTO pOrdDTO = new POrdDTO();
@@ -103,5 +150,7 @@ public class POrdServiceImpl implements POrdService {
         List<Object[]> details = pOrdRepository.detailByPoNO(pono);
         return detailToDto(details);
     }
+
+
 
 }

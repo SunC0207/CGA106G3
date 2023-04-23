@@ -22,5 +22,7 @@ public class MemberDTO {
     private Integer versta;
 
 
+
+
 }
 

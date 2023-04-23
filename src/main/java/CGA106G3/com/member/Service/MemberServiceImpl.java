@@ -1,6 +1,8 @@
 package CGA106G3.com.member.Service;
 
 import CGA106G3.com.member.DTO.MemberEditDTO;
+import CGA106G3.com.member.DTO.MemberVerstaDTO;
+import CGA106G3.com.member.DTO.UpdateVerstaDTO;
 import org.modelmapper.ModelMapper;
 import CGA106G3.com.member.DTO.MemberDTO;
 import CGA106G3.com.member.Entity.Member;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -54,6 +57,11 @@ public void deleteMember(Integer member){
         return modelMapper.map(memberRepository.save(member),MemberEditDTO.class);
     }
 
+    public MemberVerstaDTO updateVersta(MemberVerstaDTO memberVerstaDTO){
+    Member member =modelMapper.map(memberVerstaDTO,Member.class);
+    return modelMapper.map(memberRepository.save(member),MemberVerstaDTO.class);
+    }
+
 
     @Override
     public List<Member> findAllMember(){
@@ -65,17 +73,30 @@ public void deleteMember(Integer member){
         return  memberRepository.findById(membno).orElse(null);
     }
 //    @Override
-//    public Member findVerstaByID(Integer membno){
-//     Member member = memberRepository.findById(membno).orElse(null);
-//        return member.getVersta();
+//    public List<MemberDTO> getMemberBySta(Integer versta){
+//     return memberRepository.findMemberbyVersta(versta)
+//             .stream()
+//             .map(this::EntityToDTO)
+//             .collect(Collectors.toList());
 //    }
 
 
     private MemberDTO EntityToDTO(Member member){
         MemberDTO memberDto = new MemberDTO();
-        modelMapper.map(member, MemberDTO.class);
+        modelMapper.map(member, MemberDTO.class);//(輸入型態,要轉換的型態.class)
         return memberDto;
     }
+
+    public Member findByMname(String mname) {
+    return memberRepository.findByMname(mname);
+    }
+
+//    public List<MemberDTO>findByMname(String mname){
+//    return memberRepository.findByMname(mname)
+//            .stream()
+//            .map(this::EntityToDTO)
+//            .collect(Collectors.toList());
+//    }
 
 
     @Transactional
@@ -122,16 +143,9 @@ public void deleteMember(Integer member){
         return member;
     }
 
-
-
-
-
-
-
-
-
-
-
+    public void updateVersta(UpdateVerstaDTO updateVerstaDTO){
+        memberRepository.updateVersta(updateVerstaDTO.getMembno(),updateVerstaDTO.getVersta());
+    }
 
 
 

@@ -1,6 +1,9 @@
 package CGA106G3.com.Mail.Service;
 
+import CGA106G3.com.Mail.DTO.ForgetDTO;
 import CGA106G3.com.Mail.DTO.MailDTO;
+import CGA106G3.com.member.Entity.Member;
+import CGA106G3.com.member.Repository.MemberRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,8 @@ import java.io.File;
 public class MailServiceImpl implements MailService{
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    private MemberRepository memberRepository;
 
 
 
@@ -39,6 +44,23 @@ public class MailServiceImpl implements MailService{
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+
+
+    }
+
+
+    public boolean sendPassword(ForgetDTO email){
+        try {
+            Member member = memberRepository.findByEmail(email.getEmail());
+            String mailcontent ="親愛的"+member.getMname()+"您好\n"+"這是您的密碼\n"+member.getMpw()+"\n別再弄丟囉";
+            MailDTO mailDTO =new MailDTO(email.getEmail(),"找回密碼",mailcontent);
+            sendEmail(mailDTO);
+            return true;
+        }catch (Exception e){
+            System.out.println(e.fillInStackTrace());
+            return false;
+        }
+
 
 
     }
