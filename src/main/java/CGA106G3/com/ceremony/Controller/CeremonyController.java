@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -41,6 +42,11 @@ public class CeremonyController {
         return ceremonyService.findAllCeremonyDTO(pageable);
     }
 
+    @RequestMapping("/findAllCere")
+    public List<Ceremony> findAllCere(Ceremony ceremony){
+        return ceremonyService.findAllCere(ceremony);
+    }
+
     @RequestMapping("/getTotalPages")
     public int getTotalPages(@RequestParam int size){
         int totalRecords = (int) ceremonyService.count();
@@ -60,4 +66,13 @@ public class CeremonyController {
         }
     }
 
+    @RequestMapping("/ceremoniesByRelno")
+    public List<Ceremony> getCeremoniesByRelNo(@RequestParam("relNo") Integer relNo){
+        return ceremonyService.findCeremoniesByRelNo(relNo);
+    }
+
+    @RequestMapping("/findRelName")
+    public List<Object> findRelNameByCerno(@RequestParam("cerNo") Integer cerNo){
+        return ceremonyService.findRelNameByCerno(cerNo);
+    }
 }

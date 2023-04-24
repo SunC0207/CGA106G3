@@ -1,5 +1,6 @@
 package CGA106G3.com.process.Controller;
 
+import CGA106G3.com.process.DTO.ProCereDto;
 import CGA106G3.com.process.DTO.ProDTO;
 import CGA106G3.com.process.Entity.Pro;
 import CGA106G3.com.process.Service.ProService;
@@ -8,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -35,6 +38,11 @@ public class ProController {
         return proservice.findProById(proNo);
     }
 
+    @RequestMapping("/findCereName")
+    public List<ProCereDto> finaAllJoinCere(){
+        return proservice.finaAllJoinCere();
+    }
+
     @RequestMapping("/findAll")
     public Page<ProDTO> getAllPro(@RequestParam int page, @RequestParam int size){
         Pageable pageable = PageRequest.of(page -1, size);
@@ -48,7 +56,7 @@ public class ProController {
     }
 
     @PostMapping("/updateProSta")
-    public ResponseEntity<String> updateProSta(@RequestParam("proNo") Integer proNo, @RequestParam("proSta") Integer proSta){
+    public ResponseEntity<String> updateProSta(@RequestParam("proNo") Integer proNo, @RequestParam("proSta") Boolean proSta){
         Optional<Pro> optionalPro = proservice.findProById(proNo);
         if(optionalPro.isPresent()){
             Pro pro = optionalPro.get();
@@ -58,6 +66,17 @@ public class ProController {
         }else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+
+    @RequestMapping("/proByCerNo")
+    public List<Pro> getByCerNo(@Param("cerNo") Integer cerNo){
+        return proservice.getByCerNo(cerNo);
+    }
+
+    @RequestMapping("/findRNameCName")
+    public List<Object[]> findRNameCNameByProNO(Integer proNo){
+        return proservice.findRNameCNameByProNO(proNo);
     }
 
 }

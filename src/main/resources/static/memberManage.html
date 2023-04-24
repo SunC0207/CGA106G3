@@ -224,28 +224,93 @@
                                 </button>
                             </div>
 
+                            <div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">會員標號</th>
+                                            <th scope="col">會員名稱</th>
+                                            <th scope="col">大頭貼</th>
+                                            <th scope="col">密碼</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">手機號碼</th>
+                                            <th scope="col">性別</th>
+                                            <th scope="col">驗證狀態</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody"> </tbody>
+                                </table>
+                            </div>
 
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">會員標號</th>
-                                        <th scope="col">會員名稱</th>
-                                        <th scope="col">大頭貼</th>
-                                        <th scope="col">密碼</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">手機號碼</th>
-                                        <th scope="col">性別</th>
-                                        <th scope="col">驗證狀態</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody">
+                            <button class="btn btn-lg btn-primary btn-lg-square" id="callAddMemb" data-bs-toggle="modal"
+                                data-bs-target="#addMembPatt">
+                                <i class="bi bi-person-plus"></i>
+                            </button>
 
-                                </tbody>
-                            </table>
+
+                        </div>
+                    </div>
+                    <!-- 修改會員 -->
+
+                    <div class="modal" tabindex="-1" aria-hidden="false" id="addMembPatt">
+                        <div class="modal-dialog">
+                            <div class="modal-content bg-secondary rounded">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">修改會員資料</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body p-4">
+                                    <div class="mb-3">
+                                        <label for="membno" class="form-label">會員編號</label>
+                                        <input type="text" class="form-control" id="membno" disabled>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="mname" class="form-label">會員姓名</label>
+                                        <input type="text" class="form-control" id="mname" disabled>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="versta" class="form-label">驗證狀態</label>
+                                        <select class="form-select" id="versta">
+                                            <option selected value="0">啟用</option>
+                                            <option value="1">停權</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                                        id="addmemb">送出</button>
+                                    <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal"
+                                        id="cancelAdd">取消</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
 
+                    <!-- <div id="editMemberModal" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h2>修改會員資料</h2>
+                                <span class="close">&times;</span>
+                            </div>
+                            <div class="modal-body">
+                                <label for="member-id">會員編號:</label>
+                                <input type="text" id="member-id" name="member-id"><br>
+                                <label for="member-name">會員姓名:</label>
+                                <input type="text" id="member-name" name="member-name"><br>
+                                <label for="verification-status">驗證狀態:</label>
+                                <select id="verification-status" name="verification-status">
+                                    <option value="0">已驗證</option>
+                                    <option value="1">未驗證</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="submit-btn">送出</button>
+                                <button id="cancel-btn">取消</button>
+                            </div>
+                        </div>
+                    </div> -->
 
                     <!-- Footer Start -->
                     <div class="container-fluid pt-4 px-4">

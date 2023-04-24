@@ -2,6 +2,13 @@
 
 <head>
 
+    <style>
+        td,
+        th {
+            vertical-align: middle !important;
+            text-align: center !important;
+        }
+    </style>
 
     <meta charset="utf-8">
     <title>DarkPan - Bootstrap 5 Admin Template</title>
@@ -34,6 +41,8 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/util.js"></script>
     <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/pagejs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
 </head>
 
 <body>
@@ -99,7 +108,7 @@
 
 
         <!-- Content Start -->
-        <div class="content">
+        <div class="content" id="religion">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
@@ -118,10 +127,10 @@
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
                                     <img class="rounded-circle" src="img/user.jpg" alt=""
-                                    style="width: 40px; height: 40px;">
+                                        style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        
+
                                         <small>15 minutes ago</small>
                                     </div>
                                 </div>
@@ -198,21 +207,29 @@
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-secondary rounded h-100 p-4">
-                            <form style="width:fit-content;" id="search-form" class="d-none d-md-flex ms-4">
-                            <input class="form-control bg-dark border-0" type="search" id="search" name="search"
-                                placeholder="Search">
-                            <button type="submit" class="btn btn-primary ms-2" style="width: 30%;">搜尋</button>
-                        </form>
-                            <button type="button" class="btn btn-square btn-primary m-2" style="float: right;"
-                                id="add">+</button>
+                            <div style="width:fit-content; margin-bottom: 5%;" class="d-none d-md-flex ms-4">
+                                <input class="form-control bg-dark border-0" type="search" v-model="searchTerm"
+                                    name="search" placeholder="Search">
+                                <button class="btn btn-primary ms-2" style="width: 30%;">搜尋</button>
+                            </div>
+                            <button @click="showModal" type="button" class="btn btn-square btn-primary m-2"
+                                style="float: right;">+</button>
                             <h6 class="mb-4">宗教管理</h6>
-                            
+
                             <table class="table" id="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">宗教編號</th>
                                         <th scope="col">宗教名稱</th>
                                         <th scope="col">修改</th>
+                                    </tr>
+                                    <tr v-for="rel in religions" :key="rel.relNo"
+                                        v-show="regex.test(rel.relName) || regex.test(rel.relNo)">
+                                        <td class="cerno">{{ rel.relNo }}</td>
+                                        <td>{{ rel.relName }}</td>
+                                        <td><button type="button" @click="showUpdateModal(rel)"
+                                                class="btn btn-primary ms-2 update-btn">編輯</button>
+                                        </td>
                                     </tr>
                             </table>
 
@@ -227,7 +244,59 @@
                 </div>
             </div>
             <!-- Table End -->
-
+            <div class="modal fade" id="religionModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="row bg-secondary rounded align-items-center justify-content-center mx-0 modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">宗教新增</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <div>
+                                    宗教名稱：<input v-model="newRelName" class="form-control mb-3" type="text"
+                                        placeholder="請輸入欲新增的宗教" aria-label="default input example">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    aria-label="Close">關閉</button>
+                                <button type="submit" @click="addReligion" class="btn btn-primary"
+                                    data-bs-dismiss="modal">保存變更</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="row bg-secondary rounded align-items-center justify-content-center mx-0 modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">宗教更新</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <div>
+                                    宗教名稱：<input v-model="newRelName" class="form-control mb-3" type="text"
+                                        :placeholder=newRelName aria-label="default input example"> </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    aria-label="Close">關閉</button>
+                                <button type="submit" @click="updateRel" class="btn btn-primary"
+                                    data-bs-dismiss="modal">保存變更</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">

@@ -8,7 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @RestController
@@ -16,14 +18,43 @@ import java.util.Optional;
 public class OptPicController  {
     @Autowired
     private OptPicService optPicservice;
-    @PostMapping("/add")
-    public OptPic addOptPic(OptPic optPic){
-        return optPicservice.addOptPic(optPic);
+
+    @RequestMapping("/delete")
+    public void deleteByOptNo(Integer optNo){
+        optPicservice.deleteByOptNo(optNo);
     }
+
+    @PostMapping("/add")
+    public OptPic addOptPic(@RequestParam("optNo") Integer optNo,
+                            @RequestParam("picName") String picName,
+                            @RequestParam("upFile") MultipartFile upFile) throws IOException {
+        // 檢查該細項是否已有圖片
+        OptPic existingPic = optPicservice.findByOptNo(optNo);
+
+        if(existingPic != null){
+            // 如果已有圖片 則更新圖片內容
+            byte[] fileBytes = upFile.getBytes();
+            existingPic.setUpFile(fileBytes);
+            return optPicservice.addOptPic(existingPic);
+        }else{
+            // 處理檔案上傳
+            byte[] fileBytes = upFile.getBytes();
+
+            // 建立 OptPic 物件
+            OptPic optPic = new OptPic();
+            optPic.setOptNo(optNo);
+            optPic.setPicName(picName);
+            optPic.setUpFile(fileBytes);
+
+            return optPicservice.addOptPic(optPic);
+        }
+
+    }
+
 
     @RequestMapping("/update")
     public OptPic updateOptPic(OptPic optPic) {
-        return optPicservice.addOptPic(optPic);
+        return optPicservice.updateOptPic(optPic);
     }
 
     @RequestMapping("/find")

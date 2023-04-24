@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OptPicRepository extends JpaRepository<OptPic, Integer> {
 
+    public OptPic findByOptNo(Integer optNo);
 
+    public void deleteByOptNo(Integer optNo);
 
 }

@@ -2,6 +2,14 @@
 
 <head>
 
+    <style>
+        td,
+        th,
+        select {
+            vertical-align: middle !important;
+            text-align: center !important;
+        }
+    </style>
 
     <meta charset="utf-8">
     <title>DarkPan - Bootstrap 5 Admin Template</title>
@@ -99,7 +107,7 @@
 
 
         <!-- Content Start -->
-        <div class="content">
+        <div class="content" id="orderDetails">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
@@ -108,7 +116,7 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                
+
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -199,27 +207,75 @@
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-secondary rounded h-100 p-4" style="width:max-content">
                             <form style="width:fit-content;" id="search-form" class="d-none d-md-flex ms-4">
-                                <input class="form-control bg-dark border-0" type="search" id="search" name="search"
+                                <input v-model="searchTerm" class="form-control bg-dark border-0" type="search" id="search" name="search"
                                     placeholder="Search">
                                 <button type="submit" class="btn btn-primary ms-2" style="width: 30%;">搜尋</button>
                             </form>
-                            <button type="button" class="btn btn-square btn-primary m-2" style="float: right;"
-                                id="add">+</button>
+                            <!-- <button type="button" class="btn btn-square btn-primary m-2" style="float: right;"
+                                id="add">+</button> -->
                             <h6 class="mb-4">訂單明細管理</h6>
-                            <table class="table" id="table" >
-                                <thead >
-                                    <tr >
-                                        <th scope="col">明細編號</th>
+                            <table class="table" id="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">訂單建立日期</th>
                                         <th scope="col">訂單編號</th>
-                                        <th scope="col">細項編號</th>
-                                        <th scope="col">場地編號</th>
-                                        <th scope="col">細項價格</th>
+                                        <th scope="col">宗教</th>
+                                        <th scope="col">往生者姓名</th>
+                                        <th scope="col">往生者出生日期</th>
+                                        <th scope="col">往生者往生日期</th>
                                         <th scope="col">流程日期</th>
+                                        <th scope="col">場地</th>
+                                        <th scope="col">總價</th>
+                                        <th scope="col">付款狀態</th>
+                                        <th scope="col">契約型態</th>
+                                        <th scope="col">細項名稱</th>
+                                        <th scope="col">細項單價</th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody id="tableBody"></tbody>
+                                <tr v-for="(detail, index) in orderDetails" :key="detail.detailNo" v-show="
+                                regex.test(detail.poDate) ||
+                                regex.test(detail.iname) ||
+                                regex.test(detail.locName) ">
+                                    <td v-if="index === 0">{{detail.poDate}}</td>
+                                    <td v-else></td>
+                                    <td v-if="index === 0">{{detail.poNo}}</td>
+                                    <td v-else></td>
+                                    <td v-if="index === 0">{{detail.relName}}</td>
+                                    <td v-else></td>
+                                    <td v-if="index === 0">{{detail.dname}}</td>
+                                    <td v-else></td>
+                                    <td v-if="index === 0">{{detail.dbirth}}</td>
+                                    <td v-else></td>
+                                    <td v-if="index === 0">{{detail.ddate}}</td>
+                                    <td v-else></td>
+                                    <td v-if="index === 0">{{detail.date}}</td>
+                                    <td v-else></td>
+                                    <td>{{detail.locName}}</td>
+                                    <td v-if="index === 0">{{detail.totalPr}}</td>
+                                    <td v-else></td>
+                                    <td v-if="index === 0">
+                                        <span v-if="detail.paySta === 0">未付款</span>
+                                        <span v-if="detail.paySta === 1">已付訂金</span>
+                                        <span v-if="detail.paySta === 2">已結清</span>
+                                        <span v-if="detail.paySta === 3">已退款(生前契約)</span>
+                                    </td>
+                                    <td v-else></td>
+                                    <td v-if="index === 0">
+                                        <span v-if="detail.poSta === 0">協商中</span>
+                                        <span v-if="detail.poSta === 1">已建案</span>
+                                        <span v-if="detail.poSta === 2">取消</span>
+                                    </td>
+                                    <td v-else></td>
+                                    <td>{{detail.iname}}</td>
+                                    <td>{{detail.iprice}}</td>
+                                    <td style="display: none;">{{detail.detailNo}}</td>
+                                    <td style="display: none;">{{detail.itemNo}}</td>
+                                    <td style="display: none;">{{detail.locNo}}</td>
+                                </tr>
                             </table>
-                            <nav>
+                            <!-- <nav>
                                 <ul class="pagination">
                                     <li class="page-item ${pageNum === 1 ? 'disabled' : ''}">
                                         <a class="page-link" href="#" data-page="${pageNum - 1}" aria-label="Previous">
@@ -235,7 +291,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </nav>
+                            </nav> -->
 
                         </div>
                     </div>
@@ -283,6 +339,8 @@
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+
 
 
     <!-- Template Javascript -->

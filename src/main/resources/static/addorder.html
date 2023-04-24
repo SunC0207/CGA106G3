@@ -1,6 +1,39 @@
 <html lang="en">
 
+
 <head>
+
+    <style>
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(50%) hue-rotate(180deg);
+        }
+
+        input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+            filter: invert(50%) hue-rotate(180deg);
+        }
+
+        td,
+        th {
+            vertical-align: middle !important;
+            text-align: center !important;
+        }
+    </style>
+    <!-- 引入 Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- 引入 jQuery 函式庫 -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <!-- 引入 Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNSbN6U"
+        crossorigin="anonymous"></script>
+    <!-- 引入 Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
 
 
     <meta charset="utf-8">
@@ -32,8 +65,8 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-    <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/util.js"></script>
-    <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/pagejs.js"></script>
+    <!-- <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/util.js"></script> -->
+    <!-- <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/pagejs.js"></script> -->
 </head>
 
 <body>
@@ -99,7 +132,7 @@
 
 
         <!-- Content Start -->
-        <div class="content">
+        <div class="content" id="template">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
@@ -195,61 +228,66 @@
 
             <!-- Table Start -->
             <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <nav style="width: min-content;" class=" rounded navbar-nav navbar bg-secondary navbar-dark">
-                        <div class="navbar-nav w-100">
-                            <div class="nav-item dropdown">
-                                <a  href="#" id="religion" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                        class="fa fa-laptop me-2"></i>宗教</a>
-                                <div id="religion-div" class="dropdown-menu bg-transparent border-0">
-                                    <a href="" class="dropdown-item">Buttons</a>
-                                    <a href="" class="dropdown-item">Typography</a>
-                                    <a href="" class="dropdown-item">Other Elements</a>
-                                </div>
+                <div class="row g-4" id="">
+                    <div>
+                        <button @click="showModal" style="width:max-content;" type="button"
+                            class="btn btn-sm btn-primary m-2">+
+                            新增訂單 </button>
+                    </div>
+                    <!-- Modal 結構 -->
+
+                    <nav style="width: min-content; margin-left: 12px; padding-left: 10px;"
+                        class=" rounded navbar-nav navbar bg-secondary navbar-dark">
+                        <template>
+                            <div>
+                                <select v-model="selectedReligion" @change="getCeremonies" @click="firstOrNot"
+                                    class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                    <option value="0" disabled selected>宗教</option>
+                                    <option v-for="religion in religions" :value="religion.relNo">{{ religion.relName }}
+                                    </option>
+                                </select>
+                                <select v-model="selectedCeremony" @change="getProcesses"
+                                    class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                    <option value="0" disabled selected>儀式</option>
+                                    <option v-for="ceremony in ceremonies" :value="ceremony.cerNo">{{ ceremony.cerName
+                                        }}
+                                    </option>
+                                </select>
+                                <input v-model="selectedCereDate" @blur="getcereLoc" type="datetime-local"
+                                    class="form-select form-select-lg mb-3" max="" />
+                                <select v-model="selectedLoc" class="form-select form-select-lg mb-3"
+                                    aria-label=".form-select-lg example">
+                                    <option value="0" disabled selected>儀式場地</option>
+                                    <option v-for="location in locations" :value="location.locno">{{ location.locname }}
+                                    </option>
+                                </select>
+                                <select v-model="selectedProcess" @change="fetchSelectedItem"
+                                    class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                    <option value="0" disabled selected>流程</option>
+                                    <option v-for="process in processes" :value="process.proNo">{{ process.proName }}
+                                    </option>
+                                </select>
                             </div>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                        class="fa fa-laptop me-2"></i>儀式</a>
-                                <div class="dropdown-menu bg-transparent border-0">
-                                    <a href="" class="dropdown-item">Buttons</a>
-                                    <a href="" class="dropdown-item">Typography</a>
-                                    <a href="" class="dropdown-item">Other Elements</a>
-                                </div>
-                            </div>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                        class="fa fa-laptop me-2"></i>流程</a>
-                                <div class="dropdown-menu bg-transparent border-0">
-                                    <a href="" class="dropdown-item">Buttons</a>
-                                    <a href="" class="dropdown-item">Typography</a>
-                                    <a href="" class="dropdown-item">Other Elements</a>
-                                </div>
-                            </div>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                        class="fa fa-laptop me-2"></i>細項</a>
-                                <div class="dropdown-menu bg-transparent border-0">
-                                    <a href="" class="dropdown-item">Buttons</a>
-                                    <a href="" class="dropdown-item">Typography</a>
-                                    <a href="" class="dropdown-item">Other Elements</a>
-                                </div>
-                            </div>
-                        </div>
+                        </template>
                     </nav>
-                    <div class="col-sm-12 col-xl-6">
+                    <div class="col-sm-12 col-xl-6" style="width: 70% ">
                         <div class="bg-secondary rounded h-100 p-4">
-                            <h6 class="mb-4">儀式管理</h6>
-                            <table class="table" id="table">
+                            <h6 class="mb-4">{{ selectedCereName }}-{{ selectedProName }}</h6>
+                            <table class="table" id="table" ref="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">儀式編號</th>
                                         <th scope="col">儀式名稱</th>
-                                        <th scope="col">宗教編號</th>
+                                        <th scope="col">細項名稱</th>
+                                        <th scope="col">細項價錢</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
-                                <tbody id="tableBody"></tbody>
+                                <tbody id="tableBody" ref="tbody"></tbody>
                             </table>
-                            <nav>
+                            <button @click="ipriceSubmit" style="float:right;" type="submit"
+                                class="btn btn-primary">送出</button>
+                            <!-- <nav>
                                 <ul class="pagination">
                                     <li class="page-item ${pageNum === 1 ? 'disabled' : ''}">
                                         <a class="page-link" href="#" data-page="${pageNum - 1}" aria-label="Previous">
@@ -265,42 +303,125 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </nav>
-
+                            </nav> -->
                         </div>
                     </div>
-
-
-
-
-
-
-                </div>
-            </div>
-            <!-- Table End -->
-
-
-            <!-- Footer Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-secondary rounded-top p-4">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 text-center text-sm-start">
-                            © <a href="#">Your Site Name</a>, All Right Reserved.
+                    <div class="col-sm-12 col-xl-6" style="width: 98%;">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h6 class="mb-4">訂單明細</h6>
+                            <div>
+                                <label class="mb-4">往生者姓名：{{ dname }},</label>
+                                <label class="mb-4">往生者出生日期：{{ dBirth }},</label>
+                                <label class="mb-4">往生者往生日期：{{ dDate }},</label><br>
+                                <label class="mb-4">訂單建立日期：{{ poDate }},</label>
+                                <label class="mb-4">契約型態：{{ poType }},</label><br>
+                                <label class="mb-4">會員編號：{{ membno }},</label>
+                                <label class="mb-4">專責員工：{{ ename }}</label><br><br>
+                                <label class="mb-4">宗教：{{ selectedReligionName }}</label>
+                            </div>
+                            <table class="table" id="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">儀式名稱</th>
+                                        <th scope="col">細項名稱</th>
+                                        <th scope="col">細項價錢</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody @change="totalIprice" ref="detailBody"></tbody>
+                            </table>
+                            <label style="margin-left: 70%;" class="mb-4">訂單總價：$ {{ iPrice }}</label>
+                            <button @click="addPOrd" style="float:right;" type="submit"
+                                class="btn btn-primary">建立訂單</button>
                         </div>
-                        <div class="col-12 col-sm-6 text-center text-sm-end">
-                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <div class="modal fade" id="templateModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="row bg-secondary rounded align-items-center justify-content-center mx-0 modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">方案訂單新增</h5>
+                            <button @click="clear" type="button" class="close" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <div style="width: min-content;">
+                                    往生者姓名：<input v-model="dname" class="form-control mb-3" type="text"
+                                        placeholder="請輸入往生者姓名" aria-label="default input example">
+                                    往生者出生日期：<input v-model="dBirth" type="date" class="form-control mb-3" max="">
+                                    往生者往生日期：<input v-model="dDate" class="form-control mb-3" type="date">
+                                    訂單建立日期：<input v-model="poDate" class="form-control mb-3" type="date"
+                                        aria-label="default input example">
+                                    契約型態：<select v-model="poType" class="form-select form-select-sm mb-3"
+                                        aria-label=".form-select-sm example">
+                                        <option value="2" disabled selected="">契約型態</option>
+                                        <option value="0">定型化契約</option>
+                                        <option value="1">生前契約</option>
+                                    </select>
+                                    會員編號：<input v-model="membno" class="form-control mb-3" type="text"
+                                        placeholder="請輸入會員編號" aria-label="default input example">
+                                    專責員工：<select v-model="selectedEmp" class="form-select form-select-sm mb-3"
+                                        aria-label=".form-select-sm example">
+                                        <option value="0" disabled selected="">員工</option>
+                                        <option v-for="emp in emps" :value="{ empno: emp.empno, ename: emp.ename }">{{
+                                            emp.ename }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button @click="clear" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    aria-label="Close">關閉</button>
+                                <button @click.prevent="addlocalStorage() ; modalGetItem()" type="submit"
+                                    class="btn btn-primary" data-bs-dismiss="modal">保存變更</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Footer End -->
+
+
+
+
         </div>
-        <!-- Content End -->
+    </div>
+    <!-- Table End -->
 
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <!-- Footer Start -->
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-secondary rounded-top p-4">
+            <div class="row">
+                <div class="col-12 col-sm-6 text-center text-sm-start">
+                    © <a href="#">Your Site Name</a>, All Right Reserved.
+                </div>
+                <div class="col-12 col-sm-6 text-center text-sm-end">
+                    <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                    Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+    </div>
+    <!-- Content End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
@@ -313,15 +434,18 @@
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+
 
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script src="js/addorder.js"></script>
-    <script src="sweetalert2.all.min.js"></script>
+    <!-- <script src="sweetalert2.all.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Code injected by live-server -->
     <script>
@@ -361,6 +485,7 @@
         }
 	// ]]>
     </script>
+
 
 
 </body>

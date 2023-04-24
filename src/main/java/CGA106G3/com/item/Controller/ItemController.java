@@ -1,6 +1,8 @@
 package CGA106G3.com.item.Controller;
 
+import CGA106G3.com.item.DTO.AddProNameDto;
 import CGA106G3.com.item.DTO.ItemDTO;
+import CGA106G3.com.item.DTO.OrderDetailDto;
 import CGA106G3.com.item.Entity.Item;
 import CGA106G3.com.item.Service.ItemService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -8,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -48,7 +52,7 @@ public class ItemController {
     }
 
     @PostMapping("/updateIsta")
-    public ResponseEntity<String> updateIsta(@RequestParam("itemNo") Integer itemNo, @RequestParam("iSta") Integer iSta){
+    public ResponseEntity<String> updateIsta(@RequestParam("itemNo") Integer itemNo, @RequestParam("iSta") Boolean iSta){
         Optional<Item> optionalItem = itemService.findItemById(itemNo);
         if(optionalItem.isPresent()){
             Item item = optionalItem.get();
@@ -58,6 +62,21 @@ public class ItemController {
         }else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @RequestMapping("/itemByProNo")
+    public List<Item> getByProNo(@Param("proNo") Integer proNo){
+        return itemService.getByProNo(proNo);
+    }
+
+    @RequestMapping("/itemJoinRelCerePro")
+    public List<OrderDetailDto> findAllItemsWithProAndCeremonyAndRel(@Param("proNo") Integer proNo){
+        return itemService.findAllItemsWithProAndCeremonyAndRel(proNo);
+    }
+
+    @RequestMapping("/itemsAndProName")
+    public List<AddProNameDto> findAllItemsWithPro(){
+        return itemService.findAllItemsWithPro();
     }
 
 }

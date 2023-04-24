@@ -25,4 +25,6 @@ public interface PODetailService {
     List<ScheduleDTO> listAll();
 
     List<FarewellDTO> farewells(String dname);
+
+
 }

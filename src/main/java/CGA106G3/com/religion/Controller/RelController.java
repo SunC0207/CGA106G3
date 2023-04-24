@@ -44,9 +44,18 @@ public class RelController {
         return relservice.getAllRel();
     }
 
-//    @RequestMapping("/findCereName")
-//    public List<String> getCeremonyName(Integer relNo){
-//        return relservice.getCeremonyName(relNo);
+//    @RequestMapping("/findCeremonies")
+//    public ResponseEntity<List<RelToCereDto>> getCeremonies(Integer rel) {
+//        List<RelToCereDto> ceremonies = relservice.getCeremonies(rel);
+//
+//        if (ceremonies == null) {
+//            return ResponseEntity.notFound().build();
+//        } else {
+//            return ResponseEntity.ok(ceremonies);
+//        }
 //    }
+
+
+
 
 }

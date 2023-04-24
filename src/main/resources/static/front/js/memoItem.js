@@ -151,58 +151,58 @@ function showTable3() {
             icon: 'error',
             text: '訂單編號不能為空',
         })
-        return
-    }
-    if (!/^\d+$/.test(ordno)) {
+
+    } else if (!/^\d+$/.test(ordno)) {
         Swal.fire({
             icon: 'error',
             text: '訂單編號必必須是數字',
         })
-        return
-
-    }
 
 
-    fetch(`/memoitemordManage/listMemoitemordDetailByOrderno?ordno=${ordno}`, {
-        method: 'Get',
-    }).then((response) => {
-        response.json().then(data => {
-            const table2 = document.querySelector('#table2');
-            const bodydetail = data.map(obj => {
-                const orderdetail = `<td>訂單內容</td>`;
-                const ordno = obj[`ordno`];
-                const ordnosell = `<td id = "${ordno}" class = "${ordno}">${ordno}</td>`;
-                const rec = obj[`rec`];
-                const reccell = `<td id = "${rec}" class = "${rec}">${rec}</td>`;
-                const recaddr = obj[`recaddr`];
-                const recaddrcell = `<td id = "${recaddr}" class = "${recaddr}">${recaddr}</td>`;
-                const midate = obj[`midate`];
-                const midatecell = `<td id = "${midate}" class = "${midate}">${midate}</td>`;
-                const miname = obj[`miname`];
-                const minamecell = `<td id = "${miname}" class = "${miname}">${miname}</td>`;
-                const miqty = obj[`miqty`];
-                const miqtycell = `<td id = "${miqty}" class = "${miqty}">${miqty}</td>`;
-                const miprice = obj[`miprice`];
-                const mipricecell = `<td id = "${miprice}" class = "${miprice}">${miprice}</td>`;
-                const totalPr = obj[`totalPr`];
-                const totalprcell = `<td id = "${totalPr}" class = "${totalPr}">${totalPr}</td>`;
-
-                const paysta = obj[`paysta`];
-                const paystaText = paysta === 0 ? '未付款' : paysta === 1 ? '已付款' : paysta === 2 ? '已退款' : paysta === 3 ? '退款中' : '';
-                const paystacell = `<td id = "${paystaText}" class = "${paystaText}">${paystaText}</td>`;
-
-                const ordsta = obj[`ordsta`];
-                const ordstaText = ordsta === 0 ? '未出貨' : ordsta === 1 ? '出貨中' : ordsta === 2 ? '訂單已完成' : '';
-                const ordstacell = `<td id = "${ordstaText}" class = "${ordstaText}">${ordstaText}</td>`;
-                return `<tr>${orderdetail}${ordnosell}${reccell}${recaddrcell}${midatecell}${minamecell}${miqtycell}${mipricecell}${totalprcell}${paystacell}${ordstacell}</tr>`
+    } else {
 
 
-            }).join('');
+        fetch(`/memoitemordManage/listMemoitemordDetailByOrderno?ordno=${ordno}`, {
+            method: 'Get',
+        }).then((response) => {
+            response.json().then(data => {
+                const table2 = document.querySelector('#table2');
+                const bodydetail = data.map(obj => {
+                    const orderdetail = `<td>訂單內容</td>`;
+                    const ordno = obj[`ordno`];
+                    const ordnosell = `<td id = "${ordno}" class = "${ordno}">${ordno}</td>`;
+                    const rec = obj[`rec`];
+                    const reccell = `<td id = "${rec}" class = "${rec}">${rec}</td>`;
+                    const recaddr = obj[`recaddr`];
+                    const recaddrcell = `<td id = "${recaddr}" class = "${recaddr}">${recaddr}</td>`;
+                    const midate = obj[`midate`];
+                    const midatecell = `<td id = "${midate}" class = "${midate}">${midate}</td>`;
+                    const miname = obj[`miname`];
+                    const minamecell = `<td id = "${miname}" class = "${miname}">${miname}</td>`;
+                    const miqty = obj[`miqty`];
+                    const miqtycell = `<td id = "${miqty}" class = "${miqty}">${miqty}</td>`;
+                    const miprice = obj[`miprice`];
+                    const mipricecell = `<td id = "${miprice}" class = "${miprice}">${miprice}</td>`;
+                    const totalPr = obj[`totalPr`];
+                    const totalprcell = `<td id = "${totalPr}" class = "${totalPr}">${totalPr}</td>`;
 
-            table2.querySelector('#tbody2').innerHTML = bodydetail;
+                    const paysta = obj[`paysta`];
+                    const paystaText = paysta === 0 ? '未付款' : paysta === 1 ? '已付款' : paysta === 2 ? '已退款' : paysta === 3 ? '退款中' : '';
+                    const paystacell = `<td id = "${paystaText}" class = "${paystaText}">${paystaText}</td>`;
 
+                    const ordsta = obj[`ordsta`];
+                    const ordstaText = ordsta === 0 ? '未出貨' : ordsta === 1 ? '出貨中' : ordsta === 2 ? '訂單已完成' : '';
+                    const ordstacell = `<td id = "${ordstaText}" class = "${ordstaText}">${ordstaText}</td>`;
+                    return `<tr>${orderdetail}${ordnosell}${reccell}${recaddrcell}${midatecell}${minamecell}${miqtycell}${mipricecell}${totalprcell}${paystacell}${ordstacell}</tr>`
+
+
+                }).join('');
+
+                table2.querySelector('#tbody2').innerHTML = bodydetail;
+
+            });
         });
-    });
+    }
 }
 
 
@@ -223,7 +223,7 @@ const table3 = document.getElementById("table2");
 const btn3 = document.getElementById('btn3');
 btn3.addEventListener('click', () => {
     showTable3();
-    table3.classList.toggle('show');
+    // table3.classList.toggle('show');
 });
 
 

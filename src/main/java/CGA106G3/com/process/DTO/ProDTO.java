@@ -6,7 +6,7 @@ import lombok.Data;
 public class ProDTO {
     private Integer proNo;
     private String proName;
-    private Integer proSta;
+    private Boolean proSta;
     private Integer cerNo;
     private Integer proSeq;
 

@@ -3,6 +3,14 @@
 <head>
 
 
+    <style>
+        td,
+        th {
+            vertical-align: middle !important;
+            text-align: center !important;
+        }
+    </style>
+
     <meta charset="utf-8">
     <title>DarkPan - Bootstrap 5 Admin Template</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -34,6 +42,8 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/util.js"></script>
     <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/pagejs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
 </head>
 
 <body>
@@ -99,7 +109,7 @@
 
 
         <!-- Content Start -->
-        <div class="content">
+        <div class="content" >
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
@@ -194,7 +204,7 @@
 
 
             <!-- Table Start -->
-            <div class="container-fluid pt-4 px-4">
+            <div id="oPiccontent" class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-secondary rounded h-100 p-4">
@@ -203,8 +213,7 @@
                                     placeholder="Search">
                                 <button type="submit" class="btn btn-primary ms-2" style="width: 30%;">搜尋</button>
                             </form>
-                            <button type="button" class="btn btn-square btn-primary m-2" style="float: right;"
-                                id="add">+</button>
+                            <button  class="btn btn-square btn-primary m-2" style="float: right;" @click="showModal">+</button>
                             <h6 class="mb-4">細項圖片管理</h6>
                             <table class="table" id="table">
                                 <thead>
@@ -216,18 +225,31 @@
                                     </tr>
                                 </thead>
                                 <tbody id="tableBody"></tbody>
+                                <!-- conten的每一個元素建立一個tr, tr裡再建立td  :key指令來設置每個<tr>元素的唯一鍵-->
+                                <tr v-for="obj in content" :key="obj.picNo">
+                                    <td class="picNo">{{ obj.picNo }}</td>
+                                    <td>{{ obj.optNo }}</td>
+                                    <td>{{ obj.picName }}</td>
+                                    <td>
+                                        <img :src="'data:image/jpg;base64,' + obj.upFile" alt="" style="height: 50px">
+                                    </td>
+                                </tr>
                             </table>
-                            <nav>
+                            <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-                                    <li class="page-item ${pageNum === 1 ? 'disabled' : ''}">
-                                        <a class="page-link" href="#" data-page="${pageNum - 1}" aria-label="Previous">
+                                    <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                                        <a class="page-link" href="#" aria-label="Previous" @click="prevPage()">
                                             <span aria-hidden="true">&laquo;</span>
                                             <span class="sr-only">Previous</span>
                                         </a>
                                     </li>
-                                    ${pageButtons}
-                                    <li class="page-item ${pageNum === totalPage ? 'disabled' : ''}">
-                                        <a class="page-link" href="#" data-page="${pageNum + 1}" aria-label="Next">
+                                    <li v-for="page in pageButtons" :key="page" class="page-item"
+                                        :class="{ active: currentPage === page }">
+                                        <a class="page-link" href="#" @click="goToPage(page)" :data-page="page">{{
+                                            page }}</a>
+                                    </li>
+                                    <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                                        <a class="page-link" href="#" aria-label="Next" @click="nextPage()">
                                             <span aria-hidden="true">&raquo;</span>
                                             <span class="sr-only">Next</span>
                                         </a>
@@ -243,6 +265,54 @@
 
 
 
+                </div>
+
+                <div class="modal fade" id="show" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div
+                            class="row bg-secondary rounded align-items-center justify-content-center mx-0 modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">細項圖片新增</h5>
+                                <button  type="button" class="close" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                    <div style="width: min-content;">
+                                        專責員工：<select  class="form-select form-select-sm mb-3"
+                                            aria-label=".form-select-sm example">
+                                            <option value="0" disabled selected="">員工</option>
+                                            <option v-for="location in locations" :value="location.locno">{{ location.locname }}
+                                            </option>
+                                        </select>
+                                        圖片名稱：<input  class="form-control mb-3" type="text"
+                                            placeholder="請輸入往生者姓名" aria-label="default input example">
+                                        往生者出生日期：<input  type="date" class="form-control mb-3" max="">
+                                        往生者往生日期：<input  class="form-control mb-3" type="date">
+                                        訂單建立日期：<input  class="form-control mb-3" type="date"
+                                            aria-label="default input example">
+                                        契約型態：<select  class="form-select form-select-sm mb-3"
+                                            aria-label=".form-select-sm example">
+                                            <option value="2" disabled selected="">契約型態</option>
+                                            <option value="0">定型化契約</option>
+                                            <option value="1">生前契約</option>
+                                        </select>
+                                        會員編號：<input  class="form-control mb-3" type="text"
+                                            placeholder="請輸入會員編號" aria-label="default input example">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal" aria-label="Close">關閉</button>
+                                    <button type="submit"
+                                        class="btn btn-primary" data-bs-dismiss="modal">保存變更</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Table End -->
@@ -263,6 +333,9 @@
                 </div>
             </div>
             <!-- Footer End -->
+
+
+
         </div>
         <!-- Content End -->
 

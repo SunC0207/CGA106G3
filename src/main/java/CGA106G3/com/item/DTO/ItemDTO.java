@@ -6,7 +6,7 @@ import lombok.Data;
 public class ItemDTO {
     private Integer itemNo;
     private String iName;
-    private Integer iSta;
+    private Boolean iSta;
     private Integer proNo;
     private Integer iPrice;
 

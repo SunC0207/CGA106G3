@@ -1,184 +1,190 @@
-$(document).ready(() => {
-    const pageSize = 5;
-    let currentPage = 1;
-
-    // 初始化時顯示第一頁
-    showTable(currentPage);
-
-    // 監聽分頁按鈕
-    $(document).on('click', '.page-link', function () {
-        const pageNum = parseInt($(this).data('page'));
-        if (pageNum !== currentPage) {
-            showTable(pageNum);
+new Vue({
+    el: '#process',
+    data() {
+        return {
+            currentPage: 1,
+            pageSize: 1000,
+            totalPages: 1,
+            religions: [],
+            ceremonies: [],
+            allCeremonies: [],
+            processes: [],
+            searchTerm: '',
+            addRelNo: 0,
+            addCerNo: 0,
+            addProName: '',
+            addProSta: false,
+            addProSeq: '',
+            newRelNo: '',
+            newCerNo: '',
+            newProName: '',
+            newProSta: '',
+            newProSeq: '',
+            newRelName: '',
         }
-    });
-
-    // 顯示表格
-    function showTable(pageNum) {
-        currentPage = pageNum;
-        fetch(`/pro/findAll?page=${pageNum}&size=${pageSize}`, {
+    },
+    created() {
+        this.showTable(this.currentPage);
+        fetch('/rel/findAll', {
             method: 'GET',
-        }).then((response) => {
-            response.json().then(data => {
-                const table = document.querySelector('#table');
-                const bodyCells = data.content.map(obj => {
-                    const proSeq = obj['proSeq'];
-                    const proSeqCell = `<td id="${proSeq}" class="${proSeq <= 199 ? 'proSeq-chinese' : proSeq <= 299 && proSeq >= 200 ? 'proSeq-western' : 'proSeq-buddhist'}">${proSeq}</td>`;
-                    const proNo = obj['proNo'];
-                    const proNoCell = `<td id="${proNo}" class="proNo">${proNo}</td>`;
-                    const proName = obj['proName'];
-                    const proNameCell = `<td id="${proName}">${proName}</td>`;
-                    const cerNo = obj['cerNo'];
-                    const cerNoCell = `<td id="${cerNo}">${cerNo}</td>`;
-                    const proSta = obj['proSta'];
-                    const proStaOptions = `
-                        <select id="proSta-${proNo}" class="form-select">
-                            <option value="1" ${proSta === 1 && 'selected'}>上架</option>
-                            <option value="2" ${proSta === 2 && 'selected'}>下架</option>
-                        </select>`;
-                    const proStaCell = `<td>${proStaOptions}</td>`;
-                    const editButtonCell = `<td><button type="button" class="btn btn-primary ms-2 update-btn">編輯</button></td>`;
-                    return `<tr>${proSeqCell}${proNoCell}${proNameCell}${cerNoCell}${editButtonCell}${proStaCell}</tr>`;
-                }).join('');
-                table.querySelector('tbody').innerHTML = bodyCells;
-
-                // 更新分頁按鈕
-                const pagination = document.querySelector('.pagination');
-                const totalPage = data.totalPages;
-                const startPage = Math.max(1, pageNum - 1);
-                const endPage = Math.min(totalPage, pageNum + 1);
-                let pageButtons = '';
-                for (let i = startPage; i <= endPage; i++) {
-                    pageButtons += `<li class="page-item ${i === pageNum ? 'active' : ''}"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
-                }
-                pagination.innerHTML = `
-                    <li class="page-item ${pageNum === 1 ? 'disabled' : ''}">
-                        <a class="page-link" href="#" data-page="${pageNum - 1}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    ${pageButtons}
-                    <li class="page-item ${pageNum === totalPage ? 'disabled' : ''}">
-                        <a class="page-link" href="#" data-page="${pageNum + 1}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                `;
-                updatebtn();
+        }).then(response => response.json())
+            .then(data => {
+                this.religions = data;
             });
-        });
-    }
+        this.getAllCeremonies();
 
-});
-function revertCell(cell, oldValue, input) {
-    cell.innerText = oldValue;
-    cell.removeChild(input);
-}
+        // 監聽newCerNo的變化，當選擇儀式變更時，動態取得宗教名稱
+        this.$watch('newCerNo', (newValue, oldValue) => {
+            if (newValue !== 0) {
+                fetch(`/ceremony/findRelName?cerNo=${newValue}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.newRelName = data.join(''); // 將取得的宗教名稱設定到newRelName中
+                    })
+            }
+        })
 
-function updatebtn() {
-    const updateButtons = document.querySelectorAll('.update-btn');
-    updateButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const cell = button.parentElement.previousElementSibling.previousElementSibling;
-            const oldValue = cell.innerText;
-            const input = document.createElement('input');
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    cancelButton: 'btn btn-danger',
-                    confirmButton: 'btn btn-success'
+    },
+    computed: {
+        pageButtons() {
+            const startPage = Math.max(1, this.currentPage - 1);
+            const endPage = Math.min(this.totalPages, this.currentPage + 1);
+            const pages = [];
+            for (let i = startPage; i <= endPage; i++) {
+                pages.push(i);
+            }
+            return pages
+        },
+        regex() {
+            return new RegExp(this.searchTerm, "i");
+        },
+    },
+    methods: {
+        addProcess() {
+            fetch('/pro/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
                 },
-                buttonsStyling: false
-            });
-            input.setAttribute('type', 'text');
-            input.setAttribute('value', oldValue);
-            input.addEventListener('blur', () => {
-                const newValue = input.value;
-                if (newValue !== oldValue) {
-                    if (
-                        swalWithBootstrapButtons.fire({
-                            title: '確定修改?',
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonText: '確認修改',
-                            cancelButtonText: '取消',
-                            reverseButtons: true
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                swalWithBootstrapButtons.fire(
-                                    '成功!',
-                                    '',
-                                    'success'
-                                )
-                            } else if (
-                                result.dismiss === Swal.DismissReason.cancel
-                            ) {
-                                swalWithBootstrapButtons.fire(
-                                    '取消',
-                                    '',
-                                    'error'
-                                )
-                                revertCell(cell, oldValue, input);
-                            }
-                        })
-                    ) {
-                        // Update the data
-                        const proName = cell.getAttribute('id');
-                        const row = cell.parentElement.querySelector('td:nth-child(2)').getAttribute('id');
-                        const proSta = cell.parentElement.querySelector('select option:checked').value;
-                        const cerNo = cell.nextElementSibling.getAttribute('id');
-                        const proSeq = cell.previousElementSibling.previousElementSibling.getAttribute('id');
-                        // Send a PUT request to update the data on the server
-                        fetch(`/pro/update/${row}`, {
-                            method: 'PUT',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                proName: newValue,
-                                proSta: proSta,
-                                cerNo: cerNo,
-                                proSeq: proSeq
-                            })
-                        }).then(() => {
-                            // Update the cell in the table
-                            cell.innerText = newValue;
-                            cell.setAttribute('id', newValue);
-                        }).catch(error => console.log(error));
-                    } else {
-                        revertCell(cell, oldValue, input);
-                    }
+                body: JSON.stringify({
+                    proSeq: this.addProSeq,
+                    proName: this.addProName,
+                    proSta: this.addProSta,
+                    cerNo: this.addCerNo
+                })
+            }).then(response => {
+                if (response.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '儲存成功',
+                        text: '',
+                        confirmButtonText: 'OK',
+                    }).then(() => {
+                        location.reload();
+                    })
+
                 } else {
-                    revertCell(cell, oldValue, input);
+                    Swal.fire({
+                        icon: 'error',
+                        title: '儲存失敗',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                 }
+            })
+        },
+        getCeremonies() {
+            fetch(`ceremony/ceremoniesByRelno?relNo=${this.addRelNo}`, {
+                method: 'GET',
+            }).then(response => {
+                response.json().then(data => {
+                    this.ceremonies = data;
+                });
             });
-            cell.innerHTML = '';
-            cell.appendChild(input);
-            input.focus();
-        });
-    });
-}
+        },
+        showTable() {
+            fetch(`/pro/findCereName`, {
+                method: 'GET',
+            }).then((response) => {
+                response.json().then((data) => {
+                    this.processes = data;
+                });
+            });
+        },
+        goToPage(pageNum) {
+            if (pageNum !== this.currentPage) {
+                this.showTable(pageNum);
+                this.currentPage = pageNum;
+            }
+        },
+        prevPage() {
+            if (this.currentPage > 1) {
+                this.showTable(this.currentPage - 1);
+                this.currentPage -= 1;
+            }
+        },
+        nextPage() {
+            if (this.currentPage < this.totalPages) {
+                this.showTable(this.currentPage + 1);
+                this.currentPage += 1;
+            }
+        },
+        showUpdateModal(pro) {
+            $('#updateModal').modal('show')
+            this.newProSeq = pro.proSeq;
+            this.newProName = pro.proName;
+            this.newProNo = pro.proNo;
+            this.newCerName = pro.cerName;
+            this.newCerNo = pro.cerNo;
+            this.newProSta = pro.proSta
 
-$(document).on('change', '.form-select', function () {
-    const proNoText = $(this).closest('tr').find('.proNo').text();
-    const proSta = $(this).val();
-    $.ajax({
-        url: '/pro/updateproSta',
-        method: 'POST',
-        data: {
-            proNo: proNoText,
-            proSta: proSta
         },
-        datatype: 'json',
-        success: function (response) {
-            console.log(response);
-            Swal.fire('狀態修改成功');
+        showModal() {
+            $('#processModal').modal('show')
         },
-        error: function (error) {
-            console.log(error);
-            Swal.fire('狀態修改失敗');
+        updatePro() {
+            fetch(`/pro/update/${this.newProNo}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    proNo: this.newProNo,
+                    proName: this.newProName,
+                    proSta: this.newProSta,
+                    cerNo: this.newCerNo,
+                    proSeq: this.newProSeq
+                })
+            }).then((response) => {
+                if (response.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '儲存成功',
+                        text: '',
+                        confirmButtonText: 'OK',
+                    }).then(() => {
+                        location.reload();
+                    })
+
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '儲存失敗',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            })
+        },
+        getAllCeremonies() {
+            fetch(`/ceremony/findAll?page=1&size=100000`, {
+                method: 'GET',
+            }).then((response) => {
+                response.json().then((data) => {
+                    this.allCeremonies = data.content;
+                    this.totalPages = data.totalPages;
+                });
+            });
         }
-    });
-});
-
+    },
+})

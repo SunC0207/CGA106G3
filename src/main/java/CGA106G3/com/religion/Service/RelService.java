@@ -48,8 +48,6 @@ public class RelService {
     }
 
     public List<RelDTO> getAllRel() {
-        modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.LOOSE);
         return relRepository.findAll()
                 .stream()
                 .map(this::EntityToDTO)
@@ -65,15 +63,16 @@ public class RelService {
     }
 
 
-//    public List<String> getCeremonyName(Integer relNo){
-//        List<String> ceremonyName = new ArrayList<>();
-//        List<Rel> rels = relRepository.findByRelNo(relNo);
-//        for(Rel rel : rels){
-//            List<Ceremony> ceremonies = ceremonyRepository.getCeremonies();
-//            for(Ceremony ceremony: ceremonies){
-//                ceremonyName.add(ceremony.getCerName());
-//            }
+//    public List<RelToCereDto> getCeremonies(Integer relNo){
+//        Optional<Rel> relOptional = relRepository.findById(relNo);
+//        if (relOptional.isPresent()) {
+//            Rel rel =relOptional.get();
+//            return relRepository.findCeremoniesByRelNo(relNo)
+//                    .stream()
+//                    .map(ceremony -> new RelToCereDto(ceremony.getCerNo(), ceremony.getCerName()))
+//                    .collect(Collectors.toList());
+//        }else {
+//            return new ArrayList<>();
 //        }
-//        return ceremonyName;
 //    }
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,14 @@ public class OptPicService {
     @Autowired
     private ModelMapper modelMapper;
 
+    public OptPic findByOptNo(Integer optNo){
+        return optPicRepository.findByOptNo(optNo);
+    }
+
+    @Transactional
+    public void deleteByOptNo(Integer optNo){
+        optPicRepository.deleteByOptNo(optNo);
+    }
 
     public OptPic addOptPic(OptPic optPic) {
         return optPicRepository.save(optPic);

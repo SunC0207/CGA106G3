@@ -10,11 +10,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
+
 public class CeremonyService {
 
     @Autowired
@@ -44,6 +47,10 @@ public class CeremonyService {
         return ceremonyRepository.findAll(pageable);
     }
 
+    public List<Ceremony> findAllCere (Ceremony ceremony) {
+        return ceremonyRepository.findAll();
+    }
+
     public Page<CeremonyDTO> findAllCeremonyDTO(Pageable pageable) {
         Page<Ceremony> ceremonyPage = ceremonyRepository.findAll(pageable);
         List<CeremonyDTO> ceremonys = ceremonyPage.getContent()
@@ -55,5 +62,14 @@ public class CeremonyService {
 
     public long count(){
         return ceremonyRepository.count();
+    }
+
+    @Transactional
+    public List<Ceremony> findCeremoniesByRelNo(@RequestParam("relNo") Integer relNo){
+        return ceremonyRepository.findByRelNo(relNo);
+    }
+
+    public List<Object> findRelNameByCerno(Integer cerNo){
+        return ceremonyRepository.findRelNameByCerno(cerNo);
     }
 }

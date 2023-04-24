@@ -1,6 +1,13 @@
 <html lang="en">
 
 <head>
+    <style>
+        td,
+        th {
+            vertical-align: middle !important;
+            text-align: center !important;
+        }
+    </style>
 
 
     <meta charset="utf-8">
@@ -34,6 +41,8 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/util.js"></script>
     <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/pagejs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
 </head>
 
 <body>
@@ -99,7 +108,7 @@
 
 
         <!-- Content Start -->
-        <div class="content">
+        <div class="content" id="ceremony">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
@@ -108,7 +117,7 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                
+
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -198,13 +207,13 @@
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-secondary rounded h-100 p-4">
-                            <form style="width:fit-content;" id="search-form" class="d-none d-md-flex ms-4">
-                                <input class="form-control bg-dark border-0" type="search" id="search" name="search"
+                            <div style="width:fit-content; margin-bottom: 5%;" id="search-form" class="d-none d-md-flex ms-4">
+                                <input v-model="searchTerm" class="form-control bg-dark border-0" type="search" id="search" name="search"
                                     placeholder="Search">
                                 <button type="submit" class="btn btn-primary ms-2" style="width: 30%;">搜尋</button>
-                            </form>
-                            <button type="button" class="btn btn-square btn-primary m-2" style="float: right;"
-                                id="add">+</button>
+                            </div>
+                            <button type="button" @click="showModal" class="btn btn-square btn-primary m-2"
+                                style="float: right;">+</button>
                             <h6 class="mb-4">儀式管理</h6>
                             <table class="table" id="table">
                                 <thead>
@@ -212,23 +221,44 @@
                                         <th scope="col">儀式編號</th>
                                         <th scope="col">儀式名稱</th>
                                         <th scope="col">宗教編號</th>
-                                        <th scope="col">修改</th>
                                         <th scope="col">儀式狀態</th>
+                                        <th scope="col">修改</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tableBody"></tbody>
+                                <!-- conten的每一個元素建立一個tr, tr裡再建立td  :key指令來設置每個<tr>元素的唯一鍵-->
+                                <tr v-for="cere in ceremonies" :key="cere.cerNo" 
+                                v-show="regex.test(cere.cerName) || regex.test(cere.cerNo) || 
+                                (cere.cerSta === 1 && regex.test('上架')) || (cere.cerSta === 2 && regex.test('下架'))
+                                 || regex.test(cere.relNo)">
+                                    <td class="cerno">{{ cere.cerNo }}</td>
+                                    <td>{{ cere.cerName }}</td>
+                                    <td>{{ cere.relNo }}</td>
+                                    <td>
+                                        <span v-if="cere.cerSta === 1">上架</span>
+                                        <span v-else-if="cere.cerSta === 2">下架</span>
+                                    </td>
+                                    <td>
+                                        <button type="button" @click="showUpdateModal(cere)"
+                                            class="btn btn-primary ms-2 update-btn">編輯</button>
+                                    </td>
+                                </tr>
                             </table>
-                            <nav>
+                            <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-                                    <li class="page-item ${pageNum === 1 ? 'disabled' : ''}">
-                                        <a class="page-link" href="#" data-page="${pageNum - 1}" aria-label="Previous">
+                                    <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                                        <a class="page-link" href="#" aria-label="Previous" @click="prevPage()">
                                             <span aria-hidden="true">&laquo;</span>
                                             <span class="sr-only">Previous</span>
                                         </a>
                                     </li>
-                                    ${pageButtons}
-                                    <li class="page-item ${pageNum === totalPage ? 'disabled' : ''}">
-                                        <a class="page-link" href="#" data-page="${pageNum + 1}" aria-label="Next">
+                                    <li v-for="page in pageButtons" :key="page" class="page-item"
+                                        :class="{ active: currentPage === page }">
+                                        <a class="page-link" href="#" @click="goToPage(page)" :data-page="page">{{
+                                            page }}</a>
+                                    </li>
+                                    <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                                        <a class="page-link" href="#" aria-label="Next" @click="nextPage()">
                                             <span aria-hidden="true">&raquo;</span>
                                             <span class="sr-only">Next</span>
                                         </a>
@@ -244,6 +274,78 @@
 
 
 
+                </div>
+            </div>
+            <div class="modal fade" id="ceremonyModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="row bg-secondary rounded align-items-center justify-content-center mx-0 modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">儀式新增</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <div>
+                                    宗教名稱：<select class="form-select" v-model="addRelNo">
+                                        <option value="0" disabled selected>宗教</option>
+                                        <option v-for="rel in religions" :value="rel.relNo">{{ rel.relName }}
+                                    </select>
+                                </div>
+                                <div>
+                                    儀式名稱：<input v-model="addCereName" class="form-control mb-3" type="text"
+                                        placeholder="輸入文字" aria-label="default input example">
+                                </div>
+                                <div>
+                                    儀式狀態：<select class="form-select" v-model="addCereStr">
+                                        <option value="1" :selected="newCereStr === '1'">上架</option>
+                                        <option value="2" :selected="newCereStr === '2'">下架</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    aria-label="Close">關閉</button>
+                                <button type="submit" @click="addCeremony" class="btn btn-primary"
+                                    data-bs-dismiss="modal">保存變更</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="row bg-secondary rounded align-items-center justify-content-center mx-0 modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">儀式更新</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <div>
+                                    儀式名稱：<input v-model="newCereName" class="form-control mb-3" type="text"
+                                        :placeholder=newCereName aria-label="default input example">
+                                </div>
+                                <div>
+                                    儀式狀態：<select class="form-select" v-model="newCereStr">
+                                        <option value="1" :selected="newCereStr === '1'">上架</option>
+                                        <option value="2" :selected="newCereStr === '2'">下架</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    aria-label="Close">關閉</button>
+                                <button type="submit" @click="updateCere" class="btn btn-primary"
+                                    data-bs-dismiss="modal">保存變更</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Table End -->
@@ -287,7 +389,7 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script src="js/ceremony.js"></script>
-    <script src="sweetalert2.all.min.js"></script>
+    <!-- <script src="sweetalert2.all.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
