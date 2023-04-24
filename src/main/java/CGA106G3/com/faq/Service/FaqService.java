@@ -76,20 +76,20 @@ public class FaqService {
         return updatedFaq;
     }
 
-    public Optional<Faq> findFaqByFaqno(Integer faqno) {
-        return faqRepository.findById(faqno);
-    }
+//    public Optional<Faq> findFaqByFaqno(Integer faqno) {
+//        return faqRepository.findById(faqno);
+//    }
 
 
 
     public Optional<Faq> findFaqById(Integer faqno){
         String key = Key + faqno;
         Faq faq = redisTemplate.opsForValue().get(key);
-//        if (faq == null){
-//            Optional<Faq> optionalFaq = faqRepository.findByFaqno(faqno);
-////            optionalFaq.ifPresent(f -> redisTemplate.opsForValue().set(key, f));
-//            return optionalFaq;
-//        }
+        if (faq == null){
+            Optional<Faq> optionalFaq = faqRepository.findById(faqno);
+            optionalFaq.ifPresent(f -> redisTemplate.opsForValue().set(key, f));
+            return optionalFaq;
+        }
         return Optional.of(faq);
     }
 
@@ -98,16 +98,16 @@ public class FaqService {
     }
     public List<FaqDTO> getAllFaq(){
         String key = Key + "*";
-        Set<String> keys = redisTemplate.keys(key);
-        if (keys == null || keys.isEmpty()){
+//        Set<String> keys = redisTemplate.keys(key);
+//        if (keys == null || keys.isEmpty()){
             List<Faq> faqs = faqRepository.findAll();
 
 //            faqs.forEach(faq -> redisTemplate.opsForValue().set(Key + faq.getFaqno(), faq));
             return faqs.stream().map(this::EntityToDTO).collect(Collectors.toList());
         }
-        return redisTemplate.opsForValue().multiGet(keys).stream().map(this::EntityToDTO).collect(Collectors.toList());
+//        return redisTemplate.opsForValue().multiGet(keys).stream().map(this::EntityToDTO).collect(Collectors.toList());
 
-    }
+//    }
 
 //    public  void deleteFaq(Integer faqno) {
 //         faqRepository.deleteById(faqno);

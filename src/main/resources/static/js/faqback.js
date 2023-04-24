@@ -26,12 +26,12 @@ $(document).ready(() => {
 
     function show(pageA) {
         page = pageA;
-        fetch(`/faq/findAll?page=${pageA}${pages}`, {
+        fetch(`/faq/findAll?page=${pageA}&size=${pages}`, {
             method: 'GET',
         }).then((response) => {
             response.json().then(data => {
                 const table = document.querySelector('#table');
-
+                table.style.setProperty("background-color", "black", "important");
 
 
                 const bodyTable = data.map(obj => {
@@ -45,11 +45,12 @@ $(document).ready(() => {
                     const faqtag = obj['faqtag'];
                     const faqtaga = `<td id="${faqtag}">${faqtag}</td>`;
 
-                    const fixButton = `<td><button name=${faqno} type="button" class="btn btn-warning m-2 update" onclick="updatebtn(this.name)">修改</button></td>`;
+                    const fixButton = `<td><button name=${faqno} type="button" class="btn btn-warning m-2 update" >修改</button></td>`;
                     const delButton = `<td><button name=${faqno} type="button" class="btn btn-danger m-2" onclick="deleteData(this.name)">刪除</button></td>`;
                     return `<tr>${faqnoa}${faqnamea}${faqansa}${faqtaga}${fixButton}${delButton}</tr>`;
                 }).join('');
                 table.querySelector('tbody').innerHTML = bodyTable;
+
 
                 const pagination = document.querySelector('.pagination');
                 const totalPage = data.totalPages;
@@ -76,6 +77,27 @@ ${pageButtons}
                 updatebtn();
 
 
+                $('#table').DataTable({
+                    pageLength: 5,
+                    lengthMenu: [5, 10, 15, 20],
+                    language: {
+                        emptyTable: "無資料",
+                        info: "顯示 START 至 END 筆資料，共 TOTAL 筆",
+                        lengthMenu: "顯示 MENU 筆資料",
+                        paginate: {
+                            previous: '<i class="fa fa-chevron-left"></i>',
+                            next: '<i class="fa fa-chevron-right"></i>'
+                        },
+                    },
+                });
+                let label = document.querySelector('#table_length label');
+                label.style.color = '#000';
+
+
+                let size1 = document.querySelectorAll('.sorting');
+                size1.style.width = '500px';
+
+
             });
         });
 
@@ -85,68 +107,34 @@ ${pageButtons}
 
 
 
-//const searchInput = document.querySelector('#searchInput');
-//const searchBtn = document.querySelector('#searchBtn');
-//const resultTable = document.querySelector('#resultTable');
-//
-//searchBtn.addEventListener('click', () => {
-//  const faqtag = searchInput.value;
-//  if (!faqtag) return;
-//
-//  fetch(`/faq/faqSearch?faqtag=${faqtag}`)
-//    .then(response => response.json())
-//    .then(data => {
-//      resultTable.innerHTML = '';
-//      data.forEach(search => {
-//        const tr = document.createElement('tr');
-//        const tdTitle = document.createElement('td');
-//        tdTitle.textContent = search.title;
-//        tr.appendChild(tdTitle);
-//        const tdContent = document.createElement('td');
-//        tdContent.textContent = search.content;
-//        tr.appendChild(tdContent);
-//        resultTable.appendChild(tr);
-//      });
-//    });
-//});
-// const searchBtn = document.querySelector('#search-btn');
-//      const searchInput = document.querySelector('#search-input');
-//      const searchResults = document.querySelector('#search-results');
-//
-//      searchBtn.addEventListener('click', () => {
-//
-//        const faqTag = searchInput.value;
-//        fetch(`/search?faqtag=${faqTag}`)
-//          .then(response => response.json())
-//          .then(data => {
-//            const results = data.results;
-//            let html = '';
-//            for (let i = 0; i < results.length; i++) {
-//              const result = results[i];
-//              html += `<div><h1>${result.title}</h1><p>${result.description}</p></div>`;
-//            }
-//            searchResults.innerHTML = html;
-//          }).catch(error => {
-//                  alert(error.message);
-//                });
-//
-//      });
+// const searchInput = document.querySelector('#searchInput');
+// const searchBtn = document.querySelector('#searchBtn');
+// const resultTable = document.querySelector('#resultTable');
+
+// searchBtn.addEventListener('click', () => {
+//     const faqtag = searchInput.value;
+//     if (!faqtag) return;
+
+//     fetch(`/faq/faqSearch?faqtag=${faqtag}`)
+//         .then(response => response.json())
+//         .then(data => {
+//             resultTable.innerHTML = '';
+//             data.forEach(search => {
+//                 const tr = document.createElement('tr');
+//                 const tdTitle = document.createElement('td');
+//                 tdTitle.textContent = search.title;
+//                 tr.appendChild(tdTitle);
+//                 const tdContent = document.createElement('td');
+//                 tdContent.textContent = search.content;
+//                 tr.appendChild(tdContent);
+//                 resultTable.appendChild(tr);
+//             });
+//         });
+// });
 
 
-function revertCell(cell, oldValue, input) {
-    cell.innerText = oldValue;
-    // cell.removeChild(input);
-}
 
-function revertCell1(cell1, oldValue1, input1) {
-    cell1.innerText = oldValue1;
-    // cell1.removeChild(input1);
-}
 
-function revertCell2(cell2, oldValue2, input2) {
-    cell2.innerText = oldValue2;
-    // cell2.removeChild(input2);
-}
 
 
 
@@ -249,7 +237,8 @@ function revertCell2(cell2, oldValue2, input2) {
 
 
 
-
+let cell;
+let row;
 
 function updatebtn() {
     const updateBtn = document.querySelectorAll('.update');
@@ -259,143 +248,86 @@ function updatebtn() {
 
     updateBtn.forEach(button => {
         button.addEventListener('click', () => {
-            // event.preventDefault();
-            // alert("update...");
-            console.log(event.target);
-            console.log(faqno);
-
-            // fetch(`/faq/findByNo/${faqno}`), {
-            //     method: 'GET'
-
-            // }
-            const cell = button.parentElement.previousElementSibling.previousElementSibling;
-            const cell1 = button.parentElement.previousElementSibling;
-            const cell2 = button.parentElement.previousElementSibling.previousElementSibling.previousElementSibling;
-            const oldValue = cell.innerText;
-            const oldValue1 = cell1.innerText;
-            const oldValue2 = cell2.innerText;
-            const input = document.createElement('input');
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    cancelButton: 'btn btn-danger',
-                    confirmButton: 'btn btn-success'
-                },
-                buttonsStyling: false
-            });
-            input.setAttribute('type', 'textarea');
-            input.setAttribute('value', oldValue);
-            cell.innerHTML = '';
-            cell.appendChild(input);
-            input.focus();
-            const input1 = document.createElement('input');
-            input1.setAttribute('type', 'text');
-            input1.setAttribute('value', oldValue1);
-            cell1.innerHTML = '';
-            cell1.appendChild(input1);
-            input1.focus();
-            const input2 = document.createElement('input');
-            input2.setAttribute('type', 'text');
-            input2.setAttribute('value', oldValue2);
-            cell2.innerHTML = '';
-            cell2.appendChild(input2);
-            input2.focus();
-            input.addEventListener('blur', () => {
-                const newValue = input.value;
-
-                const newValue1 = input1.value;
-                const newValue2 = input2.value;
-
-                if (newValue !== oldValue || newValue1 !== oldValue1 || newValue2 !== oldValue2) {
-                    // const swalWithBootstrapButtons = Swal.mixin({
-                    //     customClass: {
-                    //         cancelButton: 'btn btn-danger',
-                    //         confirmButton: 'btn btn-success'
-                    //     },
-                    //     buttonsStyling: false
-                    // });
-                    if (
-                        swalWithBootstrapButtons.fire({
-                            title: '確定修改?',
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonText: '確認修改',
-                            cancelButtonText: '取消',
-                            reverseButtons: true
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                swalWithBootstrapButtons.fire(
-                                    '成功!',
-                                    '',
-                                    'success'
-                                )
-                            } else if (
-                                result.dismiss === Swal.DismissReason.cancel
-                            ) {
-                                swalWithBootstrapButtons.fire(
-                                    '取消',
-                                    '',
-                                    'error'
-                                )
-                                revertCell(cell, oldValue, input);
-                                revertCell1(cell1, oldValue1, input1);
-                                revertCell2(cell2, oldValue2, input2);
-                            }
-                        })
-                    ) {
-                        // Update the data
-                        // const faqname1 = cell.getAttribute('id');
-                        // const faqans1 = cell1.getAttribute('id');
-                        // const faqtag1 = cell2.getAttribute('id');
-                        const row = cell.parentElement.querySelector('td:first-child').getAttribute('id');
-
-                        const faqno = cell.nextElementSibling.getAttribute('id');
-                        // Send a PUT request to update the data on the server
-                        fetch(`/faq/update/${row}`, {
-                            method: 'PUT',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                faqname: newValue.faqname,
-                                faqans: newValue1.faqans,
-                                faqtag: newValue2.faqtag,
-
-                                faqno: faqno,
-                            }),
-                        }).then(() => {
-                            // Update the cell in the table
-                            cell.innerText = newValue;
-                            cell1.innerText = newValue1;
-                            cell2.innerText = newValue2;
-                            cell.setAttribute('id', newValue);
-                            cell1.setAttribute('id', newValue1);
-                            cell2.setAttribute('id', newValue2);
+            $('#updateModal').modal('show');
+            cell = button.parentElement;
+            row = cell.parentElement.querySelector('td:first-child').getAttribute('id');
 
 
-                        }).catch(error => console.log(error));
-                    } else {
-                        revertCell(cell, oldValue, input);
-                        revertCell1(cell1, oldValue1, input1);
-                        revertCell2(cell2, oldValue2, input2);
-                    }
-                } else {
-                    revertCell(cell, oldValue, input);
-                    revertCell1(cell1, oldValue1, input1);
-                    revertCell2(cell2, oldValue2, input2);
-                }
-            });
-            // cell.innerHTML = '';
-            // cell.appendChild(input);
-            // input.focus();
-        });
-    });
+
+        })
+    })
 }
 
-//  fix
+function updateFaq() {
+    // const newname = $('#faqname').value;
+    // const newans = $('#faqans').value;
+    // const newtag = $('#faqtag').value;
+    const newname = document.getElementById('faqname').value;
+    const newans = document.getElementById('faqans').value;
+    const newtag = document.getElementById('faqtag').value;
 
-// const updateBtn = document.querySelector('#btn btn-warning m-2');
-// updateBtn = document.querySelector('update');
+    fetch(`/faq/update/${row}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            faqname: newname,
+            faqans: newans,
+            faqtag: newtag,
+        })
+    }).then(response => {
+        if (response.ok) {
 
+            Swal.fire({
+                icon: 'success',
+                title: '儲存成功',
+                text: '',
+                confirmButtonText: 'OK',
+            }).then(() => {
+                location.reload();
+            })
+
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: '儲存失敗',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+
+    })
+}
+
+
+
+
+
+swalWithBootstrapButtons.fire({
+    title: '確定修改?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: '確認修改',
+    cancelButtonText: '取消',
+    reverseButtons: true
+}).then((result) => {
+    if (result.isConfirmed) {
+        swalWithBootstrapButtons.fire(
+            '成功!',
+            '',
+            'success'
+        )
+    } else if (
+        result.dismiss === Swal.DismissReason.cancel
+    ) {
+        swalWithBootstrapButtons.fire(
+            '取消',
+            '',
+            'error'
+        )
+    }
+})
 
 
 
@@ -492,32 +424,89 @@ addBtn.addEventListener('click', () => {
 });
 
 
-const searchForm = document.querySelector('#search-form');
-searchForm.addEventListener('submit', function (event) {
-    event.preventDefault(); // 防止表單提交後頁面重整
+// const searchForm = document.querySelector('#search-form');
+// searchForm.addEventListener('submit', function (event) {
+//     event.preventDefault(); // 防止表單提交後頁面重整
 
-    const formData = new FormData(searchForm);
-    const searchValue = formData.get('search');
+//     const formData = new FormData(searchForm);
+//     const searchValue = formData.get('search');
 
-    fetch(`faq/find?faqno=${searchValue}`, {
-        method: 'GET'
-    }).then(response => {
-        response.json().then(data => {
-            const table = document.querySelector('#table');
-            table.querySelector('tbody').innerHTML = '';
-            const bodyCells = `
-           <td id="${data.faqno}" class="faqno">${data.faqno}</td>
-           <td id="${data.faqname}">${data.faqname}</td>
 
-           <td><button type="button" class="btn btn-primary ms-2 btn btn-warning m-2">修改</button></td>
-        //    <td><select id="cerSta-${data.cerNo}" class="form-select">
 
-//            </select></td>`
-            table.querySelector('tbody').innerHTML += bodyCells;
-            updatebtn();
-        })
-    });
-});
+
+
+
+
+
+
+
+
+
+//     fetch(`faq/find?faqno=${searchValue}`, {
+//         method: 'GET'
+//     }).then(response => {
+//         response.json().then(data => {
+//             const table = document.querySelector('#table');
+//             table.querySelector('tbody').innerHTML = '';
+//             const bodyCells = `
+//            <td id="${data.faqno}" class="faqno">${data.faqno}</td>
+//            <td id="${data.faqname}">${data.faqname}</td>
+
+//            <td><button type="button" class="btn btn-primary ms-2 btn btn-warning m-2">修改</button></td>
+//         //    <td><select id="cerSta-${data.cerNo}" class="form-select">
+
+// //            </select></td>`
+//             table.querySelector('tbody').innerHTML += bodyCells;
+//             updatebtn();
+//         })
+//     });
+// });
+
+
+
+// const searchForm = document.querySelector('#search-form');
+// const searchInput = document.querySelector('#search-input');
+
+// const tbody = document.querySelector('#tbody');
+
+// searchForm.addEventListener('submit', (event) => {
+//     event.preventDefault();
+//     const searchTerm = searchInput.value;
+
+//     fetch(`/search?faqtag=${searchTerm}`)
+//         .then(response => response.json())
+//         .then(data => {
+
+//             tbody.innerHTML = '';
+
+//             for (let faq of data) {
+//                 const tr = document.createElement('tr');
+//                 tr.innerHTML = `
+//           <th scope="row">${faq.id}</th>
+//           <td>${faq.name}</td>
+//           <td>${faq.answer}</td>
+//           <td>${faq.faqtag}</td>
+
+//         `;
+//                 tbody.appendChild(tr);
+//             }
+
+//         }).catch(error => {
+//             console.error(error);
+//         });
+// });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

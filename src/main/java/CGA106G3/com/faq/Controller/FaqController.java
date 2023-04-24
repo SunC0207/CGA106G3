@@ -40,8 +40,8 @@ public class FaqController {
         return  faqservice.findByFaqname(faqname);
     }
 
-    @GetMapping("/findByNo/{faqno}")
-    public Optional<Faq> findFaqByFaqno(@PathVariable Integer faqno){ return  faqservice.findFaqByFaqno(faqno);}
+//    @GetMapping("/findByNo/{faqno}")
+//    public Optional<Faq> findFaqByFaqno(@PathVariable Integer faqno){ return  faqservice.findFaqByFaqno(faqno);}
     @RequestMapping("/update/{row}")
     public Faq updateFaq(@PathVariable("row") int row, @RequestBody Faq faq){
         faq.setFaqno(row);
@@ -80,6 +80,7 @@ public class FaqController {
 
     @GetMapping("/search")
     public List<Faq> searchFaq(@RequestParam("faqtag") String faqtag) {
+        System.out.println("參數 : "+faqtag);
         return faqRepository.findByFaqtagContaining(faqtag);
     }
 
