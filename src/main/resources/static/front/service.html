@@ -1,343 +1,301 @@
 <!DOCTYPE html>
-<html lang="en">
+<meta charset="utf-8">
+<title>彼岸 Lycoris radiata</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="" name="keywords">
+<meta content="" name="description">
 
-<head>
-    <meta charset="utf-8">
-    <title>Arkitektur - Architecture HTML Template</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+<!-- Favicon -->
+<link href="img/favicon.ico" rel="icon">
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Teko:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Teko:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Icon Font Stylesheet -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+<!-- Libraries Stylesheet -->
+<link href="lib/animate/animate.min.css" rel="stylesheet">
+<link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+<!-- Customized Bootstrap Stylesheet -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+<!-- Template Stylesheet -->
+<link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border position-relative text-primary" style="width: 6rem; height: 6rem;" role="status"></div>
-        <img class="position-absolute top-50 start-50 translate-middle" src="img/icons/icon-1.png" alt="Icon">
-    </div>
-    <!-- Spinner End -->
+  <!-- JavaScript Libraries -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/chart/chart.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/waypoints/waypoints.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="lib/tempusdominus/js/moment.min.js"></script>
+  <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+  <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
+  <!-- Template Javascript -->
+  <script src="js/main.js"></script>
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
 
-    <!-- Topbar Start -->
-    <div class="container-fluid bg-dark p-0 wow fadeIn" data-wow-delay="0.1s">
-        <div class="row gx-0 d-none d-lg-flex">
-            <div class="col-lg-7 px-5 text-start">
-                <div class="h-100 d-inline-flex align-items-center py-3 me-3">
-                    <a class="text-body px-2" href="tel:+0123456789"><i class="fa fa-phone-alt text-primary me-2"></i>+012 345 6789</a>
-                    <a class="text-body px-2" href="mailto:info@example.com"><i class="fa fa-envelope-open text-primary me-2"></i>info@example.com</a>
-                </div>
-            </div>
-            <div class="col-lg-5 px-5 text-end">
-                <div class="h-100 d-inline-flex align-items-center py-3 me-2">
-                    <a class="text-body px-2" href="">Terms</a>
-                    <a class="text-body px-2" href="">Privacy</a>
-                </div>
-                <div class="h-100 d-inline-flex align-items-center">
-                    <a class="btn btn-sm-square btn-outline-body me-1" href=""><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-sm-square btn-outline-body me-1" href=""><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-sm-square btn-outline-body me-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                    <a class="btn btn-sm-square btn-outline-body me-0" href=""><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
+  <script src="fullcalendar/packages/core/main.js"></script>
+  <script src="fullcalendar/packages/interaction/main.js"></script>
+  <script src="fullcalendar/packages/daygrid/main.js"></script>
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
+    <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
+        <h1 class="text-primary m-0"><img class="me-3" src="img/icons/icon-1.png" alt="Icon">彼岸 Lycoris radiata</h1>
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <a href="index.html" class="nav-item nav-link">首頁 Home</a>
+            <a href="about.html" class="nav-item nav-link ">關 於 About</a>
+            <a href="service.html" class="nav-item nav-link">服務項目 Services</a>
+            <a href="service.html" class="nav-item nav-link active">場次查詢 Searching</a>
+            <a href="contact.html" class="nav-item nav-link">聯繫方式 Contact</a>
         </div>
+        <a href="https://htmlcodex.com/architecture-html-template-pro" class="btn btn-primary py-2 px-4 d-none d-lg-block">登錄 Login</a>
     </div>
-    <!-- Topbar End -->
+    
 
+</nav>
+<!-- Navbar End -->
 
-    <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
-        <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
-            <h1 class="text-primary m-0"><img class="me-3" src="img/icons/icon-1.png" alt="Icon">Arkitektur</h1>
-        </a>
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="index.html" class="nav-item nav-link">Home</a>
-                <a href="about.html" class="nav-item nav-link">About</a>
-                <a href="service.html" class="nav-item nav-link active">Services</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                    <div class="dropdown-menu border-0 m-0">
-                        <a href="feature.html" class="dropdown-item">Our Features</a>
-                        <a href="project.html" class="dropdown-item">Our Projects</a>
-                        <a href="team.html" class="dropdown-item">Team Members</a>
-                        <a href="appointment.html" class="dropdown-item">Appointment</a>
-                        <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                        <a href="404.html" class="dropdown-item">404 Page</a>
-                    </div>
-                </div>
-                <a href="contact.html" class="nav-item nav-link">Contact</a>
-            </div>
-            <a href="https://htmlcodex.com/architecture-html-template-pro" class="btn btn-primary py-2 px-4 d-none d-lg-block">Pro Version</a>
+<div id="current-date"></div>
+<div id="current-time"></div>
+<div class="main">
+    <div class="wrap">
+        <div class="right">
+            <div id="nav"></div>
         </div>
-    </nav>
-    <!-- Navbar End -->
+        <div class="left">
+            <div class="toolbar">
 
-
-    <!-- Page Header Start -->
-    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
-        <div class="container py-5">
-            <h1 class="display-1 text-white animated slideInDown">Services</h1>
-            <nav aria-label="breadcrumb animated slideInDown">
-                <ol class="breadcrumb text-uppercase mb-0">
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                    <li class="breadcrumb-item text-primary active" aria-current="page">Services</li>
-                </ol>
-            </nav>
+              <button id="go-back">回到今天</button>
+              <button id="previous">上一月</button>
+              <button id="next">下一月</button>
+              
+            </div>
+            <div id="dp"></div>
         </div>
     </div>
-    <!-- Page Header End -->
+</div>
 
 
-    <!-- Facts Start -->
-    <div class="container-xxl py-5">
-        <div class="container pt-5">
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="fact-item text-center bg-light h-100 p-5 pt-0">
-                        <div class="fact-icon">
-                            <img src="img/icons/icon-2.png" alt="Icon">
-                        </div>
-                        <h3 class="mb-3">Design Approach</h3>
-                        <p class="mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="fact-item text-center bg-light h-100 p-5 pt-0">
-                        <div class="fact-icon">
-                            <img src="img/icons/icon-3.png" alt="Icon">
-                        </div>
-                        <h3 class="mb-3">Innovative Solutions</h3>
-                        <p class="mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="fact-item text-center bg-light h-100 p-5 pt-0">
-                        <div class="fact-icon">
-                            <img src="img/icons/icon-4.png" alt="Icon">
-                        </div>
-                        <h3 class="mb-3">Project Management</h3>
-                        <p class="mb-0">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Facts End -->
+<!-- DayPilot library -->
+<script src="js/daypilot/daypilot-all.min.js"></script>
+<script src="js/service.js"></script>
 
 
-    <!-- Service Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h4 class="section-title">Our Services</h4>
-                <h1 class="display-5 mb-4">We Focused On Modern Architecture And Interior Design</h1>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item d-flex position-relative text-center h-100">
-                        <img class="bg-img" src="img/service-1.jpg" alt="">
-                        <div class="service-text p-5">
-                            <img class="mb-4" src="img/icons/icon-5.png" alt="Icon">
-                            <h3 class="mb-3">Architecture</h3>
-                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                            <a class="btn" href=""><i class="fa fa-plus text-primary me-3"></i>Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item d-flex position-relative text-center h-100">
-                        <img class="bg-img" src="img/service-2.jpg" alt="">
-                        <div class="service-text p-5">
-                            <img class="mb-4" src="img/icons/icon-6.png" alt="Icon">
-                            <h3 class="mb-3">3D Animation</h3>
-                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                            <a class="btn" href=""><i class="fa fa-plus text-primary me-3"></i>Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item d-flex position-relative text-center h-100">
-                        <img class="bg-img" src="img/service-3.jpg" alt="">
-                        <div class="service-text p-5">
-                            <img class="mb-4" src="img/icons/icon-7.png" alt="Icon">
-                            <h3 class="mb-3">House Planning</h3>
-                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                            <a class="btn" href=""><i class="fa fa-plus text-primary me-3"></i>Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item d-flex position-relative text-center h-100">
-                        <img class="bg-img" src="img/service-4.jpg" alt="">
-                        <div class="service-text p-5">
-                            <img class="mb-4" src="img/icons/icon-8.png" alt="Icon">
-                            <h3 class="mb-3">Interior Design</h3>
-                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                            <a class="btn" href=""><i class="fa fa-plus text-primary me-3"></i>Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item d-flex position-relative text-center h-100">
-                        <img class="bg-img" src="img/service-5.jpg" alt="">
-                        <div class="service-text p-5">
-                            <img class="mb-4" src="img/icons/icon-9.png" alt="Icon">
-                            <h3 class="mb-3">Renovation</h3>
-                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                            <a class="btn" href=""><i class="fa fa-plus text-primary me-3"></i>Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item d-flex position-relative text-center h-100">
-                        <img class="bg-img" src="img/service-6.jpg" alt="">
-                        <div class="service-text p-5">
-                            <img class="mb-4" src="img/icons/icon-10.png" alt="Icon">
-                            <h3 class="mb-3">Construction</h3>
-                            <p class="mb-4">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem sed diam stet diam sed stet.</p>
-                            <a class="btn" href=""><i class="fa fa-plus text-primary me-3"></i>Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Service End -->
+
+<script>
+//載入最近的行程
+
+  function showrecent() {
+    showSelecter();
+    let toDay = new Date();
+
+    let startDay = new Date(toDay);                       //創建date 對toDay表當前日期
+    startDay.setMonth(toDay.getMonth() - 2);              //創建date 對 startDay 表兩個月前的日期
+    startDay = startDay.toISOString().split("T")[0];      //將startDay轉ISO格式 並用split轉換日期至字串
+
+    let endDay = new Date(toDay); 
+
+    endDay.setMonth(toDay.getMonth() + 2);                //創建date 對 endDay 將其設置兩個月後的日期       [不太懂何為兩個月?]
+    endDay = endDay.toISOString().split("T")[0];          //和上面一樣轉換格式
+
+    let body = {                                          //創建body 屬性如下 
+      startDate: startDay,
+      endDate: endDay, 
+      defaultDate: toDay, 
+      locno: "",                                            //設為空字串
+    };
+    showLocCalendar(body);                                   // 將body對象作為參數傳遞 用於顯示一個包含日期範圍選擇器的日曆
+  }
+</script>
+
+<script>
+  let locSelect = document.getElementById("floatingSelect"); //使用 document.getElementById 方法找到網頁中具有 id 屬性為 "floatingSelect" 的 HTML 元素，
+                                                            //並將其存儲在 locSelect 變量中。這個元素通常是一個下拉選擇框，我們將在後面的代碼中向其中添加選項。
+
+  function showSelecter() {                                 //這是一個命名為 showSelecter 的函數，代表在調用該函數時將執行以下的代碼。
+    let optAll = document.createElement("option");          //創建一個名為 optAll 的新 HTML 選項元素，以下將向其添加文本內容和值。
+    optAll.selected = true;                                 //將 optAll 元素設置為預選中狀態。
+    optAll.value = "";                                      //將 optAll 元素的值設置為空字符串。
+    optAll.textContent = "全部";                            //將 optAll 元素的文本內容設置為 "全部"。
+
+    locSelect.append(optAll);                              //將 optAll 元素添加到 locSelect 元素中，這樣它就會顯示在下拉選擇框的選項列表中。
+    fetch("/Loc/getAllLoc")                                //使用 fetch 方法向指定的網址發送 HTTP 請求，這裡的網址是 "/Loc/getAllLoc"。
+      .then((response) => response.json())                 //將 HTTP 响應對象轉換為 JSON 格式的數據。
+        for (let i of data) {                              //for 循環，用於遍歷 JSON 數據中的所有元素。
+          if (i.locsta === 0) {                            //if 條件語句，用於過濾 JSON 數據中 locsta 屬性為 0 的元素。
+            let opt = document.createElement("option");    //創建一個新的 HTML 選項元素，這個元素將添加到下拉選擇框中。
+            opt.value = i.locno;                          //將 opt 元素的值設置為 JSON 數據中 locno 屬性對應的值。
+            opt.textContent = i.locname;                  //將 opt 元素的文本內容設置為 JSON 數據中 locname 屬性對應的值。
+            locSelect.append(opt);                        //將 opt 元素添加到 locSelect 元素中，這樣它就會顯示在下拉選擇框的選項列表中。
+          }
+        }
+      };
+                                                        // 用於動態創建下拉選擇框的選項，選項的值和文本內容均從後端服務器返回的 JSON 數據中獲取。最後，這些選項被添加到指定的下拉選擇框中。通常這段代碼是在頁面加載時自動運行，
+                                                        //以便向用戶顯示可選擇的選項。
 
 
-    <!-- Testimonial Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h4 class="section-title">Testimonial</h4>
-                <h1 class="display-5 mb-4">Thousands Of Customers Who Trust Us And Our Services</h1>
-            </div>
-            <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-                <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='img/testimonial-1.jpg' alt=''>">
-                    <p class="fs-5">Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                    <h3>Client Name</h3>
-                    <span class="text-primary">Profession</span>
-                </div>
-                <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='img/testimonial-2.jpg' alt=''>">
-                    <p class="fs-5">Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                    <h3>Client Name</h3>
-                    <span class="text-primary">Profession</span>
-                </div>
-                <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='img/testimonial-3.jpg' alt=''>">
-                    <p class="fs-5">Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                    <h3>Client Name</h3>
-                    <span class="text-primary">Profession</span>
-                </div>
-            </div>      
-        </div>
-    </div>
-    <!-- Testimonial End -->
-        
 
-    <!-- Footer Start -->
-    <div class="container-fluid bg-dark text-body footer mt-5 pt-5 px-0 wow fadeIn" data-wow-delay="0.1s">
-        <div class="container py-5">
-            <div class="row g-5">
-                <div class="col-lg-3 col-md-6">
-                    <h3 class="text-light mb-4">Address</h3>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-3"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt text-primary me-3"></i>+012 345 67890</p>
-                    <p class="mb-2"><i class="fa fa-envelope text-primary me-3"></i>info@example.com</p>
-                    <div class="d-flex pt-2">
-                        <a class="btn btn-square btn-outline-body me-1" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-square btn-outline-body me-1" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-square btn-outline-body me-1" href=""><i class="fab fa-youtube"></i></a>
-                        <a class="btn btn-square btn-outline-body me-0" href=""><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h3 class="text-light mb-4">Services</h3>
-                    <a class="btn btn-link" href="">Architecture</a>
-                    <a class="btn btn-link" href="">3D Animation</a>
-                    <a class="btn btn-link" href="">House Planning</a>
-                    <a class="btn btn-link" href="">Interior Design</a>
-                    <a class="btn btn-link" href="">Construction</a>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h3 class="text-light mb-4">Quick Links</h3>
-                    <a class="btn btn-link" href="">About Us</a>
-                    <a class="btn btn-link" href="">Contact Us</a>
-                    <a class="btn btn-link" href="">Our Services</a>
-                    <a class="btn btn-link" href="">Terms & Condition</a>
-                    <a class="btn btn-link" href="">Support</a>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h3 class="text-light mb-4">Newsletter</h3>
-                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
-                    <div class="position-relative mx-auto" style="max-width: 400px;">
-                        <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a href="#">Your Site Name</a>, All Right Reserved.
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Footer End -->
+</script>
+<script>
+  window.onload = showrecent;                           //這表示當網頁載入時，會執行 showrecent 函式。這可能是用來初始化網頁或顯示一些最近的資訊。
+</script>
+<script>
+  locSelect.addEventListener("change", function () { //監聽器會監聽 locSelect 的 change 事件，也就是當使用者選擇了下拉式選單中的選項時，就會觸發這個函式。這個函式中會建立一個 JavaScript 物件 
+    let toDay = new Date();
 
+    let startDay = new Date(toDay);
+    startDay.setMonth(toDay.getMonth() - 2);
+    startDay = startDay.toISOString().split("T")[0];
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    let endDay = new Date(toDay);
 
+    endDay.setMonth(toDay.getMonth() + 2);
+    endDay = endDay.toISOString().split("T")[0];
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    let body = {
+      startDate: startDay,
+      endDate: endDay,
+      defaultDate: toDay,
+      locno: locSelect.value,
+    };
+    showLocCalendar(body);
+  });
+</script>
 
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+   
+    <script>
+ function showDateTime() {
+  var date = new Date();
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var seconds = date.getSeconds();
+  var time = hours + ":" + minutes + ":" + seconds;
+  var dateTime = year + "年" + month + "月" + day+"日" ;
+  document.getElementById("current-date").innerHTML = dateTime;
+  document.getElementById("current-time").innerHTML = time;
+ 
+ 
+}
+showDateTime();
+
+setInterval(showDateTime, 1000);
+  const datePicker = new DayPilot.Navigator("nav", {
+    showMonths: 1,
+    skipMonths: 1,
+    selectMode: "Month",
+    onTimeRangeSelected: args => {
+      calendar.update({
+        startDate: args.day
+      });
+      calendar.events.load("/api/events");
+    }
+  });
+  datePicker.init();
+
+  const goBackButton = document.getElementById("go-back");
+goBackButton.addEventListener("click", () => {
+  const now = new Date();
+  calendar.startDate = now;
+  datePicker.select(now);
+  calendar.events.load("/api/events");
+});
+    
+    const calendar = new DayPilot.Month("dp", {
+    eventEndSpec: "Date",
+    eventHeight: 30,
+    eventBarVisible: false,
+    // onTimeRangeSelected: async (args) => {
+    //   const modal = await DayPilot.Modal.prompt("Create a new event:", "Event");
+    // },
+  });
+  
+  calendar.init();
+
+  const app = {
+    elements: {
+      previous: document.querySelector("#previous"),
+      next: document.querySelector("#next"),
+    },
+    async updateColor(e, color) {
+      const params = {
+        id: e.id(),
+        color: color
+      };
+      const {data} = await DayPilot.Http.post('/api/events/setColor', params);
+      e.data.color = color;
+      calendar.events.update(e);
+    },
+    init() {
+      app.elements.previous.addEventListener("click", () => {
+        const current = datePicker.selectionDay;
+        datePicker.select(current.addMonths(-1));
+      });
+      app.elements.next.addEventListener("click", () => {
+        const current = datePicker.selectionDay;
+        datePicker.select(current.addMonths(1));
+      });
+
+      calendar.events.load("/api/events");
+    }
+  };
+  const mysql = require('mysql');
+
+// Create a connection to the database
+const connection = mysql.createConnection({
+  host: '8080',
+  user: 'root',
+  password: 's970790',
+  database: 'mydb'
+});
+
+// Connect to the database
+connection.connect();
+
+// Query the database for events
+const sql = 'SELECT * FROM plan_ord';
+connection.query(sql, (error, results, fields) => {
+  if (error) throw error;
+
+  // Convert the results to JSON format
+  const events = JSON.parse(JSON.stringify(results));
+
+  // Load events into calendar
+  calendar.events.load(events);
+
+  // Close the connection
+  connection.end();
+});
+
+  app.init();
+
+</script>
 </body>
 
+<style>
+    .month_default_event_inner {
+        border-radius: 20px;
+    }
+
+</style>
 </html>
