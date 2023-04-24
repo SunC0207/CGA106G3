@@ -22,7 +22,7 @@ public class POrdController {
     private POrdServiceImpl pOrdService;
 
     @RequestMapping("/update/{row}")
-    public POrd updatePro(@PathVariable("row") int row, @RequestBody POrd pOrd) {
+    public POrd update(@PathVariable("row") int row, @RequestBody POrd pOrd) {
         pOrd.setPono(row);
         return pOrdService.updatePOrd(pOrd);
     }

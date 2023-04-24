@@ -386,57 +386,59 @@
             <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
-                    <div style="width: max-content; position: relative; margin-top: 50%; left: 50%; transform: translate(-50%, -50%);" class="row bg-secondary rounded align-items-center justify-content-center mx-0 modal-content">
+                    <div style="width: max-content; position: relative; margin-top: 50%; left: 50%; transform: translate(-50%, -50%);"
+                        class="row bg-secondary rounded align-items-center justify-content-center mx-0 modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">訂單明細</h5>
                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <thead>
-                                <tr>
-                                    <th scope="col">訂單建立日期</th>
-                                    <th scope="col">訂單編號</th>
-                                    <th scope="col">宗教</th>
-                                    <th scope="col">往生者姓名</th>
-                                    <th scope="col">往生者出生日期</th>
-                                    <th scope="col">往生者往生日期</th>
-                                    <th scope="col">流程日期</th>
-                                    <th scope="col">細項名稱</th>
-                                    <th scope="col">細項單價</th>
-                                    <th scope="col">場地名稱</th>
-                                    <th scope="col">訂單總價</th>
-                                    <th scope="col">付款狀態</th>
-                                    <th scope="col">訂單狀態</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tableBody"></tbody>
-                                <!-- conten的每一個元素建立一個tr, tr裡再建立td  :key指令來設置每個<tr>元素的唯一鍵-->
-                                <tr v-for="detail in details" :key="order.pono" >
-                                    <td>{{ detail.poDate }}</td>
-                                    <td>{{ detail.poNo }}</td>
-                                    <td>{{ detail.relName }}</td>
-                                    <td>{{ detail.dname }}</td>
-                                    <td>{{ detail.dbirth }}</td>
-                                    <td>{{ detail.ddate }}</td>
-                                    <td>{{ detail.date }}</td>
-                                    <td>{{ detail.iprice }}</td>
-                                    <td>{{ detail.locName }}</td>
-                                    <td>{{ detail.totalPr }}</td>
-                                    <td>{{ detail.paySta }}</td>
-                                    <td>{{ detail.poSta }}</td>
-                                    <td style="display: none;">{{ detail.detailNo }}</td>
-                                    <td style="display: none;">{{ detail.itemNo }}</td>
-                                    <td style="display: none;">{{ detail.locNo }}</td>
-                                    <td style="display: none;">{{ detail.iname }}</td>
-                                </tr>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                    aria-label="Close">關閉</button>
-                                <button type="submit" @click="updatePOrd(order)" class="btn btn-primary"
-                                    data-bs-dismiss="modal">保存變更</button>
-                            </div>
+                        <div class="detail-body">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">訂單建立日期</th>
+                                        <th scope="col">訂單編號</th>
+                                        <th scope="col">宗教</th>
+                                        <th scope="col">往生者姓名</th>
+                                        <th scope="col">往生者出生日期</th>
+                                        <th scope="col">往生者往生日期</th>
+                                        <th scope="col">流程日期</th>
+                                        <th scope="col">細項名稱</th>
+                                        <th scope="col">細項單價</th>
+                                        <th scope="col">場地名稱</th>
+                                        <th scope="col">訂單總價</th>
+                                        <th scope="col">付款狀態</th>
+                                        <th scope="col">訂單狀態</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="modalBody"></tbody>
+                            </table>
+                        </div>
+                        <!-- conten的每一個元素建立一個tr, tr裡再建立td  :key指令來設置每個<tr>元素的唯一鍵-->
+                        <!-- <tr v-for="detail in orderDetails" :key="detail.detailNo">
+                            <td>{{ detail.poNo }}</td>
+                            <td>{{detail.relName}}</td>
+                            <td>{{detail.dname}}</td>
+                            <td>{{detail.dbirth}}</td>
+                            <td>{{detail.ddate}}</td>
+                            <td>{{detail.date}}</td>
+                            <td>{{detail.iname}}</td>
+                            <td>{{detail.iprice}}</td>
+                            <td>{{detail.locName}}</td>
+                            <td>{{detail.totalPr}}</td>
+                            <td>{{detail.paySta}}</td>
+                            <td>{{detail.poSta}}</td>
+                            <td style="display: none;">{{detail.detailNo}}</td>
+                            <td style="display: none;">{{detail.itemNo}}</td>
+                            <td style="display: none;">{{detail.locNo}}</td>
+                            <td style="display: none;">{{detail.iname}}</td>
+                        </tr> -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                aria-label="Close">關閉</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">保存變更</button>
                         </div>
                     </div>
                 </div>

@@ -72,4 +72,9 @@ public class PODetailController {
         return poDetailService.farewells(dname);
     }
 
+    @RequestMapping("/update")
+    public PODetail update(@RequestBody PODetail poDetail) {
+        return poDetailService.addPODetail(poDetail);
+    }
+
 }

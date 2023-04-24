@@ -5,23 +5,28 @@ new Vue({
             searchTerm: '',
             orders: [],
             order: '',
-            details: [],
-
         }
     },
-    created() {
+    mounted() {
         fetch('/schedule/getAll', {
             method: 'GET',
         }).then(response => response.json())
-            .then(data => {
+            .then((data) => {
                 this.orders = data;
-            })
-        
+            });
     },
     computed: {
         regex() {
             return new RegExp(this.searchTerm, "i");
         },
+    },
+    watch: {
+        orderDetails(newVal, oldVal) {
+            console.log(this.orderDetails)
+            if (newVal !== oldVal) {
+                $('#detailModal').modal('show');
+            }
+        }
     },
     methods: {
         updatePOrd(order) {
@@ -59,14 +64,50 @@ new Vue({
             this.order = order
         },
         showDetail(order) {
-            $('#detailModal').modal('show');
-            fetch(`/schedule/detailJoin?pono=${order.pono}`, {
-                method: 'GET',
-            }).then(response => response.json())
-                .then(data => {
-                    this.details = data;
-                })
-        },
+            // $('#detailModal').modal('show');
+            localStorage.setItem('pono', order.pono)
+            location.href='./PODetail.html'
+            // fetch(`/schedule/detailJoin?pono=${order.pono}`, {
+            //     method: 'GET',
+            // })
+            //     .then(response => response.json())
+            //     .then((data) => {
+            //         this.orderDetails = data;
+            //     })
+        }
+
+        // showDetail(order) {
+        //     $('#detailModal').modal('show');
+        //     fetch(`/schedule/detailJoin?pono=${order.pono}`, {
+        //         method: 'GET',
+        //     }).then(response => response.json())
+        //         .then((data) => {
+        //             let tableRows = '';
+        //             data.forEach(detail => {
+        //                 tableRows += `<tr>
+        //                                 <td>${detail.poDate}</td>
+        //                                 <td>${detail.poNo}</td>
+        //                                 <td>${detail.relName}</td>
+        //                                 <td>${detail.dname}</td>
+        //                                 <td>${detail.dbirth}</td>
+        //                                 <td>${detail.ddate}</td>
+        //                                 <td>${detail.date}</td>
+        //                                 <td>${detail.iname}</td>
+        //                                 <td>${detail.iprice}</td>
+        //                                 <td>${detail.locName}</td>
+        //                                 <td>${detail.totalPr}</td>
+        //                                 <td>${detail.paySta}</td>
+        //                                 <td>${detail.poSta}</td>
+        //                                 <td style="display: none;">${detail.detailNo}</td>
+        //                                 <td style="display: none;">${detail.itemNo}</td>
+        //                                 <td style="display: none;">${detail.locNo}</td>
+        //                                 <td style="display: none;">${detail.iname}</td>
+        //                               </tr>`;
+        //             });
+        //             document.querySelector('#modalBody').innerHTML = tableRows;
+        //         });
+
+        // },
 
     },
 })
