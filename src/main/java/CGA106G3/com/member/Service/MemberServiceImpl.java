@@ -105,37 +105,12 @@ public void deleteMember(Integer member){
 
 
 
-//        if (member.getMname() == null) {
-//            member.setMessage("帳號未輸入");
+//        if (member.getReferenceByEmail(member.getEmail()) != null) {
+//            member.setMessage("帳號重複");
 //            member.setSuccessful(false);
 //            return member;
 //        }
-//
-//        if (member.getMpw() == null) {
-//            member.setMessage("密碼未輸入");
-//            member.setSuccessful(false);
-//            return member;
-//        }
-//        if (member.getMpic() == null) {
-//            member.setMessage("請上傳圖片");
-//            member.setSuccessful(false);
-//            return member;
-//        }
-//
-//
-//        if (member.getMobile() == null) {
-//            member.setMessage("請輸入手機號碼");
-//            member.setSuccessful(false);
-//            return member;
-//        }
-//
-        if (member.getReferenceByEmail(member.getEmail()) != null) {
-            member.setMessage("帳號重複");
-            member.setSuccessful(false);
-            return member;
-        }
-//        member.setVersta(0);
-//        member = memberRepository.save(member);
+
         memberRepository.save(member);
         member.setMessage("註冊成功");
         member.setSuccessful(true);
@@ -148,6 +123,8 @@ public void deleteMember(Integer member){
     }
 
 
-
+    public Member findMemberByEmail(String email) {
+        return memberRepository.findByEmail(email);
+    }
 }
 
