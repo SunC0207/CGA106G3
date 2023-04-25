@@ -31,7 +31,10 @@ public class InfoController {
     public void delete(@RequestParam Integer infono){
          infoService.deleteInfo(infono);}
 
-
+    @GetMapping("/getByName")
+    public InfoDTO getByName(@RequestParam String infoname){
+        return infoService.findByName(infoname);
+    }
 
 }
 
