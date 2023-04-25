@@ -3,10 +3,9 @@ package CGA106G3.com.faq.Controller;
 import CGA106G3.com.faq.DTO.FaqDTO;
 import CGA106G3.com.faq.Entity.Faq;
 import CGA106G3.com.faq.Service.FaqService;
+import CGA106G3.com.faq.repository.FaqRepository;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.websocket.server.ServerEndpoint;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,11 +40,20 @@ public class FaqController {
         return  faqservice.findByFaqname(faqname);
     }
 
-
+//    @GetMapping("/findByNo/{faqno}")
+//    public Optional<Faq> findFaqByFaqno(@PathVariable Integer faqno){ return  faqservice.findFaqByFaqno(faqno);}
     @RequestMapping("/update/{row}")
     public Faq updateFaq(@PathVariable("row") int row, @RequestBody Faq faq){
         faq.setFaqno(row);
         return faqservice.addFaq(faq);
+
+    }
+    @RequestMapping("/delete/{row}")
+    public  boolean deleteFaq(@PathVariable("row") int row){
+        return faqservice.deleteFaq(row);
+
+
+
 
     }
 
@@ -60,8 +68,21 @@ public class FaqController {
         return  faqservice.getAllFaq();
     }
 
+    @RequestMapping("/getTotalPages")
+    public int getTotalPages(@RequestParam int size){
+        int totalRecords = (int) faqservice.count();
+        return (totalRecords + size - 1) / size;
+    }
 
 
+    @Autowired
+    private FaqRepository faqRepository;
+
+    @GetMapping("/search")
+    public List<Faq> searchFaq(@RequestParam("faqtag") String faqtag) {
+        System.out.println("參數 : "+faqtag);
+        return faqRepository.findByFaqtagContaining(faqtag);
+    }
 
 
 
