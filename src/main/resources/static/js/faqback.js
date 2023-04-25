@@ -82,23 +82,23 @@ ${pageButtons}
                     lengthMenu: [5, 10, 15, 20],
                     language: {
                         emptyTable: "無資料",
-                        info: "顯示 START 至 END 筆資料，共 TOTAL 筆",
-                        lengthMenu: "顯示 MENU 筆資料",
+                        // info: "顯示 START 至 END 筆資料，共 TOTAL 筆",
+                        // lengthMenu: "顯示 MENU 筆資料",
                         paginate: {
                             previous: '<i class="fa fa-chevron-left"></i>',
                             next: '<i class="fa fa-chevron-right"></i>'
                         },
                     },
                 });
-                let label = document.querySelector('#table_length label');
-                label.style.color = "black";
-                let label1 = document.querySllector('table_filter');
-                label1.style.color = 'white';
-                let label2 = document.querySelector('#table_info');
-                label2.style.color = 'black';
+                // let label0 = document.querySelector('#table_length label');
+                // label0.style.color = "black";
+                // let label1 = document.querySllector('#table_filter');
+                // label1.style.color = 'white';
+                // let label2 = document.querySelector('#table_info');
+                // label2.style.color = 'black';
 
-                let size1 = document.querySelectorAll('.sorting');
-                size1.style.width = '500px';
+                // let size1 = document.querySelectorAll('.sorting');
+                // size1.style.width = '500px';
 
 
             });
@@ -240,97 +240,7 @@ ${pageButtons}
 
 
 
-let cell;
-let row;
 
-function updatebtn() {
-    const updateBtn = document.querySelectorAll('.update');
-    // const updateBtn = document.getElementsByName(`${faqno}`)[0];
-    // console.log(event.target);
-    // console.log(faqno);
-
-    updateBtn.forEach(button => {
-        button.addEventListener('click', () => {
-            $('#updateModal').modal('show');
-            cell = button.parentElement;
-            row = cell.parentElement.querySelector('td:first-child').getAttribute('id');
-
-
-
-        })
-    })
-}
-
-function updateFaq() {
-    // const newname = $('#faqname').value;
-    // const newans = $('#faqans').value;
-    // const newtag = $('#faqtag').value;
-    const newname = document.getElementById('faqname').value;
-    const newans = document.getElementById('faqans').value;
-    const newtag = document.getElementById('faqtag').value;
-
-    fetch(`/faq/update/${row}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            faqname: newname,
-            faqans: newans,
-            faqtag: newtag,
-        })
-    }).then(response => {
-        if (response.ok) {
-
-            Swal.fire({
-                icon: 'success',
-                title: '儲存成功',
-                text: '',
-                confirmButtonText: 'OK',
-            }).then(() => {
-                location.reload();
-            })
-
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: '儲存失敗',
-                showConfirmButton: false,
-                timer: 1500
-            })
-        }
-
-    })
-}
-
-
-
-
-
-swalWithBootstrapButtons.fire({
-    title: '確定修改?',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: '確認修改',
-    cancelButtonText: '取消',
-    reverseButtons: true
-}).then((result) => {
-    if (result.isConfirmed) {
-        swalWithBootstrapButtons.fire(
-            '成功!',
-            '',
-            'success'
-        )
-    } else if (
-        result.dismiss === Swal.DismissReason.cancel
-    ) {
-        swalWithBootstrapButtons.fire(
-            '取消',
-            '',
-            'error'
-        )
-    }
-})
 
 
 
@@ -409,7 +319,10 @@ addBtn.addEventListener('click', () => {
                 icon: 'success',
                 title: '新增成功'
 
+            }).then(() => {
+                location.reload();
             });
+
 
         })
         .catch(error => {
@@ -420,11 +333,13 @@ addBtn.addEventListener('click', () => {
 
             });
 
+
         });
     // }
 
-    // })
 });
+
+
 
 
 // const searchForm = document.querySelector('#search-form');
@@ -570,9 +485,9 @@ const deleteBtn = document.querySelectorAll('.btn btn danger m-2');
 //deleteBtn.forEach(button => {
 //    button.addEventListener('click', () => {
 //        console.log(6666);
-        // 取得此按鈕所在列的 ID
+// 取得此按鈕所在列的 ID
 //        const id = button.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.getAttribute('id');
-        // 提示是否確定刪除
+// 提示是否確定刪除
 //        Swal.fire({
 //            title: '確定刪除嗎?',
 //            icon: 'warning',
@@ -593,3 +508,94 @@ const deleteBtn = document.querySelectorAll('.btn btn danger m-2');
 // const addBtn = document.getElementById("add");
 // const list = document.getElementById("list");
 
+let cell;
+let row;
+
+function updatebtn() {
+    const updateBtn = document.querySelectorAll('.update');
+    // const updateBtn = document.getElementsByName(`${faqno}`)[0];
+    // console.log(event.target);
+    // console.log(faqno);
+
+    updateBtn.forEach(button => {
+        button.addEventListener('click', () => {
+            $('#updateModal').modal('show');
+            cell = button.parentElement;
+            row = cell.parentElement.querySelector('td:first-child').getAttribute('id');
+
+
+
+        })
+    })
+}
+
+function updateFaq() {
+    // const newname = $('#faqname').value;
+    // const newans = $('#faqans').value;
+    // const newtag = $('#faqtag').value;
+    const newname = document.getElementById('faqname').value;
+    const newans = document.getElementById('faqans').value;
+    const newtag = document.getElementById('faqtag').value;
+
+    fetch(`/faq/update/${row}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            faqname: newname,
+            faqans: newans,
+            faqtag: newtag,
+        })
+    }).then(response => {
+        if (response.ok) {
+
+            Swal.fire({
+                icon: 'success',
+                title: '儲存成功',
+                text: '',
+                confirmButtonText: 'OK',
+            }).then(() => {
+                location.reload();
+            })
+
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: '儲存失敗',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+
+    })
+}
+
+
+
+
+
+swalWithBootstrapButtons.fire({
+    title: '確定修改?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: '確認修改',
+    cancelButtonText: '取消',
+    reverseButtons: true
+}).then((result) => {
+    if (result.isConfirmed) {
+        swalWithBootstrapButtons.fire(
+            '成功!',
+            '',
+            'success'
+        )
+    } else if (
+        result.dismiss === Swal.DismissReason.cancel
+    ) {
+        swalWithBootstrapButtons.fire(
+            '取消',
+            '',
+            'error'
+        )
+    }
+})
