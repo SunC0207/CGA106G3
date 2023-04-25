@@ -97,6 +97,11 @@
                 margin-left: 20px;
                 /* 設置圖片和input之間的距離 */
             }
+
+            .error {
+                color: red;
+                font-weight: bold;
+            }
         </style>
         </style>
     </head>
@@ -127,7 +132,9 @@
         <input type="password" id="nPassword" name="nPassword"><br><br>
 
         <label for="comfirmpassword">確認密碼：</label>
-        <input type="password" id="confirmPassword" name="cconfirmPassword"><br><br>
+        <input type="password" id="confirmPassword" name="confirmPassword">
+        <div id="msg" class="error"></div>
+        <br><br>
 
         <label for="picture">照片：</label>
         <input type="file" id="picture" name="picture" accept="image/*"><br><br>
@@ -146,8 +153,9 @@
         <input type="email" id="email" name="email"><br><br>
 
         <button value="提交" id="btn2">送出</button>
+        <a value="上一頁" id="btn3" href="index_Chian.html">返回首頁</a>
     </form>
-    <div id="msg" class="error"></div>
+
     <script src="../front/js/memberEdit.js"></script>
     <!-- <script src="sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
