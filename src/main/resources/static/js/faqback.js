@@ -91,8 +91,11 @@ ${pageButtons}
                     },
                 });
                 let label = document.querySelector('#table_length label');
-                label.style.color = '#000';
-
+                label.style.color = "black";
+                let label1 = document.querySllector('table_filter');
+                label1.style.color = 'white';
+                let label2 = document.querySelector('#table_info');
+                label2.style.color = 'black';
 
                 let size1 = document.querySelectorAll('.sorting');
                 size1.style.width = '500px';

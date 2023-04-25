@@ -15,11 +15,8 @@ $(document).ready(() => {
   });
 
 
-
-
-
-
   function show(pageA) {
+    let id = 0;
     page = pageA;
     fetch(`/faq/findAll`, {
       method: 'GET',
@@ -32,28 +29,128 @@ $(document).ready(() => {
         for (let item of data) {
           context +=
             `
-            <div class="accordion-item bg-transparent">
-              <h2 class="accordion-header" id="headingOne">
-                  <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      <tbody id="tbody">${item.faqname}</tbody>
-                  </button>
-              </h2>
+        <div class="accordion-item bg-transparent">
+          <h2 class="accordion-header" id="headingOne${id}">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne${id}" aria-expanded="true" aria-controls="collapseOne">
+                  <tbody id="tbody">${item.faqname}</tbody>
+              </button>
+          </h2>
 
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                  data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    ${item.faqans}
-                  </div>
+          <div id="collapseOne${id}" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                ${item.faqans}
               </div>
-            </div>
-            `
+          </div>
+        </div>
+        `
+          id++;
         }
         faqlist.innerHTML = context;
 
 
+      })
 
-        //         const bodyTable = data.map(obj => {
+    });
+  }
+});
+
+
+
+//   function show(pageA) {
+//     page = pageA;
+//     fetch(`/faq/findAll`, {
+//       method: 'GET',
+//     }).then((response) => {
+//       response.json().then(data => {
+//         let faqlist = document.getElementById("accordionExample");
+//         let context = "";
+
+
+//         for (let item of data) {
+//           context +=
+//             `
+//             <div class="accordion-item bg-transparent">
+//               <h2 class="accordion-header" id="headingOne">
+//                   <button class="accordion-button" type="button" data-bs-toggle="collapse"
+//                       data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+//                       <tbody id="tbody">${item.faqname}</tbody>
+//                   </button>
+//               </h2>
+
+//               <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+//                   data-bs-parent="#accordionExample">
+//                   <div class="accordion-body">
+//                     ${item.faqans}
+//                   </div>
+//               </div>
+//             </div>
+//             `
+//         }
+//         faqlist.innerHTML = context;
+
+
+
+
+//       });
+//     });
+
+//   }
+// });
+const searchInput = document.querySelector('#search-input');
+const searchBtn = document.querySelector('#search-btn');
+const faqResult = document.querySelector('#searchResults');
+let id = 0;
+
+searchBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  // alert("click......")
+  const faqtag = searchInput.value;
+
+
+  fetch(`/faq/search?faqtag=${faqtag}`, { method: 'GET', })
+    .then(response => response.json())
+    .then(data => {
+
+
+      console.log(data);
+      let searchResults = ""; // 清空先前的搜索结果
+      let faqResult = document.getElementById("accordionExample");
+
+
+      for (let searchFaq of data) {
+        console.log("start for loop")
+        console.log(searchFaq.faqname);
+        searchResults +=
+          `
+        <div class="accordion-item bg-transparent">
+          <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne${id}" aria-expanded="true" aria-controls="collapseOne">
+                  <tbody id="tbody">${searchFaq.faqname}</tbody>
+              </button>
+          </h2>
+
+          <div id="collapseOne${id}" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                ${searchFaq.faqans}
+              </div>
+          </div>
+        </div>
+        `
+        id++;
+      }
+      faqResult.innerHTML = searchResults;
+    })
+    .catch(error => console.error(error));
+
+});
+
+
+
+ //         const bodyTable = data.map(obj => {
 
         //           const faqno = obj['faqno'];
         //           const faqnoa = `<div id="${faqno}" class="faqno">${faqno}</div>`;
@@ -91,63 +188,6 @@ $(document).ready(() => {
         // <span class="sr-only">Next</span>
         // </a>
         // </li>`;
-
-
-
-      });
-    });
-
-  }
-});
-const searchInput = document.querySelector('#search-input');
-const searchBtn = document.querySelector('#search-btn');
-const faqResult = document.querySelector('#searchResults');
-
-searchBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  // alert("click......")
-  const faqtag = searchInput.value;
-
-
-  fetch(`/faq/search?faqtag=${faqtag}`, { method: 'GET', })
-    .then(response => response.json())
-    .then(data => {
-
-
-      console.log(data);
-      let searchResults = ""; // 清空先前的搜索结果
-      let faqResult = document.getElementById("accordionExample");
-
-
-      for (let searchFaq of data) {
-        console.log("start for loop")
-        console.log(searchFaq.faqname);
-        searchResults +=
-          `
-        <div class="accordion-item bg-transparent">
-          <h2 class="accordion-header" id="headingOne">
-              <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  <tbody id="tbody">${searchFaq.faqname}</tbody>
-              </button>
-          </h2>
-
-          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-              data-bs-parent="#accordionExample">
-              <div class="accordion-body">
-                ${searchFaq.faqans}
-              </div>
-          </div>
-        </div>
-        `
-
-      }
-      faqResult.innerHTML = searchResults;
-    })
-    .catch(error => console.error(error));
-  alert('ttttt');
-});
-
 
 
 

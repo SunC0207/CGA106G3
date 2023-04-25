@@ -271,7 +271,7 @@
                     <!--                        <div class="col-sm-12 col-xl-6" id="fix" >-->
                     <!--                            <div class="bg-secondary rounded h-100 p-4">-->
                     <nav>
-                        <ul class="pagination">
+                        <ul class="pagination" hidden="true">
                             <li hidden="true" class="page-item ${pageA === 1 ? 'disabled' : ''}">
                                 <a class="page-link" href="#" data-page="${pageA - 1}" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
@@ -289,29 +289,29 @@
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
                                 </a>
-                            </li>
+                            </li>-->
                         </ul>
-                    </nav> -->
-                            <h6 class="mb-4">新增</h6>
-                            <div id="list">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInput" placeholder="請輸入問題">
-                                    <label for="floatingInput">問題名稱</label>
-                                </div>
+                    </nav>
+                    <h6 class="mb-4">新增</h6>
+                    <div id="list">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="請輸入問題">
+                            <label for="floatingInput">問題名稱</label>
+                        </div>
 
 
-                                <div class="form-floating">
-                                    <textarea class="form-control" placeholder="請輸入問題答案" id="floatingTextarea"
-                                        style="height: 150px;"></textarea>
-                                    <label for="floatingTextarea">問題答案</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingPassword" placeholder="請輸入標籤">
-                                    <label for="floatingPassword">標籤</label>
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="請輸入問題答案" id="floatingTextarea"
+                                style="height: 150px;"></textarea>
+                            <label for="floatingTextarea">問題答案</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingPassword" placeholder="請輸入標籤">
+                            <label for="floatingPassword">標籤</label>
 
-                                </div>
-                            </div>
-                            <button type="button" class="btn btn-success m-2 " id="add">新增</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-success m-2 " id="add">新增</button>
 
 
                 </div>
