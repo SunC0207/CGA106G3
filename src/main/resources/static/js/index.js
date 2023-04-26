@@ -121,4 +121,5 @@ fetch(
   });
 
 let noteKey = sessionStorage.getItem("empno") + "note";
+
 getNote(noteKey);

@@ -26,10 +26,6 @@ import java.util.stream.Collectors;
 public class FaqService {
     private static final String Key = "faq:";
 
-
-    @Autowired
-    private RedisTemplate<String , Faq> redisTemplate;
-
     @Autowired
     private FaqRepository faqRepository;
 
@@ -83,14 +79,10 @@ public class FaqService {
 
 
     public Optional<Faq> findFaqById(Integer faqno){
-        String key = Key + faqno;
-        Faq faq = redisTemplate.opsForValue().get(key);
-        if (faq == null){
+
             Optional<Faq> optionalFaq = faqRepository.findById(faqno);
-            optionalFaq.ifPresent(f -> redisTemplate.opsForValue().set(key, f));
             return optionalFaq;
-        }
-        return Optional.of(faq);
+
     }
 
     public Optional<Faq> findByFaqname(String faqname){
@@ -171,12 +163,5 @@ public class FaqService {
     public long count(){
         return faqRepository.count();
     }
-
-
-
-
-
-
-
 
 }
