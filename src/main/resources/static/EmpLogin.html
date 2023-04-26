@@ -40,6 +40,7 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet" />
+    
   </head>
 
   <body>
@@ -118,7 +119,6 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    
 
     <script>
       let loginbtn = document.getElementById("loginbtn");
@@ -140,19 +140,29 @@
         })
           .then((response) => response.json())
           .then((data) => {
-            const { empDTO, perDTOS } = data;
-            sessionStorage.setItem("empno", empDTO.empno);
-            sessionStorage.setItem("ename", empDTO.ename);
-            sessionStorage.setItem("hiredate", empDTO.hiredate);
-            sessionStorage.setItem("empsta", empDTO.empsta);
-            sessionStorage.setItem("emppw", empDTO.emppw);
-            let perList = "";
-            for (let per of perDTOS) {
-              perList += per.fctno;
+            try {
+              const { empDTO, perDTOS } = data;
+              if (empDTO.empsta === 0) {
+                sessionStorage.setItem("empno", empDTO.empno);
+                sessionStorage.setItem("ename", empDTO.ename);
+                sessionStorage.setItem("hiredate", empDTO.hiredate);
+                sessionStorage.setItem("empsta", empDTO.empsta);
+                sessionStorage.setItem("emppw", empDTO.emppw);
+                let perList = "";
+                for (let per of perDTOS) {
+                  perList += per.fctno;
+                }
+                sessionStorage.setItem("perList", perList);
+                sessionStorage.setItem("loginOrNot", true);
+                location.replace("/index.html");
+              } else if (empDTO.empsta === 1) {
+                alert("你已離職 ");
+              } else {
+                alert("你處於停職期間 請聯絡管理員更新你的在職狀態");
+              }
+            } catch (e) {
+              alert("請輸入正確的會員編號及密碼");
             }
-            sessionStorage.setItem("perList", perList);
-            sessionStorage.setItem("loginOrNot", true);
-            location.replace("/index.html");
           });
       });
     </script>
