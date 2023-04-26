@@ -371,8 +371,9 @@ new Vue({
                                     title: '訂單建立完成 !',
                                     confirmButtonText: 'OK',
                                     timer: 1500
-                                });
-                                location.reload();
+                                }).then(() => {
+                                    window.location.replace("./POrd.html");
+                                  });
                             } else {
                                 //失敗
                                 Swal.fire({

@@ -2,13 +2,9 @@ package CGA106G3.com.schedule.Service;
 
 import CGA106G3.com.schedule.DTO.PODetailByMemberDTO;
 import CGA106G3.com.schedule.DTO.PODetailJoinDto;
-
 import CGA106G3.com.schedule.DTO.POrdDTO;
 import CGA106G3.com.schedule.Entity.POrd;
 import CGA106G3.com.schedule.Repository.POrdRepository;
-import CGA106G3.com.schedule.Service.POrdService;
-
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,6 +132,7 @@ public class POrdServiceImpl implements POrdService {
             dto.setDate((Timestamp) detail[6]);
             dto.setIName((String) detail[7]);
             dto.setIPrice((Integer) detail[8]);
+            dto.setLocName((String) detail[9]);
             dto.setTotalPr((Integer) detail[10]);
             dto.setPaySta((Integer) detail[11]);
             dto.setPoSta((Integer) detail[12]);
