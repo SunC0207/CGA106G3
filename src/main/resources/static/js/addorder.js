@@ -27,6 +27,9 @@ new Vue({
             emps: [],
             poDate: new Date().toISOString().slice(0, 10),
             poType: 0,
+            isMember: false,
+            nName: '',
+
         };
     },
     // 自動執行
@@ -50,7 +53,26 @@ new Vue({
         }
     },
     methods: {
-        firstOrNot(){
+        getMname() {
+            fetch(`/memb/findById?membno=${this.membno}`, {
+                method: 'GET'
+            }).then(response => {
+                response.json().then(data => {
+                    if (data.mname !== undefined) {
+                      this.nName = data.mname + ' 您好 !';
+                    } else {
+                      this.nName = '查無此會員 !';
+                    }
+                    this.isMember = true;
+                  }).catch(error => {
+                    this.nName = '查無此會員 !';
+                  });
+            })
+            this.isMember = true
+
+        },
+
+        firstOrNot() {
             if (localStorage.length === 0) {
                 // 當前 localStorage 中沒有任何資料
                 Swal.fire({
@@ -58,10 +80,10 @@ new Vue({
                     text: "請輸入基本資料"
                 })
 
-              } else {
+            } else {
                 // 當前 localStorage 中有資料
-              }
-              
+            }
+
         },
         // setStorageLoc(){
         //     const key = this.selectedCeremony + '-Location'
@@ -180,7 +202,7 @@ new Vue({
                                 const ipriceCell = `<td value="${iprice}">$${iprice}</td>`;
                                 const upfile = obj['upFile'];
                                 const upfileCell = upfile !== null ? `<td><img style="height: 80px" src="data:image/jpg;base64,${upfile}" alt="圖片"></td>` : '<td></td>';
-                                const radio =`<td><input class="form-check-input" type="checkbox" name="gridRadios" id="gridRadios1" value="option1" ></td>`
+                                const radio = `<td><input class="form-check-input" type="checkbox" name="gridRadios" id="gridRadios1" value="option1" ></td>`
                                 return `<tr>${cereCell}${inameCell}${ipriceCell}${upfileCell}${radio}</tr>`;
                             }).join('');
                         } else {
@@ -295,87 +317,87 @@ new Vue({
         addPOrd() {
             // 新增訂單
             fetch('/schedule/addPOrd', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                membno: parseInt(localStorage.getItem('membno')),
-                empno: parseInt(localStorage.getItem('empno')),
-                poDate: localStorage.getItem('poDate'),
-                posta: 1,
-                paysta: 0,
-                poType: parseInt(localStorage.getItem('poType')),
-                dname: localStorage.getItem('dname'),
-                ddate: localStorage.getItem('dDate'),
-                dbirth: localStorage.getItem('dBirth'),
-                tprice: parseInt(localStorage.getItem('iPrice')),
-              })
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    membno: parseInt(localStorage.getItem('membno')),
+                    empno: parseInt(localStorage.getItem('empno')),
+                    poDate: localStorage.getItem('poDate'),
+                    posta: 1,
+                    paysta: 0,
+                    poType: parseInt(localStorage.getItem('poType')),
+                    dname: localStorage.getItem('dname'),
+                    ddate: localStorage.getItem('dDate'),
+                    dbirth: localStorage.getItem('dBirth'),
+                    tprice: parseInt(localStorage.getItem('iPrice')),
+                })
             }).then(response => {
                 //新增訂單成功
-              if (response.ok) {
-                response.json().then(data => {
-                    // 存剛剛新增成功的訂單編號
-                  const pono = data.pono;
-                  //迭代localStorage的items
-                  const itemnoArr = JSON.parse(localStorage.getItem('itemIds'));
-                  // 把新增訂單明細包成一個promises
-                  const promises = itemnoArr.map(itemId => {
-                    const locno = localStorage.getItem(itemId + '-Location');
-                    const datetime = localStorage.getItem(itemId + '-DateTime');
-                    const iprice = parseInt(localStorage.getItem(itemId + '-price'));
-                    return fetch('/PODetail/addPODetail', {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json'
-                      },
-                      body: JSON.stringify({
-                        pono: pono,
-                        itemno: itemId,
-                        locno: locno,
-                        iprice: iprice,
-                        date: datetime,
-                      })
+                if (response.ok) {
+                    response.json().then(data => {
+                        // 存剛剛新增成功的訂單編號
+                        const pono = data.pono;
+                        //迭代localStorage的items
+                        const itemnoArr = JSON.parse(localStorage.getItem('itemIds'));
+                        // 把新增訂單明細包成一個promises
+                        const promises = itemnoArr.map(itemId => {
+                            const locno = localStorage.getItem(itemId + '-Location');
+                            const datetime = localStorage.getItem(itemId + '-DateTime');
+                            const iprice = parseInt(localStorage.getItem(itemId + '-price'));
+                            return fetch('/PODetail/addPODetail', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    pono: pono,
+                                    itemno: itemId,
+                                    locno: locno,
+                                    iprice: iprice,
+                                    date: datetime,
+                                })
+                            });
+                        });
+                        // 所有的promises都執行完成
+                        Promise.all(promises).then(results => {
+                            const isSuccess = results.every(result => result.ok);
+                            //成功
+                            if (isSuccess) {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: '訂單建立完成 !',
+                                    showConfirmButton: true,
+                                    timer: 1500
+                                });
+                                location.reload();
+                            } else {
+                                //失敗
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'error',
+                                    title: '訂單明細建立失敗',
+                                    showConfirmButton: true,
+                                    timer: 1500
+                                });
+                            }
+                        });
                     });
-                  });
-                  // 所有的promises都執行完成
-                  Promise.all(promises).then(results => {
-                    const isSuccess = results.every(result => result.ok);
-                    //成功
-                    if (isSuccess) {
-                      Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: '訂單建立完成 !',
-                        showConfirmButton: false,
-                        timer: 1500
-                      });
-                      location.reload();
-                    } else {
-                        //失敗
-                      Swal.fire({
+                } else {
+                    // 新增訂單失敗
+                    Swal.fire({
                         position: 'center',
                         icon: 'error',
-                        title: '訂單明細建立失敗',
-                        showConfirmButton: false,
+                        title: '訂單建立失敗',
+                        showConfirmButton: true,
                         timer: 1500
-                      });
-                    }
-                  });
-                });
-              } else {
-                // 新增訂單失敗
-                Swal.fire({
-                  position: 'center',
-                  icon: 'error',
-                  title: '訂單建立失敗',
-                  showConfirmButton: false,
-                  timer: 1500
-                });
-              }
+                    });
+                }
             });
-          },
-          
+        },
+
 
 
     }

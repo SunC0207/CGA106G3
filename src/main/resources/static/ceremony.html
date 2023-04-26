@@ -207,9 +207,10 @@
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-secondary rounded h-100 p-4">
-                            <div style="width:fit-content; margin-bottom: 5%;" id="search-form" class="d-none d-md-flex ms-4">
-                                <input v-model="searchTerm" class="form-control bg-dark border-0" type="search" id="search" name="search"
-                                    placeholder="Search">
+                            <div style="width:fit-content; margin-bottom: 5%;" id="search-form"
+                                class="d-none d-md-flex ms-4">
+                                <input v-model="searchTerm" class="form-control bg-dark border-0" type="search"
+                                    id="search" name="search" placeholder="Search">
                                 <button type="submit" class="btn btn-primary ms-2" style="width: 30%;">搜尋</button>
                             </div>
                             <button type="button" @click="showModal" class="btn btn-square btn-primary m-2"
@@ -219,24 +220,24 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">儀式編號</th>
+                                        <th scope="col">宗教名稱</th>
                                         <th scope="col">儀式名稱</th>
-                                        <th scope="col">宗教編號</th>
                                         <th scope="col">儀式狀態</th>
                                         <th scope="col">修改</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tableBody"></tbody>
                                 <!-- conten的每一個元素建立一個tr, tr裡再建立td  :key指令來設置每個<tr>元素的唯一鍵-->
-                                <tr v-for="cere in ceremonies" :key="cere.cerNo" 
-                                v-show="regex.test(cere.cerName) || regex.test(cere.cerNo) || 
-                                (cere.cerSta === 1 && regex.test('上架')) || (cere.cerSta === 2 && regex.test('下架'))
+                                <tr v-for="cere in ceremonies" :key="cere.cerNo" v-show="regex.test(cere.cerName) || regex.test(cere.cerNo) || regex.test(cere.relName) || 
+                                (cere.cerSta === true && regex.test('上架')) || (cere.cerSta === false && regex.test('下架'))
                                  || regex.test(cere.relNo)">
                                     <td class="cerno">{{ cere.cerNo }}</td>
+                                    <td>{{ cere.relName }}</td>
                                     <td>{{ cere.cerName }}</td>
-                                    <td>{{ cere.relNo }}</td>
+                                    <td style="display: none;">{{ cere.relNo }}</td>
                                     <td>
-                                        <span v-if="cere.cerSta === 1">上架</span>
-                                        <span v-else-if="cere.cerSta === 2">下架</span>
+                                        <span v-if="cere.cerSta === true">上架</span>
+                                        <span v-else-if="cere.cerSta === false">下架</span>
                                     </td>
                                     <td>
                                         <button type="button" @click="showUpdateModal(cere)"
@@ -289,19 +290,20 @@
                         <div class="modal-body">
                             <div>
                                 <div>
-                                    宗教名稱：<select class="form-select" v-model="addRelNo">
+                                    宗教名稱：<select class="form-select" v-model="addRelNo" @change="changeDisabled">
                                         <option value="0" disabled selected>宗教</option>
                                         <option v-for="rel in religions" :value="rel.relNo">{{ rel.relName }}
                                     </select>
                                 </div>
                                 <div>
                                     儀式名稱：<input v-model="addCereName" class="form-control mb-3" type="text"
-                                        placeholder="輸入文字" aria-label="default input example">
+                                        placeholder="輸入文字" aria-label="default input example" :disabled="isDisabled" @input="regCerName">
+                                    <p v-if="!isValidInput" style="color: red;">請輸入1到10個中文字</p>
                                 </div>
                                 <div>
                                     儀式狀態：<select class="form-select" v-model="addCereStr">
-                                        <option value="1" :selected="newCereStr === '1'">上架</option>
-                                        <option value="2" :selected="newCereStr === '2'">下架</option>
+                                        <option value=true>上架</option>
+                                        <option value=false>下架</option>
                                     </select>
                                 </div>
                             </div>
@@ -329,12 +331,13 @@
                             <div>
                                 <div>
                                     儀式名稱：<input v-model="newCereName" class="form-control mb-3" type="text"
-                                        :placeholder=newCereName aria-label="default input example">
+                                        :placeholder=newCereName aria-label="default input example" @input="regNewCerName">
+                                        <p v-if="!isNewInput" style="color: red;">請輸入1到10個文字</p>
                                 </div>
                                 <div>
                                     儀式狀態：<select class="form-select" v-model="newCereStr">
-                                        <option value="1" :selected="newCereStr === '1'">上架</option>
-                                        <option value="2" :selected="newCereStr === '2'">下架</option>
+                                        <option value=true>上架</option>
+                                        <option value=false>下架</option>
                                     </select>
                                 </div>
                             </div>
