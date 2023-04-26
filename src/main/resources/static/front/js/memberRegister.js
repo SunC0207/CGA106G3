@@ -1,15 +1,5 @@
 
 
-function validateEmail(email) {
-    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  // 正則表達式
-    return pattern.test(email);
-}
-
-function isValidPhoneNumber(mobile) {
-    const regex = "/^0\d{1,2}-\d{6,7}$/";
-    return mobile.matches(regex);
-}
-
 // function checkform() {
 //     const username = document.forms["registerForm"]["username"].value;
 //     const password = document.forms["registerForm"]["password"].value;
@@ -50,47 +40,67 @@ function isValidPhoneNumber(mobile) {
 
 // }
 
+
+
+
+
 // 驗證碼文字生成
-// function generateCaptcha() {
-//     const captchaChars = '012345678Z';
-//     const captchaLength = 4;
-//     let captcha = '';
-//     for (let i = 0; i < captchaLength; i++) {
-//         captcha += captchaChars[Math.floor(Math.random() * captchaChars.length)];
-//     }
-//     return captcha;
-// }
+function generateCaptcha() {
+    const captchaChars = '0123456789';
+    const captchaLength = 4;
+    let captcha = '';
+    for (let i = 0; i < captchaLength; i++) {
+        captcha += captchaChars[Math.floor(Math.random() * captchaChars.length)];
+    }
+    return captcha;
+}
 
 // 更新驗證碼圖片
-// function refreshCaptchaImg() {
-//     const captchaImg = document.getElementById('captcha-img');
-//     const captcha = generateCaptcha();
-//     captchaImg.src = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='30'><text x='0' y='20' font-size='20' font-weight='bold'>${encodeURIComponent(captcha)}</text></svg>`;
-//     document.getElementById('captcha').value = captcha;
-// }
+function refreshCaptchaImg() {
+    const captchaImg = document.getElementById('captcha-img');
+    const captcha = generateCaptcha();
+    captchaImg.src = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='30'><text x='0' y='20' font-size='20' font-weight='bold'>${encodeURIComponent(captcha)}</text></svg>`;
+    document.getElementById('captcha').value = captcha;
+}
 
 // 載入時先產生一個驗證碼
-// const captcha = generateCaptcha();
-// document.getElementById('captcha-img').src = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='30'><text x='0' y='20' font-size='20' font-weight='bold'>${captcha}</text></svg>`;
-// document.getElementById('captcha').value = captcha;
+const captcha = generateCaptcha();
+document.getElementById('captcha-img').src = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='30'><text x='0' y='20' font-size='20' font-weight='bold'>${captcha}</text></svg>`;
+document.getElementById('captcha').value = captcha;
 
 
-// const form = document.getElementById('form');
-// form.addEventListener('submit', function (event) {
-//     const captcha = document.getElementById('captcha').value;
-//     const captchaInput = document.getElementById('captcha1').value;
-//     if (captcha != captchaInput) {
-//         alert('驗證碼輸入錯誤');
-//         event.preventDefault();
-//         refreshCaptchaImg();
-//     }
-// })
+const captchaInput = document.getElementById('captcha1');
+
+captchaInput.addEventListener('blur', () => {
+    const captcha = document.getElementById('captcha').value;
+    const captchaInputt = document.getElementById('captcha1').value;
+    if (captcha != captchaInputt) {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '錯誤',
+            text: '驗證碼輸入錯誤',
+        });
+    }
+})
+
+
 
 
 // 
 // 當 input[type = "file"] 元素的值改變時觸發
 
 
+function validateEmail(email) {
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  // 正則表達式
+    return pattern.test(email);
+}
+
+function isValidTWPhone(phone) {
+    // 驗證台灣手機號碼格式：09xx-xxx-xxx 或 09xxxxxxxx
+    const phoneRegex = /^09\d{8}$|^09\d{2}-\d{3}-\d{3}$/;
+    return phoneRegex.test(phone);
+}
 
 // document.querySelector('#registerForm').addEventListener('submit', checkform);
 
@@ -137,7 +147,52 @@ const mobile = document.querySelector('#mobile');
 const email = document.querySelector('#email');
 const inputs = document.querySelectorAll('input');
 
+const emailInput = document.getElementById('email');
+
+emailInput.addEventListener('blur', () => {
+    const email = emailInput.value;
+    if (validateEmail(email)) {
+
+    } else {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '錯誤',
+            text: '請輸入有效的電子郵件地址',
+        });
+    }
+});
+
+confirmpassword.addEventListener('blur', () => {
+    if (confirmpassword.value !== password.value) {
+        msg.textContent = "確認密碼輸入錯誤";
+        msg.className = "error";
+    } else {
+        msg.textContent = "";
+        msg.className = "";
+    }
+})
+
+const mobileInput = document.querySelector('#mobile');
+mobileInput.addEventListener('blur', () => {
+    const mobile = mobileInput.value;
+    if (isValidTWPhone(mobile)) {
+
+    } else {
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '錯誤',
+            text: '請輸入正確的手機號碼',
+        });
+
+    }
+})
+
+
+
 btnregister.addEventListener('click', () => {
+
     const img = document.querySelector('#avatar');
 
     msg.textContent = '';
@@ -161,11 +216,14 @@ btnregister.addEventListener('click', () => {
 
             .then(resp => resp.json())
             .then(body => {
-                const { successful } = body;
+                const { successful, message } = body;
                 if (successful) {
                     for (let input of inputs) {
                         input.disable = true;
                     }
+                    sessionStorage.setItem("email", body.email);
+                    sessionStorage.setItem("mname", body.mname);
+                    sessionStorage.setItem("mobile", body.mobile)
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
@@ -175,9 +233,6 @@ btnregister.addEventListener('click', () => {
                     })
                         .then(() => {
                             msg.className = 'info';
-                            sessionStorage.setItem("email", body.email);
-                            sessionStorage.setItem("mname", body.mname);
-                            sessionStorage.setItem("mobile", body.mobile);
                             window.location.href = '../front/login2.html';
                         });
 
@@ -188,9 +243,10 @@ btnregister.addEventListener('click', () => {
                         position: 'center',
                         icon: 'error',
                         title: '註冊失敗',
-                        text: '資料填寫錯誤，請重新輸入',
+                        text: message,
                     })
                 }
+
             })
     });
     fileReader.readAsBinaryString(img.files[0]);

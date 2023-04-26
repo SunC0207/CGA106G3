@@ -3,11 +3,11 @@ package CGA106G3.com.memoitem.Controller;
 import CGA106G3.com.memoitem.DTO.MemoitemDTO;
 import CGA106G3.com.memoitem.Service.MemoitemServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/memoitemManage")
 public class MemoitemController {
@@ -23,14 +23,17 @@ public class MemoitemController {
     public List<MemoitemDTO> getByMemoitemSTA(@RequestParam Integer mista){return  service.getBySTA(mista);}
     @PostMapping("/UpdateMemoitem")
     public  MemoitemDTO updateMemoitem(@RequestBody MemoitemDTO memoitemDTO){
-        return  service.addMemoitem(memoitemDTO);
+        return service.updateMemoitem(memoitemDTO);
     }
     @PostMapping("/addMemoitem")
-    public void addMemoitem(@RequestBody MemoitemDTO memoitemDTO){
-        service.addMemoitem(memoitemDTO);
+    @ResponseBody
+    public void addMemoitem(@RequestBody MemoitemDTO memoitemDTO) throws IOException {
+            service.addMemoitem(memoitemDTO);
     }
     @GetMapping("/getAll")
     public List<MemoitemDTO> getAllmemotiem(){return service.getAll();};
     @GetMapping("/SearchBymicateno")
     public List<MemoitemDTO> findByMicateno(@RequestParam Integer micateno){return service.findByMicateno(micateno);}
+    @GetMapping("/SearchBymicname")
+    public List<MemoitemDTO> findByMicname(@RequestParam String micname){return service.findByMicName(micname);}
 }

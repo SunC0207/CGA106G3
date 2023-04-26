@@ -21,8 +21,10 @@ function listTbody(data) {
 
         // add mpic
         let mpic = document.createElement('td');
-        image.src = i.mpic;   //`${i.mpic}`
+        image.src = 'data:image/*;base64, ' + i.mpic;   //`${i.mpic}`
         image.id = 'image';
+        image.width = '50';
+        image.height = '50';
         mpic.append(image);
         tr.append(mpic);
 
@@ -149,8 +151,10 @@ function listOneTbody(i) {
 
     // add mpic
     let mpic = document.createElement('td');
-    image.src = i.mpic;   //`${i.mpic}`
+    image.src = 'data:image/*;base64, ' + i.mpic;   //`${i.mpic}`
     image.id = 'image';
+    image.width = '50';
+    image.height = '50';
     mpic.append(image);
     tr.append(mpic);
 

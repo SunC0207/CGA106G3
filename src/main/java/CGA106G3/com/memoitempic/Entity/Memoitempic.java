@@ -1,24 +1,21 @@
 package CGA106G3.com.memoitempic.Entity;
 
-import CGA106G3.Core.Entity.EntityCore;
-import CGA106G3.com.memoitem.Entity.Memoitem;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Blob;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
+@Table(name = "MEMOITEMPIC")
 @Data
-public class Memoitempic extends EntityCore {
+public class Memoitempic {
     @Id
-    @GeneratedValue
     private Integer mino;
-    @Column(nullable = false)
+    @Column(columnDefinition = "blob")
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
     private byte[] mipicno;
     @Column(nullable = false,length = 20)
     private String mipicname;

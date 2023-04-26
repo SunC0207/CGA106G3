@@ -16,6 +16,14 @@ public class MemberRegisterController {
 
     @PostMapping(value = "/register")
     public Member register(@RequestBody Member member) {
+        String email = member.getEmail();
+        if(memberService.findMemberByEmail(email)!=null){
+            member.setMessage("Email已經註冊");
+            member.setSuccessful(false);
+            return member;
+        }
+
+
         if (member == null) {
             member = new Member();
             member.setMessage("無會員資訊");

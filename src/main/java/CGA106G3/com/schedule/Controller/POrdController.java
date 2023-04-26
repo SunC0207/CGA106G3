@@ -1,5 +1,6 @@
 package CGA106G3.com.schedule.Controller;
 
+import CGA106G3.com.schedule.DTO.PODetailByMemberDTO;
 import CGA106G3.com.schedule.DTO.PODetailJoinDto;
 
 import CGA106G3.com.schedule.DTO.POrdDTO;
@@ -59,7 +60,10 @@ public class POrdController {
     public List<PODetailJoinDto> detailByPoNO(Integer pono){
         return pOrdService.detailByPoNO(pono);
     }
-
+    @RequestMapping("/detailByMembno")
+    public List<PODetailByMemberDTO>detailByMembno(Integer membno){
+        return pOrdService.detailByMembno(membno);
+    }
 
 
 //    @GetMapping("/listPOrdByMembno")

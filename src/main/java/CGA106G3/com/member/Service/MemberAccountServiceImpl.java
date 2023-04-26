@@ -30,7 +30,7 @@ public class MemberAccountServiceImpl implements MemberAccountService {
 
         if (member == null) {
             member = new Member();
-//            member.setMessage("帳號或密碼錯誤");
+            member.setMessage("帳號或密碼錯誤");
             member.setSuccessful(false);
 
             return member;

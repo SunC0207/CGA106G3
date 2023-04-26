@@ -6,7 +6,7 @@
 const email = sessionStorage.getItem('email');
 const mpic = sessionStorage.getItem('mpic');
 const mname = sessionStorage.getItem('mname');
-
+const msg = document.querySelector('#msg');
 const btn2 = document.querySelector('#btn2');
 const oPassword = document.querySelector('#oPassword');
 const nPassword = document.querySelector('#nPassword');
@@ -17,6 +17,24 @@ const confirmPassword = document.querySelector('#confirmPassword');
 const sex = document.querySelector('#sex');
 const mobile = document.querySelector('#mobile');
 const versta = sessionStorage.getItem('versta');
+const btn3 = document.querySelector('#btn3');
+
+confirmPassword.addEventListener('blur', () => {
+    if (confirmPassword.value !== nPassword.value) {
+        msg.textContent = "確認密碼輸入錯誤";
+        msg.className = "error";
+    } else {
+        msg.textContent = "";
+        msg.className = "";
+    }
+})
+
+
+
+btn3.addEventListener('click', () => {
+    window.location.href = 'index_Chian.html';
+})
+
 
 
 //預設照片
@@ -136,18 +154,18 @@ function sendEdit() {
                 sessionStorage.setItem('mpw', data.mpw);
                 sessionStorage.setItem('versta', data.versta);
                 sessionStorage.setItem("mpic", data.mpic);
-                window.location.href = '../front/login2.html';
-
+                // window.location.href = '../front/login2.html';
             })
-        // .then(() => {
-        //     Swal.fire({
-        //         position: 'top-end',
-        //         icon: 'success',
-        //         title: '修改成功',
-        //         showConfirmButton: false,
-        //         timer: 1500
-        //     })
-        // })
+            .then(() => {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: '修改成功',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            })
+            .then(window.location.href = 'login2.html')
 
         // .then(() => {
         //     window.location.replace = '../front/login2.html';

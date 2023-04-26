@@ -17,7 +17,8 @@ public class EntityCore implements Serializable {
         this.successful = successful;
         this.message = message;
     }
-    public void setMessage(String 帳號未輸入) {
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getReferenceByEmail(String email) {
