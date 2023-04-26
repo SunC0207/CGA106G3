@@ -30,6 +30,7 @@ function listTbody(data) {
 
         // add mpw 
         let mpw = document.createElement('td');
+        mpw.type = password;
         mpw.textContent = i.mpw;
         tr.append(mpw);
 
