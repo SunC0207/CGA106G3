@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,24 @@ public class MemoordDETAILImpl implements MemoorddetailService{
                 .map(this::EntityToDTO)
                 .collect(Collectors.toList());
     }
-
+    public List<MemoorddetailDTO> findByOrdno(Integer ordno){
+        return memoorddetailRepository.findByOrdno(ordno)
+                .stream()
+                .map(this::EntityToDTO)
+                .collect(Collectors.toList());
+    }
+    public List<MemoorddetailDTO> findByMino(Integer mino){
+        return memoorddetailRepository.findByMino(mino)
+                .stream()
+                .map(this::EntityToDTO)
+                .collect(Collectors.toList());
+    }
+    public List<MemoorddetailDTO> findByDate(LocalDateTime midate){
+        return memoorddetailRepository.findByMidate(midate)
+                .stream()
+                .map(this::EntityToDTO)
+                .collect(Collectors.toList());
+    }
     private MemoorddetailDTO EntityToDTO(Memoorddetail memoorddetail){
         MemoorddetailDTO memoorddetailDTO = new MemoorddetailDTO();
         memoorddetailDTO = modelMapper.map(memoorddetail,MemoorddetailDTO.class);

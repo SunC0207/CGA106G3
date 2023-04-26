@@ -1,5 +1,6 @@
 package CGA106G3.com.schedule.Service;
 
+import CGA106G3.com.schedule.DTO.PODetailByMemberDTO;
 import CGA106G3.com.schedule.DTO.PODetailJoinDto;
 
 import CGA106G3.com.schedule.DTO.POrdDTO;
@@ -7,6 +8,7 @@ import CGA106G3.com.schedule.Entity.POrd;
 import CGA106G3.com.schedule.Repository.POrdRepository;
 import CGA106G3.com.schedule.Service.POrdService;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -134,7 +136,6 @@ public class POrdServiceImpl implements POrdService {
             dto.setDate((Timestamp) detail[6]);
             dto.setIName((String) detail[7]);
             dto.setIPrice((Integer) detail[8]);
-            dto.setLocName((String) detail[9]);
             dto.setTotalPr((Integer) detail[10]);
             dto.setPaySta((Integer) detail[11]);
             dto.setPoSta((Integer) detail[12]);
@@ -145,12 +146,43 @@ public class POrdServiceImpl implements POrdService {
         }
         return dtos;
     }
+    public List<PODetailByMemberDTO> detailMemberToDto(List<Object[]> details){
+        List<PODetailByMemberDTO> dtos = new ArrayList<>();
+
+        for(Object[] detail: details){
+            PODetailByMemberDTO dto = new PODetailByMemberDTO();
+            dto.setPoDate((Date) detail[0]);
+            dto.setPoNo((Integer) detail[1]);
+            dto.setRelName((String) detail[2]);
+            dto.setDName((String) detail[3]);
+            dto.setDBirth((Date) detail[4]);
+            dto.setDDate((Date) detail[5]);
+            dto.setMembno((Integer) detail[6]);
+            dto.setDate((Timestamp) detail[7]);
+            dto.setIName((String) detail[8]);
+            dto.setIPrice((Integer) detail[9]);
+            dto.setLocName((String) detail[10]);
+            dto.setTotalPr((Integer) detail[11]);
+            dto.setPaySta((Integer) detail[12]);
+            dto.setPoSta((Integer) detail[13]);
+            dto.setDetailNo((Integer) detail[14]);
+            dto.setItemNo((Integer) detail[15]);
+            dto.setLocNo((Integer) detail[16]);
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
+
 
     public List<PODetailJoinDto> detailByPoNO(Integer pono){
         List<Object[]> details = pOrdRepository.detailByPoNO(pono);
         return detailToDto(details);
     }
 
-
+public List<PODetailByMemberDTO>detailByMembno(Integer membno){
+    List<Object[]> deatils = pOrdRepository.detailByMembno(membno);
+    return detailMemberToDto(deatils);
+}
 
 }
