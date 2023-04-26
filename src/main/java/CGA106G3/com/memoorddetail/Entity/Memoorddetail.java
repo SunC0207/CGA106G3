@@ -33,7 +33,7 @@ public class Memoorddetail {
 
 
     @ManyToOne
-    @JoinColumn(name = "ORD_NO",insertable = false, updatable = false)
+    @JoinColumn(name = "ORDNO",insertable = false, updatable = false)
     private Memoitemord memoitemord;
     @OneToOne
     @JoinColumn(name = "MINO",insertable = false, updatable = false)

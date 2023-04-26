@@ -32,5 +32,4 @@ public class BeanConfig {
         return template;
     }
 
-
 }

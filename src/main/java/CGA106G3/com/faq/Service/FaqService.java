@@ -26,9 +26,6 @@ import java.util.stream.Collectors;
 public class FaqService {
     private static final String Key = "faq:";
 
-
-
-
     @Autowired
     private FaqRepository faqRepository;
 
@@ -82,11 +79,8 @@ public class FaqService {
 
 
     public Optional<Faq> findFaqById(Integer faqno){
-        String key = Key + faqno;
-
 
             Optional<Faq> optionalFaq = faqRepository.findById(faqno);
-
             return optionalFaq;
 
     }
@@ -169,12 +163,5 @@ public class FaqService {
     public long count(){
         return faqRepository.count();
     }
-
-
-
-
-
-
-
 
 }
