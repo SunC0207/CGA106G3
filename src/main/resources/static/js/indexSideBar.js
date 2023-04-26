@@ -1,3 +1,8 @@
+if (!sessionStorage.getItem("loginOrNot")) {
+  alert("請先登入");
+  location.replace("EmpLogin.html");
+}
+
 let sidebar = document.getElementById("sidebar");
 let perList = sessionStorage.getItem("perList");
 
@@ -21,15 +26,41 @@ for (let per of perList) {
         "dropdown-menu bg-transparent border-0"
       );
       let toggleList11 = document.createElement("a");
-      toggleList11.setAttribute("href", "#");
+      toggleList11.setAttribute("href", "memoitemcate.html");
       toggleList11.setAttribute("class", "dropdown-item");
-      toggleList11.textContent = "方案服務管理";
+      toggleList11.textContent = "追思品類別管理";
+
       let toggleList12 = document.createElement("a");
       toggleList12.setAttribute("href", "memoitemManage.html");
       toggleList12.setAttribute("class", "dropdown-item");
-      toggleList12.textContent = "追思品服務管理";
+      toggleList12.textContent = "追思品管理";
+
+      let toggleList13 = document.createElement("a");
+      toggleList13.setAttribute("href", "religion.html");
+      toggleList13.setAttribute("class", "dropdown-item");
+      toggleList13.textContent = "方案宗教管理";
+
+      let toggleList14 = document.createElement("a");
+      toggleList14.setAttribute("href", "process.html");
+      toggleList14.setAttribute("class", "dropdown-item");
+      toggleList14.textContent = "方案流程管理";
+
+      let toggleList15 = document.createElement("a");
+      toggleList15.setAttribute("href", "ceremony.html");
+      toggleList15.setAttribute("class", "dropdown-item");
+      toggleList15.textContent = "方案儀式管理";
+
+      let toggleList16 = document.createElement("a");
+      toggleList16.setAttribute("href", "item.html");
+      toggleList16.setAttribute("class", "dropdown-item");
+      toggleList16.textContent = "方案細項管理";
+
       toggleList1.append(toggleList11);
       toggleList1.append(toggleList12);
+      toggleList1.append(toggleList13);
+      toggleList1.append(toggleList14);
+      toggleList1.append(toggleList15);
+      toggleList1.append(toggleList16);
       toggle1.append(toggleList1);
       sidebar.append(toggle1);
       break;
@@ -37,7 +68,7 @@ for (let per of perList) {
       let side2 = document.createElement("a");
       let icon2 = document.createElement("i");
       side2.setAttribute("class", "nav-item nav-link");
-      side2.setAttribute("href", "#");
+      side2.setAttribute("href", "addorder.html");
       icon2.setAttribute("class", "bi bi-folder-plus");
       side2.append(icon2);
       side2.append(" 禮儀服務");
@@ -91,11 +122,11 @@ for (let per of perList) {
         "dropdown-menu bg-transparent border-0"
       );
       let toggleList41 = document.createElement("a");
-      toggleList41.setAttribute("href", "#");
+      toggleList41.setAttribute("href", "POrd.html");
       toggleList41.setAttribute("class", "dropdown-item");
       toggleList41.textContent = "方案訂單管理";
       let toggleList42 = document.createElement("a");
-      toggleList42.setAttribute("href", "#");
+      toggleList42.setAttribute("href", "ordDetail.html");
       toggleList42.setAttribute("class", "dropdown-item");
       toggleList42.textContent = "追思品訂單管理";
       toggleList4.append(toggleList41);
@@ -107,7 +138,7 @@ for (let per of perList) {
       let side5 = document.createElement("a");
       let icon5 = document.createElement("i");
       side5.setAttribute("class", "nav-item nav-link");
-      side5.setAttribute("href", "#");
+      side5.setAttribute("href", "memberManage.html");
       icon5.setAttribute("class", "bi bi-folder-plus");
       side5.append(icon5);
       side5.append("會員管理");
@@ -131,13 +162,13 @@ for (let per of perList) {
         "dropdown-menu bg-transparent border-0"
       );
       let toggleList61 = document.createElement("a");
-      toggleList61.setAttribute("href", "#");
+      toggleList61.setAttribute("href", "infoManage.html");
       toggleList61.setAttribute("class", "dropdown-item");
       toggleList61.textContent = "網站資訊管理";
       let toggleList62 = document.createElement("a");
-      toggleList62.setAttribute("href", "#");
+      toggleList62.setAttribute("href", "faqback.html");
       toggleList62.setAttribute("class", "dropdown-item");
-      toggleList62.textContent = "智能客服管理";
+      toggleList62.textContent = "常見問題管理";
       toggleList6.append(toggleList61);
       toggleList6.append(toggleList62);
       toggle6.append(toggleList6);
