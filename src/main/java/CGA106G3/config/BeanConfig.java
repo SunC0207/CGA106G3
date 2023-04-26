@@ -31,16 +31,5 @@ public class BeanConfig {
         template.setConnectionFactory(jedisConnectionFactory());
         return template;
     }
-    @Bean
-    public RedisTemplate<String, Faq> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        RedisTemplate<String, Faq> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(redisConnectionFactory);
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(new StringRedisSerializer());
-        return redisTemplate;
-    }
-
-
-
 
 }

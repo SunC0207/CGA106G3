@@ -23,7 +23,7 @@ public class MemoitemordController {
     private MemoitemordServiceImpl service;
     @Autowired
     private OrderService orderService;
-    @GetMapping("/getAll")
+
     @GetMapping("/getAll")
     public List<MemoitemordDTO> getAllMemoitemord(){return service.getAllMemoitemord();}
     @PostMapping("/addMemoitemord")

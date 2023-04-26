@@ -26,10 +26,6 @@ import java.util.stream.Collectors;
 public class FaqService {
     private static final String Key = "faq:";
 
-
-    @Autowired
-    private RedisTemplate<String , Faq> redisTemplate;
-
     @Autowired
     private FaqRepository faqRepository;
 
@@ -48,14 +44,6 @@ public class FaqService {
 //    }
 
 
-
-
-
-
-
-
-
-
     @Autowired
     private ModelMapper modelMapper;
 
@@ -63,7 +51,7 @@ public class FaqService {
 
         return faqRepository.findByFaqname(faqname) != null;
     }
-@Transactional
+    @Transactional
     public Faq addFaq(Faq faq){
         Faq savedFaq = faqRepository.save(faq);
 //        redisTemplate.opsForValue().set(Key + faq.getFaqno(), savedFaq);
@@ -84,13 +72,13 @@ public class FaqService {
 
     public Optional<Faq> findFaqById(Integer faqno){
         String key = Key + faqno;
-        Faq faq = redisTemplate.opsForValue().get(key);
-        if (faq == null){
+//        Faq faq = redisTemplate.opsForValue().get(key);
+//        if (faq == null){
             Optional<Faq> optionalFaq = faqRepository.findById(faqno);
-            optionalFaq.ifPresent(f -> redisTemplate.opsForValue().set(key, f));
+//            optionalFaq.ifPresent(f -> redisTemplate.opsForValue().set(key, f));
             return optionalFaq;
-        }
-        return Optional.of(faq);
+//        }
+//        return Optional.of(faq);
     }
 
     public Optional<Faq> findByFaqname(String faqname){
@@ -100,32 +88,32 @@ public class FaqService {
         String key = Key + "*";
 //        Set<String> keys = redisTemplate.keys(key);
 //        if (keys == null || keys.isEmpty()){
-            List<Faq> faqs = faqRepository.findAll();
+        List<Faq> faqs = faqRepository.findAll();
 
 //            faqs.forEach(faq -> redisTemplate.opsForValue().set(Key + faq.getFaqno(), faq));
-            return faqs.stream().map(this::EntityToDTO).collect(Collectors.toList());
-        }
+        return faqs.stream().map(this::EntityToDTO).collect(Collectors.toList());
+    }
 //        return redisTemplate.opsForValue().multiGet(keys).stream().map(this::EntityToDTO).collect(Collectors.toList());
 
 //    }
 
-//    public  void deleteFaq(Integer faqno) {
+    //    public  void deleteFaq(Integer faqno) {
 //         faqRepository.deleteById(faqno);
 //        redisTemplate.delete(Key + faqno);
-        public boolean deleteFaq(Integer faqno) {
-            try {
-                faqRepository.deleteById(faqno);
-                return true; // 成功
-            } catch (Exception e) {
-                return false; // 失敗
-            }
+    public boolean deleteFaq(Integer faqno) {
+        try {
+            faqRepository.deleteById(faqno);
+            return true; // 成功
+        } catch (Exception e) {
+            return false; // 失敗
         }
+    }
 
 
 
 
     private FaqDTO EntityToDTO(Faq faq){
-      FaqDTO faqDTO = modelMapper.map(faq, FaqDTO.class);
+        FaqDTO faqDTO = modelMapper.map(faq, FaqDTO.class);
         return faqDTO;
     }
 
@@ -171,12 +159,5 @@ public class FaqService {
     public long count(){
         return faqRepository.count();
     }
-
-
-
-
-
-
-
 
 }
