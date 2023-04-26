@@ -1,3 +1,8 @@
+if (!sessionStorage.getItem("loginOrNot")) {
+  alert("請先登入");
+  location.replace("EmpLogin.html");
+}
+
 let sidebar = document.getElementById("sidebar");
 let perList = sessionStorage.getItem("perList");
 
