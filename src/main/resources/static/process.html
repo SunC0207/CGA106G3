@@ -221,7 +221,7 @@
                                         <th scope="col">流程順序</th>
                                         <th scope="col">流程編號</th>
                                         <th scope="col">流程名稱</th>
-                                        <th scope="col">儀式編號</th>
+                                        <th scope="col">儀式名稱</th>
                                         <th scope="col">流程狀態</th>
                                         <th scope="col">修改</th>
                                     </tr>
@@ -297,14 +297,14 @@
                                     </select>
                                 </div>
                                 <div>
-                                    儀式名稱：<select class="form-select" v-model="addCerNo">
+                                    儀式名稱：<select class="form-select" v-model="addCerNo" @change="changeDisabled">
                                         <option value="0" disabled selected>儀式</option>
                                         <option v-for="cere in ceremonies" :value="cere.cerNo">{{ cere.cerName }}
                                     </select>
                                 </div>
                                 <div>
                                     流程名稱：<input v-model="addProName" class="form-control mb-3" type="text"
-                                        placeholder="輸入文字" aria-label="default input example">
+                                        placeholder="輸入文字" aria-label="default input example" :disabled="isDisabled">
                                 </div>
                                 <div>
                                     儀式狀態：<select class="form-select" v-model="addProSta">

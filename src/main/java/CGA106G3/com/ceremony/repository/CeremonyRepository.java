@@ -18,4 +18,11 @@ public interface CeremonyRepository extends JpaRepository<Ceremony, Integer> {
             "WHERE CERNO = :cerNo"
             ,nativeQuery = true)
     List<Object> findRelNameByCerno(Integer cerNo);
+
+    @Query(value = "SELECT  c.CERNO, r.REL_NO, r.REL_NAME, c.CERNAME, c.CERSTA " +
+            "FROM ceremony c " +
+            "JOIN religion r ON c.REL_NO = r.REL_NO " +
+            "ORDER BY c.REL_NO "
+            ,nativeQuery = true)
+    List<Object[]> findAllJoinRel();
 }

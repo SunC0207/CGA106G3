@@ -22,7 +22,7 @@ public class Ceremony extends EntityCore {
     private String cerName;
 
     @Column(name="CERSTA", nullable = false, length = 3)
-    private Integer cerSta;
+    private Boolean cerSta;
 
     @Column(name="REL_NO", nullable = false, length = 10 )
     private Integer relNo;

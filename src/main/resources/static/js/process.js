@@ -21,6 +21,7 @@ new Vue({
             newProSta: '',
             newProSeq: '',
             newRelName: '',
+            isDisabled: true
         }
     },
     created() {
@@ -60,6 +61,9 @@ new Vue({
         },
     },
     methods: {
+        changeDisabled(){
+            this.isDisabled = false;
+        },
         addProcess() {
             fetch('/pro/add', {
                 method: 'POST',

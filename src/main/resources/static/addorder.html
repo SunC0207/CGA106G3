@@ -12,6 +12,11 @@
             filter: invert(50%) hue-rotate(180deg);
         }
 
+        input[name="gridRadios"] {
+            vertical-align: middle !important;
+            line-height: 1.2em !important;
+        }
+
         td,
         th {
             vertical-align: middle !important;
@@ -249,7 +254,8 @@
                                 <select v-model="selectedCeremony" @change="getProcesses"
                                     class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
                                     <option value="0" disabled selected>儀式</option>
-                                    <option v-for="ceremony in ceremonies" :value="ceremony.cerNo">{{ ceremony.cerName
+                                    <option v-for="ceremony in ceremonies" :value="ceremony.cerNo"
+                                        v-if="ceremony.cerSta">{{ ceremony.cerName
                                         }}
                                     </option>
                                 </select>
@@ -258,13 +264,15 @@
                                 <select v-model="selectedLoc" class="form-select form-select-lg mb-3"
                                     aria-label=".form-select-lg example">
                                     <option value="0" disabled selected>儀式場地</option>
-                                    <option v-for="location in locations" :value="location.locno">{{ location.locname }}
+                                    <option v-for="location in locations" :value="location.locno"
+                                        v-if="location.locsta === 0">{{ location.locname }}
                                     </option>
                                 </select>
                                 <select v-model="selectedProcess" @change="fetchSelectedItem"
                                     class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
                                     <option value="0" disabled selected>流程</option>
-                                    <option v-for="process in processes" :value="process.proNo">{{ process.proName }}
+                                    <option v-for="process in processes" :value="process.proNo" v-if="process.proSta">{{
+                                        process.proName }}
                                     </option>
                                 </select>
                             </div>
@@ -361,7 +369,8 @@
                                 <div style="width: min-content;">
                                     往生者姓名：<input v-model="dname" class="form-control mb-3" type="text"
                                         placeholder="請輸入往生者姓名" aria-label="default input example">
-                                    往生者出生日期：<input v-model="dBirth" type="date" class="form-control mb-3" max="">
+                                    往生者出生日期：<input v-model="dBirth" type="date" class="form-control mb-3"
+                                        max="2023/04/25">
                                     往生者往生日期：<input v-model="dDate" class="form-control mb-3" type="date">
                                     訂單建立日期：<input v-model="poDate" class="form-control mb-3" type="date"
                                         aria-label="default input example">
@@ -372,7 +381,8 @@
                                         <option value="1">生前契約</option>
                                     </select>
                                     會員編號：<input v-model="membno" class="form-control mb-3" type="text"
-                                        placeholder="請輸入會員編號" aria-label="default input example">
+                                        placeholder="請輸入會員編號" aria-label="default input example" @blur="getMname">
+                                    <p v-if="isMember">{{ nName }}</p>
                                     專責員工：<select v-model="selectedEmp" class="form-select form-select-sm mb-3"
                                         aria-label=".form-select-sm example">
                                         <option value="0" disabled selected="">員工</option>
@@ -449,6 +459,7 @@
 
     <!-- Code injected by live-server -->
     <script>
+
         // <![CDATA[  <-- For SVG support
         if ('WebSocket' in window) {
             (function () {
