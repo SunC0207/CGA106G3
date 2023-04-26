@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 import java.util.List;
+import java.time.LocalDateTime;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,14 +22,14 @@ public class Memoitemord extends EntityCore {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ordno;
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private Integer membno;
 
     @Column(name = "TOTLAL_PR",nullable = false)
     private Integer totalpr;
     @Column(nullable = false)
     @JsonFormat(pattern = "yyyy/MM/dd", timezone = "GMT+8")
-    private Date orddate;
+    private LocalDateTime orddate;
     @Column(nullable = false)
     private Integer ordsta;
     @Column(name= "PAY_STA", nullable = false)
@@ -36,11 +38,7 @@ public class Memoitemord extends EntityCore {
     private String rec;
     @Column(name = "REC_ADDR",nullable = false, length = 100)
     private String recaddr;
-
     @Transient
     @OneToMany(mappedBy = "memoitemord")
     private List<Memoorddetail> memoorddetails;
-
-
-
 }
