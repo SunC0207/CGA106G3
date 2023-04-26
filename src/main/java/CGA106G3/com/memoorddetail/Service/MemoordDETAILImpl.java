@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +36,7 @@ public class MemoordDETAILImpl implements MemoorddetailService{
                 .map(this::EntityToDTO)
                 .collect(Collectors.toList());
     }
-    public List<MemoorddetailDTO> findByDate(Date midate){
+    public List<MemoorddetailDTO> findByDate(LocalDateTime midate){
         return memoorddetailRepository.findByMidate(midate)
                 .stream()
                 .map(this::EntityToDTO)

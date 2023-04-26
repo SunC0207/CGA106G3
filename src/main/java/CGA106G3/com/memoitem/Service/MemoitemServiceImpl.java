@@ -1,15 +1,16 @@
 package CGA106G3.com.memoitem.Service;
 
 import CGA106G3.com.memoitem.DTO.MemoitemDTO;
-import CGA106G3.com.memoitem.DTO.imgDTO;
 import CGA106G3.com.memoitem.Entity.Memoitem;
 import CGA106G3.com.memoitem.Repository.MemoitemRepository;
-import CGA106G3.com.memoitemcate.Entity.Memoitemcate;
-import CGA106G3.com.memoitemcate.repository.MemoitemcateRepository;
+import CGA106G3.com.memoitempic.Entity.Memoitempic;
+import CGA106G3.com.memoitempic.Repository.MemoitempicRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,16 +19,31 @@ public class MemoitemServiceImpl implements MemoitemService{
     @Autowired
     private MemoitemRepository memoitemRepository;
     @Autowired
+    private MemoitempicRepository memoitempicRepository;
+    @Autowired
     private ModelMapper modelMapper;
     public MemoitemDTO getOne(Integer mino){
         return EntityToDTO(memoitemRepository.getReferenceById(mino));
     }
-    public MemoitemDTO addMemoitem(MemoitemDTO memoitemDTO){
+    @Transactional
+    public MemoitemDTO addMemoitem(MemoitemDTO memoitemDTO) throws IOException {
+        Memoitem memoitem = new Memoitem();
+        memoitem.setMiname(memoitemDTO.getMiname());
+        memoitem.setMista(memoitemDTO.getMista());
+        memoitem.setMiprice(memoitemDTO.getMiprice());
+        memoitem.setMicateno(memoitemDTO.getMicateno());
+        Memoitem mino = memoitemRepository.save(memoitem);
+        Memoitempic memoitempic = new Memoitempic();
+        memoitempic.setMino(mino.getMino());
+        memoitempic.setMipicname(memoitemDTO.getMiname());
+        memoitempicRepository.save(memoitempic);
+        return EntityToDTO(memoitem);
+    }
+    public MemoitemDTO updateMemoitem(MemoitemDTO memoitemDTO){
         Memoitem memoitem = modelMapper.map(memoitemDTO,Memoitem.class);
-        memoitemRepository.save(memoitem);
+         memoitemRepository.save(memoitem);
         return memoitemDTO;
     }
-
     public List<MemoitemDTO> getBySTA(Integer mista){
         return memoitemRepository.findBymista(mista)
                 .stream()
@@ -42,6 +58,12 @@ public class MemoitemServiceImpl implements MemoitemService{
     }
     public List<MemoitemDTO> findByMicateno(Integer micateno) {
         return memoitemRepository.findByMicateno(micateno)
+                .stream()
+                .map(this::EntityToDTO)
+                .collect(Collectors.toList());
+    }
+    public List<MemoitemDTO> findByMicName(String micname) {
+        return memoitemRepository.findBymemoitemcatemicName(micname)
                 .stream()
                 .map(this::EntityToDTO)
                 .collect(Collectors.toList());

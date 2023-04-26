@@ -111,6 +111,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="../front/shoppincart.html" class="nav-item nav-link"><i class="fa fa-shopping-cart"></i></a>
                 <a href="index.html" class="nav-item nav-link">Home</a>
                 <a href="about.html" class="nav-item nav-link">About</a>
                 <a href="service.html" class="nav-item nav-link">Services</a>
@@ -165,8 +166,10 @@
                         <h5 class="section-title position-relative text-uppercase mb-3"><span
                                 class="bg-secondary pr-3">追思品類別</span></h5>
                         <div class="bg-light p-4 mb-30">
-                            <form id="memoitemcate">
-                                
+                            <form id="category">
+                                <select name="" id="memoitemcate">
+                                    <option value="">全部</option>
+                                </select>
                             </form>
                         </div>
                         <!-- Price End -->
@@ -285,18 +288,16 @@
     function listLeftbody(data){
         let cate = document.getElementById("memoitemcate");
         let itemcate = [];
+        let names=[];
         for(let catename of data){
-            if(!itemcate.includes(catename.memoitemcate.micname)){
-                itemcate.push(catename.memoitemcate.micname);
+            if (!names.includes(catename.memoitemcate.micname)) {
+              names.push(catename.memoitemcate.micname);
+              itemcate.push({name: catename.memoitemcate.micname, number: catename.micateno});
             }
         }
         for(let left of itemcate){
             cate.innerHTML += `
-            <div
-                class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                <input type="checkbox" class="custom-control-input" id="${left}">
-                <label class="custom-control-label" for="${left}">${left}</label>
-          </div>
+                <option value="${left.number}">${left.name}</option>
             `
         }
     }
@@ -305,16 +306,18 @@
     //印出右邊追思品商品
     function listRightbody(data){
         let item = document.querySelector(".item");
+        item.textContent ="";
         for(let right of data){
             let itemsrc = `data:image/jpeg;base64,${right.memoitempic.mipicno}`;
+            if(right.mista ===0){continue;}
             str = `
             <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                 <div class="product-item bg-light mb-4">
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100 img-item" src=${itemsrc} id=${right.mino} alt="" onclick ="imgclick(${right.mino})">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href="#" id="shopping-cart${right.mino}"><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark " href="#" id="buy-now${right.mino}"><img src="img/buy-now.png" alt="buynow" class="buy-now"></a>
+                            <a class="btn btn-outline-dark btn-square" href="#" id="shopping-cart${right.mino}" onclick="saveItem(${right.mino},'${right.miname}',${right.miprice})"><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark " href="shoppincart.html" id="buy-now${right.mino}" onclick="saveItem(${right.mino},'${right.miname}',${right.miprice})"><img src="img/buy-now.png" alt="buynow" class="buy-now"></a>
                         </div>
                     </div>
                     <div class="text-center py-4">
@@ -332,12 +335,44 @@
     }
   </script>
   <script>
+    const select = document.querySelector('#memoitemcate');
+    select.addEventListener('change', function(){
+        if(!select.value){
+            fetch("/memoitemManage/getAll")
+            .then((response) => response.json())
+            .then((data) => {
+                listRightbody(data);
+          });
+        }else{
+        fetch(`/memoitemManage/SearchBymicateno?micateno=${select.value}`)
+            .then((response) => response.json())
+            .then((data) => {
+                listRightbody(data);
+            });
+    }});
+    function saveItem(mino,name,price){
+        let itemIMG = event.target.parentNode.parentNode.parentNode.querySelector("img").src; 
+        let mCart = sessionStorage.getItem("membno");
+        let membno = JSON.parse(localStorage.getItem(mCart)) || [];
+         //存入localstorage
+         const Item = {
+            img  : itemIMG,
+            no : mino,
+            name : name,
+            price : price,
+            quantity : "1"
+        };
+        console.log(Item);
+        membno.push(Item);
+        localStorage.setItem(mCart,JSON.stringify(membno));
+    }
+  </script>
+  <script>
     // 監聽 img-item class
     // document.querySelectorAll('.img-item').forEach(img => {
       function imgclick(id){
         // 取得被點擊的圖片的 id
         
-        console.log(id);
         // 帶入要跳轉的網址中
         window.location.href = `/front/product-details.html?id=${id}`;
       };

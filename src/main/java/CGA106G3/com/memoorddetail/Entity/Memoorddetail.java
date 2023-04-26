@@ -8,8 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,7 +18,7 @@ import java.util.List;
 @IdClass(memoorddetailPK.class)
 public class Memoorddetail {
     @Id
-    @Column(name = "ORD_NO")
+    @Column(name = "ORDNO")
     private Integer ordno;
     @Id
     @Column(name = "MINO")
@@ -28,11 +27,11 @@ public class Memoorddetail {
     private Integer miqty;
     @JsonFormat(pattern = "yyyy/MM/dd", timezone = "GMT+8")
     @Column(nullable = false)
-    private Date midate;
+    private LocalDateTime midate;
     @Column(nullable = false)
     private Integer miprice;
     @ManyToOne
-    @JoinColumn(name = "ORD_NO",insertable = false, updatable = false)
+    @JoinColumn(name = "ORDNO",insertable = false, updatable = false)
     private Memoitemord memoitemord;
     @OneToOne
     @JoinColumn(name = "MINO",insertable = false, updatable = false)
