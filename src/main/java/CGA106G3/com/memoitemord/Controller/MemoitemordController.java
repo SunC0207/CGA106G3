@@ -2,7 +2,6 @@ package CGA106G3.com.memoitemord.Controller;
 
 import CGA106G3.com.memoitemord.DTO.CartDTO;
 import CGA106G3.com.memoitemord.DTO.MemoitemordDTO;
-import CGA106G3.com.memoitemord.DTO.MemoitemordDetailDTO;
 import CGA106G3.com.memoitemord.DTO.MemoritemordOrderDTO;
 import CGA106G3.com.memoitemord.Entity.Memoitemord;
 import CGA106G3.com.memoitemord.Service.MemoitemordServiceImpl;
@@ -23,7 +22,6 @@ public class MemoitemordController {
     private MemoitemordServiceImpl service;
     @Autowired
     private OrderService orderService;
-
     @GetMapping("/getAll")
     public List<MemoitemordDTO> getAllMemoitemord(){return service.getAllMemoitemord();}
     @PostMapping("/addMemoitemord")

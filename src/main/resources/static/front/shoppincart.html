@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Arkitektur - Architecture HTML Template</title>
+    <title>購物車 - 彼岸 Lycoris radiata</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -14,7 +14,9 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Teko:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Teko:wght@400;500;600&display=swap"
+        rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -36,24 +38,29 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://payment.ecpay.com.tw/ChoosePayment.js" type="text/javascript"></script>
 
-    
-<style>
-    .quantity-input {
-        color: white; /* 將背景顏色設置為淺灰色 */
-    }
-    /* 移除 select 標籤的下劃線 */
-    select.form-control {
-        border: none;
-        border-radius: 0;
-    }
-</style>
+
+    <style>
+        .quantity-input {
+            color: white;
+            /* 將背景顏色設置為淺灰色 */
+        }
+
+        /* 移除 select 標籤的下劃線 */
+        select.form-control {
+            border: none;
+            border-radius: 0;
+        }
+    </style>
 </head>
 
 <body>
     <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border position-relative text-primary" style="width: 6rem; height: 6rem;" role="status"></div>
-        <img class="position-absolute top-50 start-50 translate-middle" src="img/icons/icon-1.png" alt="Icon">
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border position-relative text-primary" style="width: 6rem; height: 6rem;" role="status">
+        </div>
+        <img class="position-absolute top-50 start-50 translate-middle" src="img/lycris.gif" style="width: 60px;"
+            alt="Icon">
     </div>
     <!-- Spinner End -->
 
@@ -63,14 +70,16 @@
         <div class="row gx-0 d-none d-lg-flex">
             <div class="col-lg-7 px-5 text-start">
                 <div class="h-100 d-inline-flex align-items-center py-3 me-3">
-                    <a class="text-body px-2" href="tel:+0123456789"><i class="fa fa-phone-alt text-primary me-2"></i>+012 345 6789</a>
-                    <a class="text-body px-2" href="mailto:info@example.com"><i class="fa fa-envelope-open text-primary me-2"></i>info@example.com</a>
+                    <a class="text-body px-2" href="tel:+0123456789"><i
+                            class="fa fa-phone-alt text-primary me-2"></i>(03) 4258183</a>
+                    <a class="text-body px-2" href="mailto:info@example.com"><i
+                            class="fa fa-envelope-open text-primary me-2"></i>Lycorisradiata@gmail.com</a>
                 </div>
             </div>
             <div class="col-lg-5 px-5 text-end">
                 <div class="h-100 d-inline-flex align-items-center py-3 me-2">
-                    <a class="text-body px-2" href="">Terms</a>
-                    <a class="text-body px-2" href="">Privacy</a>
+                    <a class="text-body px-2" href="">條款 Terms</a>
+                    <a class="text-body px-2" href="">隱私 Privacy</a>
                 </div>
                 <div class="h-100 d-inline-flex align-items-center">
                     <a class="btn btn-sm-square btn-outline-body me-1" href=""><i class="fab fa-facebook-f"></i></a>
@@ -85,32 +94,49 @@
 
 
     <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top py-lg-0 px-lg-5 wow fadeIn"
+        data-wow-delay="0.1s">
         <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
-            <h1 class="text-primary m-0"><img class="me-3" src="img/icons/icon-1.png" alt="Icon">Arkitektur</h1>
+            <h1 class="text-primary m-0"><img src="img/lycris.gif" style="width: 60px;">彼岸 Lycoris radiata</h1>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="index.html" class="nav-item nav-link">Home</a>
-                <a href="about.html" class="nav-item nav-link">About</a>
-                <a href="service.html" class="nav-item nav-link">Services</a>
+                <a href="index.html" class="nav-item nav-link ">首頁 Home</a>
                 <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>
+                    <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown">關於 About</a>
                     <div class="dropdown-menu border-0 m-0">
-                        <a href="feature.html" class="dropdown-item">Our Features</a>
-                        <a href="project.html" class="dropdown-item">Our Projects</a>
-                        <a href="team.html" class="dropdown-item">Team Members</a>
-                        <a href="appointment.html" class="dropdown-item">Appointment</a>
-                        <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                        <a href="404.html" class="dropdown-item active">ShoppingCart</a>
+                        <a href="about.html" class="dropdown-item">關於我們</a>
+                        <a href="faq.html" class="dropdown-item">常見問題</a>
                     </div>
                 </div>
-                <a href="contact.html" class="nav-item nav-link">Contact</a>
+                <div class="nav-item dropdown">
+                    <a href="ceremony.html" class="nav-link dropdown-toggle " data-bs-toggle="dropdown">禮儀服務項目 Services</a>
+                    <div class="dropdown-menu border-0 m-0">
+                        <a href="ceremony-1.html" class="dropdown-item ">中式禮儀服務</a>
+                        <a href="ceremony-2.html" class="dropdown-item ">西式禮儀服務</a>
+                        <a href="ceremony-3.html" class="dropdown-item ">佛教禮儀服務</a>
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">追思品服務 Services</a>
+                    <div class="dropdown-menu border-0 m-0">
+                        <a href="product.html" class="dropdown-item ">追思品總覽</a>
+                        <a href="shoppincart.html" class="dropdown-item active">購物車</a>
+                    </div>
+                </div>
+                <a href="farewellSearch.html" class="nav-item nav-link">場次查詢 Searching</a>
+                <a href="contact.html" class="nav-item nav-link">聯繫方式 Contact</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">會員 Member</a>
+                    <div class="dropdown-menu border-0 m-0">
+                        <a href="login2.html" class="dropdown-item ">登錄</a>
+                        <a href="register2.html" class="dropdown-item ">註冊</a>
+                    </div>
+                </div>
             </div>
-            <a href="https://htmlcodex.com/architecture-html-template-pro" class="btn btn-primary py-2 px-4 d-none d-lg-block">Pro Version</a>
         </div>
     </nav>
     <!-- Navbar End -->
@@ -119,12 +145,12 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
-            <h1 class="display-1 text-white animated slideInDown">ShoppingCart</h1>
+            <h1 class="display-1 text-white animated slideInDown">購物車</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb text-uppercase mb-0">
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                    <li class="breadcrumb-item text-primary active" aria-current="page">ShoppingCart</li>
+                    <li class="breadcrumb-item"><a class="text-white" href="#">首頁 </a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="#">追思品服務</a></li>
+                    <li class="breadcrumb-item text-primary" aria-current="page">購物車</li>
                 </ol>
             </nav>
         </div>
@@ -133,13 +159,13 @@
 
 
     <!-- 404 Start -->
-    <div class="col-12">
+    <!-- <div class="col-12">
         <nav class="breadcrumb bg-light mb-30">
             <a class="breadcrumb-item text-dark" href="#">Home</a>
             <a class="breadcrumb-item text-dark" href="#">Shop</a>
             <span class="breadcrumb-item active">Shopping Cart</span>
         </nav>
-    </div>
+    </div> -->
     <div class="container-fluid">
         <table class="table table-light table-borderless table-hover text-center mb-0">
             <thead class="thead-dark">
@@ -153,48 +179,50 @@
                 </tr>
             </thead>
             <tbody class="align-middle" id="align-middle2">
-                
+
             </tbody>
         </table><br>
         <div class="row px-xl-5">
             <div class="col-lg-8 table-responsive mb-5">
                 <h2>選擇送貨及付款方式</h2>
                 <form>
-                  <div class="form-group">
-                    <label for="city">郵遞區號：</label>
-                    <input class="js-demeter-tw-zipcode-selector" data-city="#city" data-dist="#dist" placeholder="請輸入郵遞區號" />
-                  </div>
-                  <div class="form-group">
-                    <label for="city">縣市：</label>
-                    <select id="city" class="form-control" placeholder="請選擇縣市"></select>
-                  </div>
-                  <div class="form-group">
-                    <label for="district">地區：</label>
-                    <select id="dist" class="form-control" placeholder="請選擇鄉鎮區"></select>
-                  </div>
-                  <div class="form-group">
-                    <label for="district">收件人：</label>
-                    <input type="text" class="form-control" id="rec" placeholder="請填寫收件人姓名">
-                  </div>
-                  <div class="form-group">
-                    <label for="district">收件地址：</label>
-                    <input type="text" class="form-control" id="rec_addr" placeholder="請填寫收件人地址">
-                  </div>
-                  <div class="form-group">
-                    <label for="payment">付款方式：</label>
-                    <select class="form-control" id="payment">
-                      <option value="">請選擇</option>
-                      <option value="creditcard">信用卡</option>
-                      <option value="cash">現金</option>
-                    </select>
-                  </div>
+                    <div class="form-group">
+                        <label for="city">郵遞區號：</label>
+                        <input class="js-demeter-tw-zipcode-selector" data-city="#city" data-dist="#dist"
+                            placeholder="請輸入郵遞區號" />
+                    </div>
+                    <div class="form-group">
+                        <label for="city">縣市：</label>
+                        <select id="city" class="form-control" placeholder="請選擇縣市"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="district">地區：</label>
+                        <select id="dist" class="form-control" placeholder="請選擇鄉鎮區"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="district">收件人：</label>
+                        <input type="text" class="form-control" id="rec" placeholder="請填寫收件人姓名">
+                    </div>
+                    <div class="form-group">
+                        <label for="district">收件地址：</label>
+                        <input type="text" class="form-control" id="rec_addr" placeholder="請填寫收件人地址">
+                    </div>
+                    <div class="form-group">
+                        <label for="payment">付款方式：</label>
+                        <select class="form-control" id="payment">
+                            <option value="">請選擇</option>
+                            <option value="creditcard">信用卡</option>
+                            <option value="cash">現金</option>
+                        </select>
+                    </div>
                 </form>
             </div>
-              
-              
-                            
+
+
+
             <div class="col-lg-4">
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">付款詳情</span></h5>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span
+                        class="bg-secondary pr-3">付款詳情</span></h5>
                 <div class="bg-light p-30 mb-5">
                     <div class="border-bottom pb-2">
                         <div class="d-flex justify-content-between mb-3">
@@ -211,15 +239,17 @@
                             <h5>總付款金額</h5>
                             <h5 id="priceTotal"></h5>
                         </div>
-                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" onclick="location.href='/front/product.html'">繼續購買</button>
-                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" id="goCheckout" onclick="checkout()">去結帳</button>   
+                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3"
+                            onclick="location.href='/front/product.html'">繼續購買</button>
+                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" id="goCheckout"
+                            onclick="checkout()">去結帳</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- 404 End -->
-        
+
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-body footer mt-5 pt-5 px-0 wow fadeIn" data-wow-delay="0.1s">
@@ -257,8 +287,10 @@
                     <h3 class="text-light mb-4">Newsletter</h3>
                     <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
                     <div class="position-relative mx-auto" style="max-width: 400px;">
-                        <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                        <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text"
+                            placeholder="Your email">
+                        <button type="button"
+                            class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
                     </div>
                 </div>
             </div>
@@ -276,9 +308,9 @@
                 </div>
             </div>
         </div>
-        
-        
-        
+
+
+
     </div>
     <!-- Footer End -->
 
@@ -310,14 +342,14 @@
     let middle2 = document.getElementById("align-middle2");
     let TotalCartPrice = document.getElementById("TotalCartPrice");
     let totalItemPrice;
-    let totalprice =0;
+    let totalprice = 0;
     for (let i = 0; i < items.length; i++) {
-    const itemImg = items[i].img;
-    const itemName = items[i].name;
-    const itemPrice = items[i].price;
-    const itemQuantity = items[i].quantity;
-    totalItemPrice =  itemPrice * itemQuantity;
-    middle2.innerHTML += `
+        const itemImg = items[i].img;
+        const itemName = items[i].name;
+        const itemPrice = items[i].price;
+        const itemQuantity = items[i].quantity;
+        totalItemPrice = itemPrice * itemQuantity;
+        middle2.innerHTML += `
             <tr>
             <td class="align-middle"><img src=${itemImg} alt="" style="width: 50px;"></td>
             <td class="align-middle">${itemName}</td>
@@ -341,27 +373,27 @@
             <td class="align-middle"><button class="btn btn-sm btn-danger" value=${i} onclick="removeItem()"><i class="fa fa-times"></i></button></td>
         </tr>
         `
-        totalprice += parseInt(itemPrice) * parseInt(itemQuantity);  
+        totalprice += parseInt(itemPrice) * parseInt(itemQuantity);
     }
     const totalPriceElement = document.getElementById("TotalCartPrice");
     totalPriceElement.textContent = "$" + totalprice;
-    window.onload = function() {
+    window.onload = function () {
         shipMoney();
         countTotalPrice();
     }
 </script>
 <script>
-    function shipMoney(){
+    function shipMoney() {
         let shipMoney = document.getElementById('shipMoney');
         let code = document.querySelector(".js-demeter-tw-zipcode-selector").value;
-        let  y= (code >= 320 && code <= 338) ? "$"+70 : "$"+80; 
-        shipMoney.textContent =y;
+        let y = (code >= 320 && code <= 338) ? "$" + 70 : "$" + 80;
+        shipMoney.textContent = y;
     }
     let code = document.querySelector(".js-demeter-tw-zipcode-selector")
-    code.addEventListener("change",()=>{
+    code.addEventListener("change", () => {
         shipMoney();
     });
-    function removeItem(){
+    function removeItem() {
         let mID = sessionStorage.getItem("membno");
         let shoppingList = localStorage.getItem(mID);
         let parsedLocalStorageValue = JSON.parse(shoppingList);
@@ -376,60 +408,60 @@
 <script>
     const plusBtns = document.querySelectorAll('.plus-btn');
     const minusBtns = document.querySelectorAll('.minus-btn');
-    let totalprice2 =0;
+    let totalprice2 = 0;
 
     for (let i = 0; i < plusBtns.length; i++) {
-    const plusBtn = plusBtns[i];
-    const minusBtn = minusBtns[i];
-    
-    plusBtn.addEventListener('click', () => {
-        const parentDiv = plusBtn.parentElement.parentElement.parentElement.parentElement;
-        const Qinput = parentDiv.querySelector('.quantity-input');
-        const Pinput = parentDiv.querySelector('.itemPrice');
-        const itemTotalPrice = parentDiv.querySelector('.itemTotalPrice');
-        //數量+1
-        const inputValue = parseInt(Qinput.value);
-        Qinput.value = inputValue + 1;
-        //總價調整
-        const inputPrice = parseInt(Pinput.textContent.replace('$', ''))
-        totalprice2 = inputPrice * parseInt(Qinput.value);
-        itemTotalPrice.textContent = "$" + totalprice2;
-        countTotalPrice();
-    });
-    
-    minusBtn.addEventListener('click', () => {
-        const parentDiv = plusBtn.parentElement.parentElement.parentElement.parentElement;
-        const Qinput = parentDiv.querySelector('.quantity-input');
-        const Pinput = parentDiv.querySelector('.itemPrice');
-        const itemTotalPrice = parentDiv.querySelector('.itemTotalPrice');
-        //數量-1
-        const inputValue = parseInt(Qinput.value);
-        if (inputValue > 1) {
-        Qinput.value = inputValue - 1;
-        const inputPrice = parseInt(Pinput.textContent.replace('$', ''));
-        totalprice2 = inputPrice * parseInt(Qinput.value);
-        itemTotalPrice.textContent = "$" + totalprice2;
-        countTotalPrice();
+        const plusBtn = plusBtns[i];
+        const minusBtn = minusBtns[i];
+
+        plusBtn.addEventListener('click', () => {
+            const parentDiv = plusBtn.parentElement.parentElement.parentElement.parentElement;
+            const Qinput = parentDiv.querySelector('.quantity-input');
+            const Pinput = parentDiv.querySelector('.itemPrice');
+            const itemTotalPrice = parentDiv.querySelector('.itemTotalPrice');
+            //數量+1
+            const inputValue = parseInt(Qinput.value);
+            Qinput.value = inputValue + 1;
+            //總價調整
+            const inputPrice = parseInt(Pinput.textContent.replace('$', ''))
+            totalprice2 = inputPrice * parseInt(Qinput.value);
+            itemTotalPrice.textContent = "$" + totalprice2;
+            countTotalPrice();
+        });
+
+        minusBtn.addEventListener('click', () => {
+            const parentDiv = plusBtn.parentElement.parentElement.parentElement.parentElement;
+            const Qinput = parentDiv.querySelector('.quantity-input');
+            const Pinput = parentDiv.querySelector('.itemPrice');
+            const itemTotalPrice = parentDiv.querySelector('.itemTotalPrice');
+            //數量-1
+            const inputValue = parseInt(Qinput.value);
+            if (inputValue > 1) {
+                Qinput.value = inputValue - 1;
+                const inputPrice = parseInt(Pinput.textContent.replace('$', ''));
+                totalprice2 = inputPrice * parseInt(Qinput.value);
+                itemTotalPrice.textContent = "$" + totalprice2;
+                countTotalPrice();
             }
         });
     }
-    
+
 </script>
 <script>
-    function countTotalPrice(){
+    function countTotalPrice() {
         const itemTotalPrices2 = document.querySelectorAll('.itemTotalPrice');
         const TotalCartPrice2 = document.getElementById("TotalCartPrice");
         const priceTotal = document.getElementById("priceTotal");
-        const shipMoney = parseInt(document.getElementById("shipMoney").textContent.replace('$',''));
-        let totalprice22 =0;
-        for(let i=0; i<itemTotalPrices2.length; i++){
-        const itemTotalPrice2 = parseInt(itemTotalPrices2[i].textContent.replace('$',''));
-        totalprice22 += itemTotalPrice2;
-        TotalCartPrice2.textContent = "$" + totalprice22;
+        const shipMoney = parseInt(document.getElementById("shipMoney").textContent.replace('$', ''));
+        let totalprice22 = 0;
+        for (let i = 0; i < itemTotalPrices2.length; i++) {
+            const itemTotalPrice2 = parseInt(itemTotalPrices2[i].textContent.replace('$', ''));
+            totalprice22 += itemTotalPrice2;
+            TotalCartPrice2.textContent = "$" + totalprice22;
         }
-        priceTotal.textContent = "$" + (totalprice22+shipMoney);
+        priceTotal.textContent = "$" + (totalprice22 + shipMoney);
     }
-    function checkout(){
+    function checkout() {
         let membno = sessionStorage.getItem("membno");//取得會員編號
         let membCart = localStorage.getItem(membno);//取得會員購物車
         let totalpr = document.getElementById("priceTotal").textContent;//取得總金額
@@ -438,27 +470,27 @@
         let dist = document.getElementById("dist").value;//取得收件人地區
         let address = document.getElementById("rec_addr").value;//取得收件人地址
         let recAddr;
-        if(city === "" || dist === ""){
+        if (city === "" || dist === "") {
             recAddr = address;
-        }else{
+        } else {
             recAddr = city + dist + address;
         }
         let iNumber = document.querySelectorAll(".quantity-input");
         let iPrice = document.querySelectorAll(".itemTotalPrice");
-        for(let y=0; y<iNumber.length; y++){
+        for (let y = 0; y < iNumber.length; y++) {
             let items = JSON.parse(localStorage.getItem(membno));
             items[y].quantity = iNumber[y].value;
-            items[y].price = parseInt((iPrice[y].textContent).replace("$",""));
+            items[y].price = parseInt((iPrice[y].textContent).replace("$", ""));
             localStorage.setItem(membno, JSON.stringify(items));
         }
         let cartItem = {
-            membno : parseInt(membno),
-            totalpr :parseInt(totalpr.replace("$","")),
-            ordsta : 0,
-            paysta : 0,
-            rec : rec,
-            recaddr : recAddr,
-            items : JSON.parse(localStorage.getItem(membno))
+            membno: parseInt(membno),
+            totalpr: parseInt(totalpr.replace("$", "")),
+            ordsta: 0,
+            paysta: 0,
+            rec: rec,
+            recaddr: recAddr,
+            items: JSON.parse(localStorage.getItem(membno))
             // orddate : year+"-"+month+"-"+date,
         };
         swal({
@@ -466,34 +498,34 @@
             icon: "warning",
             buttons: true,
             dangerMode: true
-        }).then((confirm)=>{
+        }).then((confirm) => {
             if (confirm) {
-      $.ajax({
-        url: '/memoitemordManage/addMemoitemord',
-        type: 'POST',
-        data: JSON.stringify(cartItem),
-        contentType: 'application/json',
-        async: false,
-        success: function(data) {
-          localStorage.clear();
-          swal("訂單建立成功，等待前往綠界金流付款", {
-            icon: "success",
-            buttons: false,
-            timer: 3000,
-          });
-          $('body').append(data);
-        },
-        error: function() {
-          swal({
-            title: "建立失敗",
-            icon: "error",
-            closeOnClickOutside: false,
-          });
-        }
-      });
-    } else {
-      return Promise.reject('取消操作');
-    }
+                $.ajax({
+                    url: '/memoitemordManage/addMemoitemord',
+                    type: 'POST',
+                    data: JSON.stringify(cartItem),
+                    contentType: 'application/json',
+                    async: false,
+                    success: function (data) {
+                        localStorage.clear();
+                        swal("訂單建立成功，等待前往綠界金流付款", {
+                            icon: "success",
+                            buttons: false,
+                            timer: 3000,
+                        });
+                        $('body').append(data);
+                    },
+                    error: function () {
+                        swal({
+                            title: "建立失敗",
+                            icon: "error",
+                            closeOnClickOutside: false,
+                        });
+                    }
+                });
+            } else {
+                return Promise.reject('取消操作');
+            }
         });
 
         // const fetch1 = fetch("/memoitemordManage/addMemoitemord", {
@@ -514,4 +546,5 @@
     }
 </script>
 <script src="https://demeter.5fpro.com/tw/zipcode-selector.js"></script>
+
 </html>
