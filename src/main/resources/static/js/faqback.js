@@ -82,16 +82,16 @@ ${pageButtons}
                     lengthMenu: [5, 10, 15, 20],
                     language: {
                         emptyTable: "無資料",
-                        // info: "顯示 START 至 END 筆資料，共 TOTAL 筆",
-                        // lengthMenu: "顯示 MENU 筆資料",
+                        info: " ",
+                        lengthMenu: "顯示常見問題資料",
                         paginate: {
                             previous: '<i class="fa fa-chevron-left"></i>',
                             next: '<i class="fa fa-chevron-right"></i>'
                         },
                     },
                 });
-                // let label0 = document.querySelector('#table_length label');
-                // label0.style.color = "black";
+                let label0 = document.querySelector('#table_length label');
+                label0.style.color = "white";
                 // let label1 = document.querySllector('#table_filter');
                 // label1.style.color = 'white';
                 // let label2 = document.querySelector('#table_info');
