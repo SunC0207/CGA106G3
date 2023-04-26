@@ -1,11 +1,14 @@
+
+
 new Vue({
     el: '#religion',
     data() {
         return {
             newRelName: '',
-            newRelNo:'',
+            newRelNo: '',
             religions: [],
-            searchTerm:'',
+            searchTerm: '',
+            addRelName: '',
 
         }
     },
@@ -26,20 +29,20 @@ new Vue({
                 method: 'GET',
             }).then((response) => {
                 response.json().then(data => {
-                        this.religions = data;
+                    this.religions = data;
                 })
             })
         },
         addReligion() {
             let reg = /^[\u4E00-\u9FA5]{1,10}$/;
-            if (reg.test(this.newRelName)) {
+            if (reg.test(this.addRelName)) {
                 fetch('/rel/add', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        relName: this.newRelName
+                        relName: this.addRelName
                     })
                 }).then(response => {
                     if (response.ok) {
@@ -78,35 +81,43 @@ new Vue({
 
         },
         updateRel() {
-            fetch(`/rel/update/${this.newRelNo}`,{
-                method: 'PUT',
-                headers: {
-                    'Content-Type' : 'application/json'
-                },
-                body: JSON.stringify({
-                    relName: this.newRelName
+            let reg1 = /^[\u4E00-\u9FA5]{1,10}$/;
+            if (reg1.test(this.newRelName)) {
+                fetch(`/rel/update/${this.newRelNo}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        relName: this.newRelName
+                    })
+                }).then((response) => {
+                    if (response.ok) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '儲存成功',
+                            text: '',
+                            confirmButtonText: 'OK',
+                        }).then(() => {
+                            location.reload();
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '儲存失敗',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
                 })
-            }).then((response) => {
-                if (response.ok) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: '儲存成功',
-                        text: '',
-                        confirmButtonText: 'OK',
-                    }).then(() => {
-                        location.reload();
-                    })
-
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: '儲存失敗',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                }
-            })
-
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: '輸入格式錯誤',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
         },
 
     },

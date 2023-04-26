@@ -1,6 +1,7 @@
 package CGA106G3.com.ceremony.Controller;
 
 import CGA106G3.com.ceremony.DTO.CeremonyDTO;
+import CGA106G3.com.ceremony.DTO.JoinRelDto;
 import CGA106G3.com.ceremony.Entity.Ceremony;
 import CGA106G3.com.ceremony.Service.CeremonyService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -54,7 +55,7 @@ public class CeremonyController {
     }
 
     @PostMapping("/updateCerSta")
-    public ResponseEntity<String> updateCerSta(@RequestParam("cerNo") Integer cerNo, @RequestParam("cerSta") Integer cerSta){
+    public ResponseEntity<String> updateCerSta(@RequestParam("cerNo") Integer cerNo, @RequestParam("cerSta") Boolean cerSta){
         Optional<Ceremony> optionalCeremony = ceremonyService.findCeremonyById(cerNo);
         if(optionalCeremony.isPresent()){
             Ceremony ceremony = optionalCeremony.get();
@@ -74,5 +75,10 @@ public class CeremonyController {
     @RequestMapping("/findRelName")
     public List<Object> findRelNameByCerno(@RequestParam("cerNo") Integer cerNo){
         return ceremonyService.findRelNameByCerno(cerNo);
+    }
+
+    @RequestMapping("/allJoinRel")
+    public List<JoinRelDto> findAllJoinRel(){
+        return ceremonyService.findAllJoinRel();
     }
 }

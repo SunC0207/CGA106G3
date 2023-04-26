@@ -7,14 +7,17 @@ new Vue({
             totalPages: 1,
             ceremonies: [],
             newCereName: '',
-            newCereStr: 2,
+            newCereStr: false,
             newCereNo: '',
             newRelNo: 0,
             religions: [],
             searchTerm: '',
             addRelNo: 0,
             addCereName: '',
-            addCereStr: 2
+            addCereStr: false,
+            isDisabled: true,
+            isValidInput: false,
+            isNewInput: true,
         }
     },
     created() {
@@ -42,13 +45,16 @@ new Vue({
         },
     },
     methods: {
+        changeDisabled(){
+            this.isDisabled = false
+        },
         showTable(pageNum) {
-            fetch(`/ceremony/findAll?page=${pageNum}&size=${this.pageSize}`, {
+            fetch(`/ceremony/allJoinRel`, {
                 method: 'GET',
             }).then((response) => {
                 response.json().then((data) => {
-                    this.ceremonies = data.content;
-                    this.totalPages = data.totalPages;
+                    this.ceremonies = data;
+                    // this.totalPages = data.totalPages;
                 });
             });
         },
@@ -79,6 +85,15 @@ new Vue({
         },
         showModal() {
             $('#ceremonyModal').modal('show');
+        },
+        regCerName(){
+            let reg = /^[\u4E00-\u9FA5]{1,10}$/;
+            this.isValidInput = reg.test(this.addCereName);
+        },
+        regNewCerName(){
+            let reg = /^[^\s]{1,10}$/;
+            this.isNewInput = reg.test(this.newCereName);
+
         },
         updateCere() {
             fetch(`/ceremony/update/${this.newCereNo}`, {
