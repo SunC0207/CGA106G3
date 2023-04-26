@@ -20,6 +20,20 @@ const mobile = document.querySelector('#mobile');
 const versta = sessionStorage.getItem('versta');
 const btn3 = document.querySelector('#btn3');
 
+document.querySelector('#currentUser').textContent = mname;
+
+
+
+nPassword.addEventListener('blur', () => {
+    if (nPassword.value === "") {
+        msg.textContent = "請輸入新密碼";
+        msg.className = "error";
+    } else {
+        msg.textContent = "";
+        msg.className = "";
+    }
+})
+
 confirmPassword.addEventListener('blur', () => {
     if (confirmPassword.value !== nPassword.value) {
         msg.textContent = "確認密碼輸入錯誤";
