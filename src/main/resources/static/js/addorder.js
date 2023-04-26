@@ -369,7 +369,7 @@ new Vue({
                                     position: 'center',
                                     icon: 'success',
                                     title: '訂單建立完成 !',
-                                    showConfirmButton: true,
+                                    confirmButtonText: 'OK',
                                     timer: 1500
                                 });
                                 location.reload();
