@@ -139,7 +139,7 @@ new Vue({
         updateOpic() {
             const formData = new FormData();
             formData.append('optNo', this.newItemNo);
-            formData.append('picName', this.newItemName);
+            formData.append('picName', this.newItemName.substring(0, 10));
             formData.append('upFile', this.selectedFile);
 
             fetch('/optPic/add', {

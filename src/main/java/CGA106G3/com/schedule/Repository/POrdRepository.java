@@ -11,7 +11,7 @@ public interface POrdRepository extends JpaRepository<POrd, Integer> {
 
     @Query(value = "SELECT pl.PODATE, pl.PONO, r.REL_NAME, pl.DNAME, pl.DBIRTH, pl.DDATE, " +
             "pod.DATE, i.INAME, i.IPRICE, l.LOCNAME, pl.TOTAL_PR, pl.PAY_STA, pl.PO_STA, " +
-            "pod.DETAIL_NO, i.ITEMNO, pod.LOCNO " +
+            "pod.DETAIL_NO, i.ITEMNO, pod.LOCNO, c.CERNAME " +
             "FROM plan_ord pl " +
             "LEFT JOIN plan_ord_detail pod ON pl.pono = pod.pono " +
             "LEFT JOIN location l ON pod.LOCNO = l.LOCNO " +

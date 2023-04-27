@@ -139,6 +139,7 @@ public class POrdServiceImpl implements POrdService {
             dto.setDetailNo((Integer) detail[13]);
             dto.setItemNo((Integer) detail[14]);
             dto.setLocNo((Integer) detail[15]);
+            dto.setCerName((String) detail[16]);
             dtos.add(dto);
         }
         return dtos;

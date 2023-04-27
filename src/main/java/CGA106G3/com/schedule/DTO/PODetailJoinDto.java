@@ -26,6 +26,7 @@ public class PODetailJoinDto {
     private Integer detailNo;
     private Integer itemNo;
     private Integer locNo;
+    private String cerName;
 
 
 }

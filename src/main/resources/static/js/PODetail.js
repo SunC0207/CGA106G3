@@ -4,7 +4,16 @@ new Vue({
         return {
             orderDetails: [],
             pono: localStorage.getItem('pono'),
-            searchTerm:'',
+            searchTerm: '',
+            poDate: '',
+            poNo: '',
+            relName: '',
+            dname: '',
+            dbirth: '',
+            ddate: '',
+            totalPr: '',
+            posta: '',
+            paysta: '',
         }
     },
     computed: {
@@ -19,12 +28,46 @@ new Vue({
             .then(response => response.json())
             .then((data) => {
                 this.orderDetails = data;
+                this.poDate = this.orderDetails[0].poDate;
+                this.poNo = this.orderDetails[0].poNo;
+                this.relName = this.orderDetails[0].relName;
+                this.dname = this.orderDetails[0].dname;
+                this.dbirth = this.orderDetails[0].dbirth;
+                this.ddate = this.orderDetails[0].ddate;
+                this.totalPr = this.orderDetails[0].totalPr;
+                this.posta = this.getPostaText(this.orderDetails[0].poSta);
+                this.paysta = this.getPaystaText(this.orderDetails[0].paySta);
             })
     },
     methods: {
-        updatePODetail(detail){
+        getPostaText(posta) {
+            switch (posta) {
+                case 0:
+                    return '協商中';
+                case 1:
+                    return '已建案';
+                case 2:
+                    return '取消';
+                default:
+                    return '';
+            }
         },
+        getPaystaText(paysta) {
+            switch (paysta) {
+                case 0:
+                    return '未付款';
+                case 1:
+                    return '已付訂金';
+                case 2:
+                    return '已結清';
+                case 3:
+                    return '已退款(生前契約)';
+                default:
+                    return '';
+            }
+        }
     },
+
 })
 
 
