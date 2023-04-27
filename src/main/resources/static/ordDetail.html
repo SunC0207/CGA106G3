@@ -300,73 +300,15 @@
 
       searchMemoitembtn.addEventListener("click", function () {
         const searchMemoitem = document.getElementById("searchMemoitem");
-
         if (!searchMemoitem.value) {
           fetch("/MemoorddetailManage/getAll")
             .then((response) => response.json())
             .then((data) => {
               listTbody(data);
             });
-        } else if(
-            searchMemoitem.value === "上架" ||
-            searchMemoitem.value === "下架" 
-        ){
-            let staNum;
-            switch(searchMemoitem.value){
-                case "下架":{
-                    staNum = 0;
-                    break;
-                }
-                case "上架":{
-                    staNum = 1;
-                    break;
-                }
-            }
-            fetch(`/MemoorddetailManage/SearchBySTA?mista=${staNum}`)
-            .then((response) => response.json())
-            .then((data) => {
-              listTbody(data);
-            });
-        }   else if (
-            searchMemoitem.value === "花籃訂購" ||
-            searchMemoitem.value === "水果籃訂購" || 
-            searchMemoitem.value === "紙紮類" || 
-            searchMemoitem.value === "罐頭塔訂購" || 
-            searchMemoitem.value === "蓮花塔訂購" 
-        ) {
-          let memoitemcatenoNum;
-          switch (searchMemoitem.value) {
-            case "花籃訂購": {
-                memoitemcatenoNum = 1;
-              break;
-            }
-            case "水果籃訂購": {
-                memoitemcatenoNum = 2;
-              break;
-            }
-            case "紙紮類": {
-                memoitemcatenoNum = 3;
-              break;
-            }
-            case "罐頭塔訂購": {
-                memoitemcatenoNum = 4;
-              break;
-            }
-            case "蓮花塔訂購": {
-                memoitemcatenoNum = 5;
-              break;
-            }
-          }
+        } else if (searchMemoitem.value -10000 >= 0) {
           fetch(
-            `/MemoorddetailManage/SearchBymicateno?micateno=${memoitemcatenoNum}`
-          )
-            .then((response) => response.json())
-            .then((data) => {
-              listTbody(data);
-            });
-        } else if (!isNaN(searchMemoitem.value)) {
-          fetch(
-            `/MemoorddetailManage/getOne?mino=${searchMemoitem.value}`
+            `/MemoorddetailManage/SearchByOrdno?ordno=${searchMemoitem.value}`
           )
             .then((response) => response.json())
             .then((data) => {
@@ -374,7 +316,7 @@
             });
         } else {
           fetch(
-            `/MemoorddetailManage/SearchByName?miname=${searchMemoitem.value}`
+            `/MemoorddetailManage/SearchByMino?mino=${searchMemoitem.value}`
           )
             .then((response) => response.json())
             .then((data) => {
@@ -464,104 +406,84 @@
             }
           }
         }
-        
 
-      function listOneTbody(i) {
-        tbody.textContent = "";
+      function listOneTbody(data) {
+        accordionExample.textContent = "";
         //每次產生列表前 先清空
-
-        let tr = document.createElement("tr");
-        let th = document.createElement("th");
-        th.textContent = `${i.mino}`;
-        th.setAttribute("scope", "row");
-        tr.append(th);
-        let miname = document.createElement("td");
-        miname.textContent = `${i.miname}`;
-        tr.append(miname);
-
-        let mista = document.createElement("td");
-        switch (i.mista) {
-          case 0: {
-            mista.textContent = "下架";
-            tr.append(mista);
-            break;
-          }
-          case 1: {
-            mista.textContent = "上架";
-            tr.append(mista);
-            break;
+        for (let i of data) {
+          if(document.getElementById(`item${i.ordno}`) == null){
+          accordionExample.innerHTML += `
+          <div class="accordion-item bg-transparent">
+            <h2 class="accordion-header" id=${i.ordno}>
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${i.ordno}" aria-expanded="false" aria-controls="collapse${i.ordno}">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">訂單編號</th>
+                      <th scope="col">會員編號</th>
+                      <th scope="col">總價</th>
+                      <th scope="col">下訂日期</th>
+                      <th scope="col">訂單狀態</th>
+                      <th scope="col">付款狀態</th>
+                      <th scope="col">寄送人</th>
+                      <th scope="col">寄送人地址</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">${i.ordno}</th>
+                      <td>${i.memoitemord.membno}</td>
+                      <td>${i.memoitemord.totalpr}</td>
+                      <td>${i.memoitemord.orddate}</td>
+                      <td>${i.memoitemord.ordsta}</td>
+                      <td>${i.memoitemord.paysta}</td>
+                      <td>${i.memoitemord.rec}</td>
+                      <td>${i.memoitemord.recaddr}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </button>
+            </h2>
+            <div id="collapse${i.ordno}" class="accordion-collapse collapse" aria-labelledby=${i.ordno} data-bs-parent="#accordionExample" style="">
+                <div class="accordion-body">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">訂單編號</th>
+                        <th scope="col">商品名稱</th>
+                        <th scope="col">商品數量</th>
+                        <th scope="col">下訂日期</th>
+                        <th scope="col">總價</th>
+                      </tr>
+                    </thead>
+                    <tbody id="item${i.ordno}">
+                      <tr>
+                        <th scope="row">${i.ordno}</th>
+                        <td>${i.memoitem.miname}</td>
+                        <td>${i.miqty}</td>
+                        <td>${i.midate}</td>
+                        <td>${i.miprice}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+          </div>
+          `
+            }else{
+              items = document.getElementById(`item${i.ordno}`)
+              items.innerHTML += `
+                <tr>
+                  <th scope="row">${i.ordno}</th>
+                  <td>${i.memoitem.miname}</td>
+                  <td>${i.miqty}</td>
+                  <td>${i.midate}</td>
+                  <td>${i.miprice}</td>
+                </tr>
+              `
+            }
           }
         }
-
-        let miprice = document.createElement("td");
-        miprice.textContent = `${i.miprice}`;
-        tr.append(miprice);
-
-        let micateno = document.createElement("td");
-          switch (i.micateno) {
-            case 1: {
-                micateno.textContent = "花籃訂購";
-              tr.append(micateno);
-              break;
-            }
-            case 2: {
-                micateno.textContent = "水果籃訂購";
-              tr.append(micateno);
-              break;
-            }
-            case 3: {
-                micateno.textContent = "紙紮類";
-              tr.append(micateno);
-              break;
-            }
-            case 4: {
-                micateno.textContent = "罐頭塔訂購";
-              tr.append(micateno);
-              break;
-            }
-            case 5: {
-                mimicatenosta.textContent = "蓮花塔訂購";
-              tr.append(micateno);
-              break;
-            }
-          }
-
-          let pictd = document.createElement("td")
-          let mipicno = document.createElement("img");
-          let src = `data:image/jpeg;base64,${i.memoitempic.mipicno}`;
-          mipicno.setAttribute("src",src);
-          pictd.append(mipicno);
-          tr.append(pictd);
-
-        let btntd = document.createElement("td");
-        let btn = document.createElement("button");
-        btn.textContent = "修改";
-        btn.setAttribute("type", "button");
-        btn.setAttribute("value", `${i.micateno}`);
-        btn.setAttribute("class", "btn btn-link rounded-pill m-2");
-        btn.setAttribute("data-bs-toggle", "modal");
-        btn.setAttribute("data-bs-target", "#addMemoitemPatt");
-        btn.addEventListener("click", function () {
-          fetch(`/MemoorddetailManage/getOne?micateno=${i.mino}`)
-            .then((response) => response.json())
-            .then((data) => {
-                document.getElementById("mino").value = data.mino;
-
-                document.getElementById("miname").value = data.miname;
-
-                document.getElementById("mista").value = data.mista;
-
-                document.getElementById("miprice").value = data.miprice;
-
-                document.getElementById("micateno").value = data.micateno;
-            });
-        });
-
-        btntd.append(btn);
-        tr.append(btntd);
-
-        tbody.append(tr);
-      }
     </script>
 
   </body>
