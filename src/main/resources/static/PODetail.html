@@ -2,194 +2,155 @@
 
 <head>
 
-    <style>
-        td,
-        th,
-        select {
-            vertical-align: middle !important;
-            text-align: center !important;
-        }
-    </style>
+  <style>
+    td,
+    th,
+    select {
+      vertical-align: middle !important;
+      text-align: center !important;
+    }
+  </style>
 
-    <meta charset="utf-8">
-    <title>DarkPan - Bootstrap 5 Admin Template</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+  <meta charset="utf-8">
+  <title>DarkPan - Bootstrap 5 Admin Template</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+  <!-- Favicon -->
+  <link href="img/favicon.ico" rel="icon">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&amp;family=Roboto:wght@500;700&amp;display=swap"
-        rel="stylesheet">
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&amp;family=Roboto:wght@500;700&amp;display=swap"
+    rel="stylesheet">
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Icon Font Stylesheet -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+  <!-- Libraries Stylesheet -->
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Customized Bootstrap Stylesheet -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
-    <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/util.js"></script>
-    <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/pagejs.js"></script>
-    <link rel="stylesheet" href="css/usualCss.css">
+  <!-- Template Stylesheet -->
+  <link href="css/style.css" rel="stylesheet">
+  <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/util.js"></script>
+  <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/pagejs.js"></script>
+  <link rel="stylesheet" href="css/usualCss.css">
 </head>
 
 <body>
-    <div class="container-fluid position-relative d-flex p-0">
-      <!-- Spinner Start -->
-      <div
-        id="spinner"
-        class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
-      >
-        <div
-          class="spinner-border text-primary"
-          style="width: 3rem; height: 3rem"
-          role="status"
-        >
-          <span class="sr-only">Loading...</span>
+  <div class="container-fluid position-relative d-flex p-0">
+    <!-- Spinner Start -->
+    <div id="spinner"
+      class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+      <div class="spinner-border text-primary" style="width: 3rem; height: 3rem" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Sidebar Start -->
+    <div class="sidebar pe-4 pb-3">
+      <nav class="navbar bg-secondary navbar-dark">
+        <a href="index.html" class="navbar-brand mx-4 mb-3">
+          <h3 class="text-primary">
+            <img src="img/lycris.gif" style="width: 60px;">
+            </i>彼岸
+          </h3>
+        </a>
+
+        <div class="navbar-nav w-100" id="sidebar">
+
         </div>
-      </div>
-      <!-- Spinner End -->
+      </nav>
+    </div>
+    <!-- Sidebar End -->
 
-      <!-- Sidebar Start -->
-      <div class="sidebar pe-4 pb-3">
-        <nav class="navbar bg-secondary navbar-dark">
-          <a href="index.html" class="navbar-brand mx-4 mb-3">
-            <h3 class="text-primary">
-                <img src="img/lycris.gif" style="width: 60px;">
-             </i>彼岸
-            </h3>
-          </a>
-          
-          <div class="navbar-nav w-100" id="sidebar">
-            
-          </div>
-        </nav>
-      </div>
-      <!-- Sidebar End -->
+    <!-- Content Start -->
+    <div class="content" id="orderDetails">
+      <!-- Navbar Start -->
+      <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+        <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+          <h2 class="text-primary mb-0"></h2>
+        </a>
+        <a href="#" class="sidebar-toggler flex-shrink-0">
+          <i class="fa fa-bars"></i>
+        </a>
 
-      <!-- Content Start -->
-      <div class="content" id="orderDetails">
-        <!-- Navbar Start -->
-        <nav
-          class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0"
-        >
-          <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-            <h2 class="text-primary mb-0"></h2>
-          </a>
-          <a href="#" class="sidebar-toggler flex-shrink-0">
-            <i class="fa fa-bars"></i>
-          </a>
-          
-          <div class="navbar-nav align-items-center ms-auto">
-            
-            <div class="nav-item dropdown">
-              <a
-                href="#"
-                class="nav-link dropdown-toggle"
-                data-bs-toggle="dropdown"
-              >
-                
-                <span class="d-none d-lg-inline-flex " id="ename"></span>
-              </a>
-              <div
-                class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0"
-              >
-                <a href="/editProfile.html" class="dropdown-item">個人資料</a>
-                
-                <a href="#" class="dropdown-item" id="logOut">登出</a>
-              </div>
+        <div class="navbar-nav align-items-center ms-auto">
+
+          <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+
+              <span class="d-none d-lg-inline-flex " id="ename"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+              <a href="/editProfile.html" class="dropdown-item">個人資料</a>
+
+              <a href="#" class="dropdown-item" id="logOut">登出</a>
             </div>
           </div>
-        </nav>
-            <!-- Navbar End -->
+        </div>
+      </nav>
+      <!-- Navbar End -->
 
 
-            <!-- Table Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-secondary rounded h-100 p-4" style="width:max-content">
-                            <form style="width:fit-content;" id="search-form" class="d-none d-md-flex ms-4">
-                                <input v-model="searchTerm" class="form-control bg-dark border-0" type="search" id="search" name="search"
-                                    placeholder="Search">
-                                <button type="submit" class="btn btn-primary ms-2" style="width: 30%;">搜尋</button>
-                            </form>
-                            <!-- <button type="button" class="btn btn-square btn-primary m-2" style="float: right;"
+      <!-- Table Start -->
+      <div class="container-fluid pt-4 px-4">
+        <div class="row g-4">
+          <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4" style="width: max-content;">
+              <h6 class="mb-4">訂單明細管理</h6>
+
+              <form style="width:fit-content;" id="search-form" class="d-none d-md-flex ms-4">
+                <input v-model="searchTerm" class="form-control bg-dark border-0" type="search" id="search"
+                  name="search" placeholder="Search">
+                <button type="submit" class="btn btn-primary ms-2" style="width: 30%;">搜尋</button>
+              </form>
+              <p></p>
+              <!-- <button type="button" class="btn btn-square btn-primary m-2" style="float: right;"
                                 id="add">+</button> -->
-                            <h6 class="mb-4">訂單明細管理</h6>
-                            <table class="table" id="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">訂單建立日期</th>
-                                        <th scope="col">訂單編號</th>
-                                        <th scope="col">宗教</th>
-                                        <th scope="col">往生者姓名</th>
-                                        <th scope="col">往生者出生日期</th>
-                                        <th scope="col">往生者往生日期</th>
-                                        <th scope="col">流程日期</th>
-                                        <th scope="col">場地</th>
-                                        <th scope="col">總價</th>
-                                        <th scope="col">付款狀態</th>
-                                        <th scope="col">契約型態</th>
-                                        <th scope="col">細項名稱</th>
-                                        <th scope="col">細項單價</th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tableBody"></tbody>
-                                <tr v-for="(detail, index) in orderDetails" :key="detail.detailNo" v-show="
-                                regex.test(detail.poDate) ||
+              <table class="table" id="table">
+                <thead>
+                  <h6>訂單建立日期：{{poDate}}　　　訂單編號：{{poNo}}　　　宗教：{{relName}}</h6>
+                  <p></p>
+                  <h6>往生者姓名：{{dname}}　　　往生者出生日期：{{dbirth}}　　　往生者往生日期：{{ddate}}</h6>
+                  <p></p>
+                  <h6>總價：${{totalPr}}　　　付款狀態：{{paysta}}　　　契約型態：{{posta}}</h6>
+                  <p></p>
+                  <tr>
+                    <th scope="col">儀式日期</th>
+                    <th scope="col">儀式名稱</th>
+                    <th scope="col">場地</th>
+                    <th scope="col">細項名稱</th>
+                    <th scope="col">細項單價</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+                <tr v-for="(detail, index) in orderDetails" :key="detail.detailNo" v-show="
+                                regex.test(poDate) ||
                                 regex.test(detail.iname) ||
+                                regex.test(detail.proName) ||
                                 regex.test(detail.locName) ">
-                                    <td v-if="index === 0">{{detail.poDate}}</td>
-                                    <td v-else></td>
-                                    <td v-if="index === 0">{{detail.poNo}}</td>
-                                    <td v-else></td>
-                                    <td v-if="index === 0">{{detail.relName}}</td>
-                                    <td v-else></td>
-                                    <td v-if="index === 0">{{detail.dname}}</td>
-                                    <td v-else></td>
-                                    <td v-if="index === 0">{{detail.dbirth}}</td>
-                                    <td v-else></td>
-                                    <td v-if="index === 0">{{detail.ddate}}</td>
-                                    <td v-else></td>
-                                    <td >{{detail.date}}</td>
-                                    <td>{{detail.locName}}</td>
-                                    <td v-if="index === 0">{{detail.totalPr}}</td>
-                                    <td v-else></td>
-                                    <td v-if="index === 0">
-                                        <span v-if="detail.paySta === 0">未付款</span>
-                                        <span v-if="detail.paySta === 1">已付訂金</span>
-                                        <span v-if="detail.paySta === 2">已結清</span>
-                                        <span v-if="detail.paySta === 3">已退款(生前契約)</span>
-                                    </td>
-                                    <td v-else></td>
-                                    <td v-if="index === 0">
-                                        <span v-if="detail.poSta === 0">協商中</span>
-                                        <span v-if="detail.poSta === 1">已建案</span>
-                                        <span v-if="detail.poSta === 2">取消</span>
-                                    </td>
-                                    <td v-else></td>
-                                    <td>{{detail.iname}}</td>
-                                    <td>{{detail.iprice}}</td>
-                                    <td style="display: none;">{{detail.detailNo}}</td>
-                                    <td style="display: none;">{{detail.itemNo}}</td>
-                                    <td style="display: none;">{{detail.locNo}}</td>
-                                </tr>
-                            </table>
-                            <!-- <nav>
+                  <td>{{detail.date}}</td>
+                  <td>{{detail.cerName}}</td>
+                  <td>{{detail.locName}}</td>
+                  <td>{{detail.iname}}</td>
+                  <td>${{detail.iprice}}</td>
+                  <td style="display: none;">{{detail.detailNo}}</td>
+                  <td style="display: none;">{{detail.itemNo}}</td>
+                  <td style="display: none;">{{detail.locNo}}</td>
+                </tr>
+              </table>
+              <!-- <nav>
                                 <ul class="pagination">
                                     <li class="page-item ${pageNum === 1 ? 'disabled' : ''}">
                                         <a class="page-link" href="#" data-page="${pageNum - 1}" aria-label="Previous">
@@ -207,107 +168,146 @@
                                 </ul>
                             </nav> -->
 
-                        </div>
-                    </div>
-
-
-
-
-
-
-                </div>
             </div>
-            <!-- Table End -->
+          </div>
 
 
-            <!-- Footer Start -->
-            <div class="p-2 mb-2 bg-secondary text-dark rounded" id="chat">
-                <div class="p-2 mb-2 bg-danger text-white" id="chatBar" style="position: sticky;">
-                    
-                    <span>聊天室</span>
-                   
-                </div>
-                <div style="background-color: white; width: 100%;height: 82%;overflow: auto;" id="scroll">
-                  <ul id="messageArea" style=" padding: 0 ;margin: 10px;">
-                  </ul>
-                </div>
-                <div class="inputHolder" style="position: relative;">
-                  <input type="file" id="imageFile" onchange="SendImage(this);" accept="image/*" style="display:none;" />
-                  <button type="button" class="btn btn-sm btn-sm-square btn-outline-primary m-2" id="uploadImage" onclick="ChooseImage()"><i class="bi bi-images"></i></button>
-                  <input type="text" id = "chatInput" style="width: 300px;" onkeydown="if (event.keyCode == 13) send();">
-                  <div id="stikerHolder" class="bg-secondary align-items-center" >
-                    <table >
-                      <tr>
-                        <td ><img src="stikers/stiker01.png" onclick="sendStiker('stikers/stiker01.png')" ></td>
-                        <td><img src="stikers/stiker02.jpg"  onclick="sendStiker('stikers/stiker02.jpg')"></td>
-                        <td><img src="stikers/stiker03.jpg"  onclick="sendStiker('stikers/stiker03.jpg')"></td>
-                        <td ><img src="stikers/stiker04.jpg"  onclick="sendStiker('stikers/stiker04.jpg')"></td>
-                      </tr>
-                      <tr>
-                        <td ><img src="stikers/stiker05.png"  onclick="sendStiker('stikers/stiker05.png')"></td>
-                        <td ><img src="stikers/stiker06.gif"  onclick="sendStiker('stikers/stiker06.gif')"></td>
-                        <td ><img src="stikers/stiker07.gif"  onclick="sendStiker('stikers/stiker07.gif')"></td>
-                        <td ><img src="stikers/stiker08.jfif" onclick="sendStiker('stikers/stiker08.jfif')"></td>
-                      </tr>
-                      <tr>
-                        <td ><img src="stikers/stiker09.gif"  onclick="sendStiker('stikers/stiker09.gif')"></td>
-                        <td ><img src="stikers/stiker10.jpg"  onclick="sendStiker('stikers/stiker10.jpg')"></td>
-                        <td ><img src="stikers/stiker11.gif"  onclick="sendStiker('stikers/stiker11.gif')"></td>
-                        <td ><img src="stikers/stiker12.gif"  onclick="sendStiker('stikers/stiker12.gif')"></td>
-                      </tr>
-                      
-                      
-                    </table>
-                  </div>
-                  <i class="bi bi-sticky" id="stiker" ></i>
-                    <button type="button" class="btn btn-outline-danger m-2" id="chatSendbtn" onclick="send();">送出</button>
-                </div>
-              </div>
-            <!-- Footer End -->
+
+
+
+
         </div>
-        <!-- Content End -->
+      </div>
+      <!-- Table End -->
 
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+      <!-- Footer Start -->
+      <div class="p-2 mb-2 bg-secondary text-dark rounded" id="chat">
+        <div class="p-2 mb-2 bg-danger text-white" id="chatBar" style="position: sticky;">
+
+          <span>聊天室</span>
+
+        </div>
+        <div style="background-color: white; width: 100%;height: 82%;overflow: auto;" id="scroll">
+          <ul id="messageArea" style=" padding: 0 ;margin: 10px;">
+          </ul>
+        </div>
+        <div class="inputHolder" style="position: relative;">
+          <input type="file" id="imageFile" onchange="SendImage(this);" accept="image/*" style="display:none;" />
+          <button type="button" class="btn btn-sm btn-sm-square btn-outline-primary m-2" id="uploadImage"
+            onclick="ChooseImage()"><i class="bi bi-images"></i></button>
+          <input type="text" id="chatInput" style="width: 300px;" onkeydown="if (event.keyCode == 13) send();">
+          <div id="stikerHolder" class="bg-secondary align-items-center">
+            <table>
+              <tr>
+                <td><img src="stikers/stiker01.png" onclick="sendStiker('stikers/stiker01.png')"></td>
+                <td><img src="stikers/stiker02.jpg" onclick="sendStiker('stikers/stiker02.jpg')"></td>
+                <td><img src="stikers/stiker03.jpg" onclick="sendStiker('stikers/stiker03.jpg')"></td>
+                <td><img src="stikers/stiker04.jpg" onclick="sendStiker('stikers/stiker04.jpg')"></td>
+              </tr>
+              <tr>
+                <td><img src="stikers/stiker05.png" onclick="sendStiker('stikers/stiker05.png')"></td>
+                <td><img src="stikers/stiker06.gif" onclick="sendStiker('stikers/stiker06.gif')"></td>
+                <td><img src="stikers/stiker07.gif" onclick="sendStiker('stikers/stiker07.gif')"></td>
+                <td><img src="stikers/stiker08.jfif" onclick="sendStiker('stikers/stiker08.jfif')"></td>
+              </tr>
+              <tr>
+                <td><img src="stikers/stiker09.gif" onclick="sendStiker('stikers/stiker09.gif')"></td>
+                <td><img src="stikers/stiker10.jpg" onclick="sendStiker('stikers/stiker10.jpg')"></td>
+                <td><img src="stikers/stiker11.gif" onclick="sendStiker('stikers/stiker11.gif')"></td>
+                <td><img src="stikers/stiker12.gif" onclick="sendStiker('stikers/stiker12.gif')"></td>
+              </tr>
+
+
+            </table>
+          </div>
+          <i class="bi bi-sticky" id="stiker"></i>
+          <button type="button" class="btn btn-outline-danger m-2" id="chatSendbtn" onclick="send();">送出</button>
+        </div>
+      </div>
+      <!-- Footer End -->
     </div>
-
-    <!-- JavaScript Libraries -->
-    <script>
-      if(!sessionStorage.getItem("perList").includes(4)){
-        alert("你並不具有此權限")
-        location.replace("index.html")
-      }
-    </script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-base64@3.7.5/base64.min.js"></script>
+    <!-- Content End -->
 
 
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+  </div>
 
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-    
-    <script src="js/indexSideBar.js"></script>
+  <!-- JavaScript Libraries -->
+  <script>
+    if (!sessionStorage.getItem("perList").includes(4)) {
+      alert("你並不具有此權限")
+      location.replace("index.html")
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/chart/chart.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/waypoints/waypoints.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="lib/tempusdominus/js/moment.min.js"></script>
+  <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+  <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-base64@3.7.5/base64.min.js"></script>
 
-<!-- webSocket聊天室 -->
-    <script src="js/chatRoom.js"></script>
-    <script src="js/PODetail.js"></script>
-    <script src="sweetalert2.all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
+
+  <!-- Template Javascript -->
+  <script src="js/main.js"></script>
+
+  <script src="js/indexSideBar.js"></script>
+
+  <!-- webSocket聊天室 -->
+  <script src="js/chatRoom.js"></script>
+  <script src="js/PODetail.js"></script>
+  <script src="sweetalert2.all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+  <!-- Code injected by live-server -->
+  <script>
+    // <![CDATA[  <-- For SVG support
+    if ('WebSocket' in window) {
+      (function () {
+        function refreshCSS() {
+          var sheets = [].slice.call(document.getElementsByTagName("link"));
+          var head = document.getElementsByTagName("head")[0];
+          for (var i = 0; i < sheets.length; ++i) {
+            var elem = sheets[i];
+            var parent = elem.parentElement || head;
+            parent.removeChild(elem);
+            var rel = elem.rel;
+            if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+              var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+              elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+            }
+            parent.appendChild(elem);
+          }
+        }
+        var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+        var address = protocol + window.location.host + window.location.pathname + '/ws';
+        var socket = new WebSocket(address);
+        socket.onmessage = function (msg) {
+          if (msg.data == 'reload') window.location.reload();
+          else if (msg.data == 'refreshcss') refreshCSS();
+        };
+        if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+          console.log('Live reload enabled.');
+          sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+        }
+      })();
+    }
+    else {
+      console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+    }
+	// ]]>
+  </script>
 
 
 </body>
