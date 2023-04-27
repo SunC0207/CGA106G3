@@ -535,7 +535,7 @@
     addEmpBtn.addEventListener("click", addEmp);
 
     function addEmp() {
-      // if ($("#empno").val() != "") {
+      if ($("#empno").val() != "") {
         let fctnoList = $('input[name = "fctno"]:checked');
         let str = [];
         for (let i = 0; i < fctnoList.length; i++) {
@@ -564,43 +564,43 @@
           body: JSON.stringify(body),
         });
         window.location.reload();
-      // } else {
-      //   let body = {
-      //     empno: "",
-      //     ename: $("#enameInput").val(),
-      //     hiredate: $("#hiredate").val(),
-      //     empsta: $("#empsta").val(),
-      //     emppw: $("#emppw").val(),
-      //   };
+      } else {
+        let body = {
+          empno: "",
+          ename: $("#enameInput").val(),
+          hiredate: $("#hiredate").val(),
+          empsta: $("#empsta").val(),
+          emppw: $("#emppw").val(),
+        };
 
-      //   fetch("/empManage/addEmp", {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(body),
-      //   })
-      //     .then((response) => response.json())
-      //     .then((data) => {
-      //       let fctnoList = $('input[name = "fctno"]:checked');
-      //       let str = [];
-      //       for (let i = 0; i < fctnoList.length; i++) {
-      //         str.push({
-      //           empno: data,
-      //           fctno: `${fctnoList[i].value}`,
-      //         });
-      //       }
+        fetch("/empManage/addEmp", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            let fctnoList = $('input[name = "fctno"]:checked');
+            let str = [];
+            for (let i = 0; i < fctnoList.length; i++) {
+              str.push({
+                empno: data,
+                fctno: `${fctnoList[i].value}`,
+              });
+            }
 
-      //       fetch("/Per/addPer", {
-      //         method: "POST",
-      //         headers: {
-      //           "Content-Type": "application/json",
-      //         },
-      //         body: JSON.stringify(str),
-      //       });
-      //     });
-      //   window.location.reload();
-      // }
+            fetch("/Per/addPer", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(str),
+            });
+          });
+        window.location.reload();
+      }
     }
   </script>
 
