@@ -492,7 +492,7 @@
           .then((data) => {
             document.getElementById("empno").value = data.empno;
 
-            document.getElementById("ename").value = data.ename;
+            document.getElementById("enameInput").value = data.ename;
 
             document.getElementById("emppw").value = data.emppw;
 
@@ -548,7 +548,7 @@
         let body = {
           empDTO: {
             empno: $("#empno").val(),
-            ename: $("#ename").val(),
+            ename: $("#enameInput").val(),
             hiredate: $("#hiredate").val(),
             empsta: $("#empsta").val(),
             emppw: $("#emppw").val(),
