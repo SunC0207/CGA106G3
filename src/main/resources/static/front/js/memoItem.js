@@ -229,7 +229,7 @@ function listOneTbody(i) {
     btn.setAttribute("data-bs-target", "#checkMemoItemmordPatt");
     btn.addEventListener("click", function () {
         table2.classList.toggle('show');
-        showTable2();
+        showTable2(i.ordno);
     });
 
     btnTd.append(btn);
