@@ -312,7 +312,7 @@
             .then((data) => {
               listOneTbody(data);
             });
-        } else {
+        } else if (searchMemoitem.value -10000 <= 0){
           fetch(
             `/MemoorddetailManage/SearchByMino?mino=${searchMemoitem.value}`
           )
