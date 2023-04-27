@@ -49,5 +49,8 @@ public class EmpManageController {
         return empService.getEmpBySta(empsta);
     }
 
+    @PostMapping("/addEmp")
+    public void addEmp(@RequestBody EmpDTO empDTO){empService.addEmp(empDTO);}
+
 
 }

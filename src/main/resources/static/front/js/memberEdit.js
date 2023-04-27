@@ -5,6 +5,7 @@
 
 const email = sessionStorage.getItem('email');
 const mpic = sessionStorage.getItem('mpic');
+const avatar = sessionStorage.getItem('avatar');
 const mname = sessionStorage.getItem('mname');
 const msg = document.querySelector('#msg');
 const btn2 = document.querySelector('#btn2');
@@ -18,6 +19,20 @@ const sex = document.querySelector('#sex');
 const mobile = document.querySelector('#mobile');
 const versta = sessionStorage.getItem('versta');
 const btn3 = document.querySelector('#btn3');
+
+document.querySelector('#currentUser').textContent = mname;
+
+
+
+nPassword.addEventListener('blur', () => {
+    if (nPassword.value === "") {
+        msg.textContent = "請輸入新密碼";
+        msg.className = "error";
+    } else {
+        msg.textContent = "";
+        msg.className = "";
+    }
+})
 
 confirmPassword.addEventListener('blur', () => {
     if (confirmPassword.value !== nPassword.value) {
@@ -34,6 +49,20 @@ confirmPassword.addEventListener('blur', () => {
 btn3.addEventListener('click', () => {
     window.location.href = 'index_Chian.html';
 })
+
+// 頁首大頭貼 
+
+const imageBinartStr1 = atob(mpic);
+let len1 = imageBinartStr1.length;
+const uint8Array1 = new Uint8Array(len1);
+
+for (let i = 0; i < len1; i++) {
+    uint8Array1[i] = imageBinartStr1.charCodeAt(i);
+}
+
+const blob1 = new Blob([uint8Array1]);
+document.querySelector('#avatar').src = URL.createObjectURL(blob1);
+
 
 
 

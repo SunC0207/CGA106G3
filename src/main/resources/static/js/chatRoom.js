@@ -1,4 +1,5 @@
 window.onload = function () {
+  
   connect();
 };
 let chatBar = document.getElementById("chatBar");
