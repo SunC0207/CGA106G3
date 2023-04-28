@@ -1,10 +1,9 @@
 package CGA106G3.com.memoitemord.Service;
 
 import CGA106G3.com.memoitemord.DTO.CartDTO;
-import CGA106G3.com.memoitemord.DTO.MemoitemordDTO;
-import CGA106G3.com.memoitemord.DTO.MemoitemordDetailDTO;
-import CGA106G3.com.memoitemord.DTO.MemoritemordOrderDTO;
 import CGA106G3.com.memoitemord.DTO.ItemDTO;
+import CGA106G3.com.memoitemord.DTO.MemoitemordDTO;
+import CGA106G3.com.memoitemord.DTO.MemoritemordOrderDTO;
 import CGA106G3.com.memoitemord.Entity.Memoitemord;
 import CGA106G3.com.memoitemord.Repository.MemoitemOrdDetailRepository;
 import CGA106G3.com.memoitemord.Repository.MemoitemordRepository;
@@ -16,10 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,8 +45,14 @@ public class MemoitemordServiceImpl implements MemoitemordService{
                 .stream()
                 .map(this::EntityToDTO3)
                 .collect(Collectors.toList());
-
     }
+    public MemoitemordDTO updateMemoitemord(MemoitemordDTO memoitemordDTO){
+        Memoitemord memoitemord = modelMapper.map(memoitemordDTO,Memoitemord.class);
+        memoitemord.setOrddate(LocalDateTime.now());
+         memoitemordRepository.save(memoitemord);
+         return memoitemordDTO;
+    }
+
     public MemoorddetailDTO EntityToDetail(Memoitemord memoitemord){
         MemoorddetailDTO memoorddetailDTO = new MemoorddetailDTO();
         memoorddetailDTO = modelMapper.map(memoitemord,MemoorddetailDTO.class);

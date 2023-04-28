@@ -496,6 +496,13 @@
             items: JSON.parse(localStorage.getItem(membno))
             // orddate : year+"-"+month+"-"+date,
         };
+        if(address === ""){
+            Swal.fire({
+            icon: 'warning',
+            title: '地址不能為空',
+            text: '请填寫您的地址！',
+        });
+       }else{
         swal({
             title: "是否建立訂單?",
             icon: "warning",
@@ -529,8 +536,8 @@
             } else {
                 return Promise.reject('取消操作');
             }
-        });
-
+        })};
+    }
         // const fetch1 = fetch("/memoitemordManage/addMemoitemord", {
         //     method: "POST",
         //     headers: {
@@ -545,8 +552,6 @@
         //     }
         //   })
         //   .catch(error => console.log(error));
-
-    }
 </script>
 <script src="https://demeter.5fpro.com/tw/zipcode-selector.js"></script>
 

@@ -2,7 +2,6 @@ package CGA106G3.com.memoitemord.Controller;
 
 import CGA106G3.com.memoitemord.DTO.CartDTO;
 import CGA106G3.com.memoitemord.DTO.MemoitemordDTO;
-import CGA106G3.com.memoitemord.DTO.MemoitemordDetailDTO;
 import CGA106G3.com.memoitemord.DTO.MemoritemordOrderDTO;
 import CGA106G3.com.memoitemord.Entity.Memoitemord;
 import CGA106G3.com.memoitemord.Service.MemoitemordServiceImpl;
@@ -24,18 +23,22 @@ public class MemoitemordController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/getAll")
-    public List<MemoitemordDTO> getAllMemoitemord(){return service.getAllMemoitemord();}
     @PostMapping("/addMemoitemord")
     @ResponseBody
     public String addMemoitemord(@RequestBody CartDTO cartDTO){
         return orderService.Checkout(service.addMemoitemord(cartDTO).getOrdno());
     }
+    @PostMapping("updateMemoitemord")
+    @ResponseBody
+    public MemoitemordDTO updateMemoitemord(@RequestBody MemoitemordDTO memoitemordDTO){
+        return service.updateMemoitemord(memoitemordDTO);
+    }
+    @GetMapping("/getAll")
+    public List<MemoitemordDTO> getAllMemoitemord(){return service.getAllMemoitemord();}
     @GetMapping("/GetOrderDetailsByID")
     public List<MemoorddetailDTO> getDetailByOrdno(@RequestParam  Integer ordno){
         return service.getDetailByordno(ordno);
     }
-
     @GetMapping("/findByOrdno")
     public Memoitemord findById(@RequestParam Integer ordno){
         return service.findDetailByOrdno(ordno);

@@ -209,6 +209,82 @@
             </div>
           </div>
         </div>
+        <button class="btn btn-lg btn-primary btn-lg-square" id="callAddMemoitem" data-bs-toggle="modal"
+                data-bs-target="#addMemoitemPatt">
+                <i class="bi bi-plus-square-fill"></i>
+        </button>
+        <!-- 新增 -->
+        <div class="modal" tabindex="-1" aria-hidden="true" id="addMemoitemPatt">
+          <div class="modal-dialog">
+            <div class="container-fluid pt-4 px-4">
+              <div class="row bg-secondary rounded align-items-center justify-content-center mx-0 modal-content">
+                <div class="row g-4">
+                  <div class="col-sm-12 col-xl-6">
+                    <div class="bg-secondary rounded h-100 p-4">
+                      <h6 class="mb-4">修改基本資料</h6>
+                      <div class="mb-3">
+                        <label class="form-label">要修改訂單編號</label>
+                        <input type="text" class="form-control" aria-describedby="emailHelp" id="ordnoCheck"  />
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label">訂單編號</label>
+                        <input type="text" class="form-control" aria-describedby="emailHelp" id="ordno2" disabled />
+                      </div>
+  
+                      <div class="mb-3">
+                        <label class="form-label">會員編號</label>
+                        <input type="text" class="form-control" aria-describedby="emailHelp" id="membno2"disabled />  
+                      </div>
+  
+                      <div class="mb-3">
+                        <label class="form-label">總價</label>
+                        <input type="text" class="form-control" aria-describedby="emailHelp" id="totalPr2" />
+                      </div>
+  
+                      <div class="mb-3">
+                        <label class="form-label">下訂日期</label>
+                        <input type="text" class="form-control" aria-describedby="emailHelp" id="ordDate2" />
+                      </div>
+  
+                      <label class="form-label">訂單狀態</label>
+                      <select class="form-select mb-3" aria-label="Default select example" id="ordSta2">
+                        <option value="0">未出貨</option>
+                        <option value="1">出貨中</option>
+                        <option value="2">訂單完成</option>
+                      </select>
+                      <label class="form-label">付款狀態</label>
+                      <select class="form-select mb-3" aria-label="Default select example" id="paySta2">
+                        <option value="0">未付款</option>
+                        <option value="1">已付款</option>
+                        <option value="2">已退款</option>
+                        <option value="3">退款中</option>
+                      </select>
+
+                      <div class="mb-3">
+                        <label class="form-label">寄送人</label>
+                        <input type="text" class="form-control" aria-describedby="emailHelp" id="rec2" />
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label">寄送人地址</label>
+                        <input type="text" class="form-control" aria-describedby="emailHelp" id="recAddr2" />
+                      </div>
+  
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary" id="addMemoitem" data-bs-dismiss="modal">
+                    送出
+                  </button>
+                  <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" id="cancelAdd">
+                    取消
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--新增結束 -->
         <!-- Table End -->
         <div class="p-2 mb-2 bg-secondary text-dark rounded" id="chat">
           <div class="p-2 mb-2 bg-danger text-white" id="chatBar" style="position: sticky;">
@@ -318,7 +394,7 @@
           )
             .then((response) => response.json())
             .then((data) => {
-              listTbody(data);
+              listOneTbody(data);
             });
         }
       });
@@ -349,16 +425,17 @@
                       <th scope="col">寄送人地址</th>
                     </tr>
                   </thead>
+                  
                   <tbody>
                     <tr>
-                      <th scope="row">${i.ordno}</th>
-                      <td>${i.memoitemord.membno}</td>
-                      <td>${i.memoitemord.totalpr}</td>
-                      <td>${i.memoitemord.orddate}</td>
-                      <td>${i.memoitemord.ordsta}</td>
-                      <td>${i.memoitemord.paysta}</td>
-                      <td>${i.memoitemord.rec}</td>
-                      <td>${i.memoitemord.recaddr}</td>
+                      <th scope="row" id="ordno${i.ordno}"">${i.ordno}</th>
+                      <td id="membno">${i.memoitemord.membno}</td>
+                      <td id="totalpr">${i.memoitemord.totalpr}</td>
+                      <td id="orddate">${i.memoitemord.orddate}</td>
+                      <td id="ordsta">${i.memoitemord.ordsta}</td>
+                      <td id="paysta">${i.memoitemord.paysta}</td>
+                      <td id="rec">${i.memoitemord.rec}</td>
+                      <td id="recaddr">${i.memoitemord.recaddr}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -482,6 +559,90 @@
             }
           }
         }
+    //修改
+    const addMemoitemBtn = document.getElementById("addMemoitem");
+    addMemoitemBtn.addEventListener("click", addMemoitem);
+
+    addMemoitemBtn.addEventListener("click", function () {
+      fetch("/MemoorddetailManage/getAll")
+        .then((response) => response.json())
+        .then((data) => {
+          listTbody(data);
+        });
+    });
+    //輸入訂單編號顯示相關資料
+    let input0 = document.querySelector('#ordnoCheck');
+    
+    let input2 = document.querySelector('#ordno2');
+    let input3 = document.querySelector('#membno2');
+    let input4 = document.querySelector('#totalPr2');
+    let input5 = document.querySelector('#ordDate2');
+    let input6 = document.querySelector('#ordSta2');
+    let input7 = document.querySelector('#paySta2');
+    let input8 = document.querySelector('#rec2');
+    let input9 = document.querySelector('#recAddr2');
+
+    input0.addEventListener('blur', () => {
+      let inputNo = input0.value
+      let input1 = document.querySelector(`#ordno${inputNo}`);
+      input2.value = input1.textContent;
+      input3.value = input1.nextElementSibling.textContent;
+      input4.value = input1.nextElementSibling.nextElementSibling.textContent;
+      input5.value = input1.nextElementSibling.nextElementSibling.nextElementSibling.textContent;
+      input6.value = input1.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.textContent;
+      input7.value = input1.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.textContent;
+      input8.value = input1.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.textContent;
+      input9.value = input1.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.textContent;
+    });
+    function addMemoitem() {
+      let date = new Date($("#ordDate2").val());
+      if ($("#ordno2").val() != "") {
+        let body = {
+          ordno: $("#ordno2").val(),
+          membno: $("#membno2").val(),
+          totalpr: $("#totalPr2").val(),
+          ordsta: $("#ordSta2").val(),
+          paysta: $("#paySta2").val(),
+          rec: $("#rec2").val(),
+          recaddr: $("#recAddr2").val(),
+        };
+        fetch("/memoitemordManage/updateMemoitemord", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        })
+          .then(response => {
+            if (response.ok) {
+              window.location.reload();
+            } else {
+              throw new Error('更新失败');
+            }
+          })
+          .catch(error => console.log(error));
+      }}
+    //清除互動視窗參數
+    function clear() {
+      document.getElementById("ordnoCheck").value = ""
+
+      document.getElementById("ordno2").value = "";
+
+      document.getElementById("membno2").value = "";
+
+      document.getElementById("totalPr2").value = "";
+
+      document.getElementById("ordDate2").value = "";
+
+      document.getElementById("ordSta2").value = "";
+
+      document.getElementById("paySta2").value = "";
+
+      document.getElementById("rec2").value = "";
+
+      document.getElementById("recAddr2").value = "";
+    }
+    document.getElementById("cancelAdd").addEventListener("click", clear);
     </script>
 
   </body>
