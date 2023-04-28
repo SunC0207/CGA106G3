@@ -42,6 +42,17 @@ new Vue({
             observer.observe(detailBody, { childList: true });
         });
     },
+    computed:{
+        maxDate() {
+            const now = new Date(); // 取得當前日期
+            const year = now.getFullYear();
+            let month = now.getMonth() + 1;
+            month = month < 10 ? `0${month}` : month;
+            let day = now.getDate();
+            day = day < 10 ? `0${day}` : day;
+            return `${year}-${month}-${day}`; // 格式化日期字串
+          },
+    },
     mounted() {
         this.getEmp();
         this.getReligions();
